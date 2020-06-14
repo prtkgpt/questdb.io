@@ -1,0 +1,37 @@
+createTableDef
+  ::= 'CREATE' 'TABLE' tableName
+(
+(
+'(' columnName typeDef (',' columnName typeDef)* ')'
+) | (
+'as' '(' selectSql ')'  (',' castDef)* (',' indexDef)*
+)
+) (
+('timestamp' columnRef) ('partition' 'by' ('NONE' | 'DAY' | 'MONTH' | 'YEAR'))?
+)?
+
+castDef ::= 'cast' '(' columnRef 'as' typeDef ')'
+
+inlineIndexDef ::= 'index' (indexCapacityDef)?
+
+typeDef ::= (
+'boolean' | 'byte' | 'short' | 'char' | 'int' | 'float' |
+('symbol' ('capacity' distinctValueEstimate)? ('CACHE' | 'NOCACHE')? inlineIndexDef?) |
+'string' | 'long' | 'date' | 'timestamp' | 'double' | 'binary' | 'long256'
+)
+
+indexDef ::= 'index' '(' columnRef (indexCapacityDef)? ')'
+
+indexCapacityDef ::= 'capacity' valueBlockSize
+
+insertInto
+  ::= 'INSERT' 'INTO' tableName (('('columnName (',' columnName)*) ')')? ('VALUES' '(' value (',' value)* ')' | 'SELECT' queryDef )
+
+Backup
+::= 'BACKUP' ( 'TABLE' tableName ( ',' tableName )* | 'DATABASE' ) ';'
+
+case
+::= 'CASE' ('WHEN' condition 'THEN' value)* ( | 'ELSE' value ) 'END'
+
+Copy
+::= 'COPY' tableName 'FROM' fileName  (| 'WITH' 'HEADER' (true|false) ) ';'

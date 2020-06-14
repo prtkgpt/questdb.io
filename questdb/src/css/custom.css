@@ -1,0 +1,96 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #18181c;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-code-font-size: 95%;
+  --ifm-heading-color: lightgray;
+}
+
+
+.section-lg {
+  margin-top: 100px;
+}
+
+.hero {
+  color: lightgray;
+}
+
+img.featureImage_src-pages- {
+  max-width: 40%;
+filter: drop-shadow(0 0 0.75rem lightgray);
+}
+
+img.web-console {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  filter: drop-shadow(0 1px 0.25rem darkgray);
+}
+
+
+img.psql {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+img.ghicon {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+img.slackicon {
+  width: 30%;
+  filter: invert(100%) brightness(500%);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+img.pgicon, img.ossicon {
+  width: 50%;
+  max-width: 150px;
+  filter: invert(100%);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+.wide {
+  width: 80%;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/*Links color*/
+a, a:hover {
+  color: hotpink;
+}
+
