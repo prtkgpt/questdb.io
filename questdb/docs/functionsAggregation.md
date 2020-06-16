@@ -22,8 +22,8 @@ sidebar_label: Aggregation
 Return value type is the same as the type of the argument.
 
 #### Examples
-- Sum all quantities in the transactions table:
-```sql
+
+```sql title="Sum all quantities in the transactions table"
 SELECT sum(quantity) FROM transactions;
 ```
 
@@ -32,8 +32,7 @@ SELECT sum(quantity) FROM transactions;
 | 100   |
 
 
-- Sum all quantities in the transactions table, aggregated by item:
-```sql
+```sql title="Sum all quantities in the transactions table, aggregated by item"
 SELECT item, sum(quantity) FROM transactions;
 ```
 
@@ -45,9 +44,8 @@ SELECT item, sum(quantity) FROM transactions;
 #### Overflow
 `sum` does not perform overflow check. To avoid overflow, you can cast the argument to wider type.
 
-For example, with column `a` of type INT, you can use:
-
-```sql
+ 
+```sql title="Cast as long to avoid overflow"
 SELECT sum(cast(a as long)) from table
 ```  
 
@@ -149,8 +147,9 @@ SELECT payment_type, count() FROM transactions;
 | card          | 70            |
 | null          | 5             |
 
-> Note `null` values are aggregated with `count()`.
-
+:::note
+`null` values are aggregated with `count()`.
+:::
 
 
 
@@ -170,8 +169,7 @@ Return value type is `double`.
 
 #### Examples
 
-- Average transaction amount.
-```sql
+```sql title="Average transaction amount"
 SELECT avg(amount) FROM transactions;
 ```
 
@@ -181,8 +179,7 @@ SELECT avg(amount) FROM transactions;
 | 22.4      |
 
 
-- Average transaction amount aggregated by `payment_type`.
-```sql
+```sql title="Average transaction amount by payment_type"
 SELECT payment_type, avg(amount) FROM transactions;
 ```
 
@@ -208,8 +205,8 @@ Return value type is the same as the type of the argument.
 
 #### Examples
 
-- Lowest amount in the transactions table.
-```sql
+
+```sql title="Lowest transaction amount"
 SELECT min(amount) FROM transactions;
 ```
 
@@ -218,8 +215,7 @@ SELECT min(amount) FROM transactions;
 | 12.5      |
 
 
-- Lowest amount in the transactions table, aggregated by `payment_type`.
-```sql
+```sql title="Lowest transaction amount, by payment_type"
 SELECT payment_type, min(amount) FROM transactions;
 ```
 
@@ -248,8 +244,7 @@ Return value type is the same as the type of the argument.
 
 #### Examples
 
-- Highest amount in the transactions table.
-```sql
+```sql title="Highest transaction amount"
 SELECT max(amount) FROM transactions;
 ```
 
@@ -258,8 +253,8 @@ SELECT max(amount) FROM transactions;
 | 55.3      |
 
 
-- Highest amount in the transactions table, aggregated by `payment_type`.
-```sql
+ 
+```sql title="Highest transaction amount by payment_type"
 SELECT payment_type, max(amount) FROM transactions;
 ```
 

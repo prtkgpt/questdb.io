@@ -4,7 +4,7 @@ title: Introduction
 ---
 
 
-QuestDB is a relational column-oriented database which can handle transactions and real-time analytics.
+QuestDB is a relational column-oriented database designed for real-time analytics on time-series and event data.
 It uses the SQL language with a few extensions for time-series. 
 The below will help you get familiar with QuestDB and get started. 
 

@@ -19,7 +19,7 @@ module.exports = {
     announcementBar: {
       id: 'support_us', // Any value that will identify this message.
       content:
-          '<b><emoji>⭐</emoji> If you like QuestDB, consider <a>giving a star on GitHub </a> <emoji>⭐</emoji></b>',
+          '<b><emoji>⭐</emoji> If you like QuestDB, consider <a href="https://github.com/questdb/questdb" target="_blank">giving a star on GitHub </a> <emoji>⭐</emoji></b>',
       backgroundColor: '#0090c2', // Defaults to `#fff`.
       textColor: '#fefeff', // Defaults to `#000`.
     },
@@ -31,16 +31,10 @@ module.exports = {
     navbar: {
       title: 'QuestDB',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'questdb Logo',
         src: 'img/favicon.png',
       },
       links: [
-        {
-          to: 'docs/copy',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
         {
           label: 'Install',
           position: 'left', // or 'right'
@@ -65,27 +59,27 @@ module.exports = {
           items: [
             {
               label: 'Storage Model',
-              href: '@TODO',
+              href: 'docs/storageModel',
             },
             {
               label: 'SQL Extensions',
-              href: '@TODO',
+              href: 'docs/sqlExtensions',
             },
             {
               label: 'Designated Timestamp',
-              href: '@TODO',
+              href: 'docs/designatedTimestamp',
             },
             {
               label: 'Symbol',
-              href: '@TODO',
+              href: 'docs/symbol',
             },
             {
               label: 'Partitions',
-              href: '@TODO',
+              href: 'docs/partitions',
             },
             {
               label: 'Indexes',
-              href: '@TODO',
+              href: 'docs/indexes',
             }
           ]
         },
@@ -107,18 +101,18 @@ module.exports = {
             },
             {
               label: 'Java API',
-              href: '@TODO',
+              href: 'docs/embeddedJavaAPI',
             },
             {
               label: 'Influx Line protocol',
-              href: '@TODO',
+              href: 'docs/influxSenderLibrary',
             },
           ]
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {to: 'docs/documentationOverview', label: 'Docs', position: 'right'},
-        {to: '@TODO', label: 'Github', position: 'right'},
-        {to: '@TODO', label: 'Join Slack', position: 'right'},
+        {to: 'https://github.com/questdb/questdb', label: 'Github', position: 'right'},
+        {to: 'https://join.slack.com/t/questdb/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY>', label: 'Join Slack', position: 'right'},
       ],
     },
     footer: {

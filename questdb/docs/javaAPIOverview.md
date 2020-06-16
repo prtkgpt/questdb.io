@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 
 QuestDB Java library contains a wealth of components to facilitate low-latency Java development. Not all components
-are fully documented yet, but we are getting there. Here is a list to wet your appetite:
+are fully documented yet, but we are getting there. Here is a list to whet your appetite:
 
 - Zero-GC, low latency date arithmetic library (millisecond resolution)
 - Zero-GC, low latency timestamp arithmetic library (microsecond resolution)

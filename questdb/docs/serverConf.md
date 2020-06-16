@@ -20,7 +20,9 @@ For example
 shared.worker.count=5
 ```
 
-> A restart of QuestDB is required to pickup the new configuration
+:::note
+A restart of QuestDB is required to pickup the new configuration
+:::
 
 ### Available keys and default values
 

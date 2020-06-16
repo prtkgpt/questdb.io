@@ -14,25 +14,23 @@ sidebar_label: Timestamp Generator
 #### Description
 - `timestamp_sequnence(startTimestamp, step)` generates a sequence of `timestamp` starting at `startTimestamp`, 
 and incrementing by a `step` set as a `long` value in microseconds. This `step` can be
-    - a static value, in which case the growth will be monotonic.
-    - a randomized value, in which case the growth will be randomized. 
-    This is done using **[random value generator functions](functionsRandomValueGenerators.md)**.
+- a static value, in which case the growth will be monotonic.
+- a randomized value, in which case the growth will be randomized. 
+This is done using **[random value generator functions](functionsRandomValueGenerators.md)**.
 
 #### Return value
 Return value type is `timestamp`. 
 
 #### Examples
-- Monotonic timestamp increase
-```sql
-SELECT x, timestamp_sequence
-            (
+
+```sql title="Monotonic timestamp increase"
+SELECT x, timestamp_sequence(
             to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'), 
-            100000L
-            ) 
+            100000L) 
 FROM long_sequence(5);
 ```
 
-```
+
 | x         | timestamp_sequence                |
 |-----------|-----------------------------------|
 | 1         | 2019-10-17T00:00:00.000000Z       |
@@ -40,19 +38,16 @@ FROM long_sequence(5);
 | 3         | 2019-10-17T00:00:00.200000Z       |
 | 4         | 2019-10-17T00:00:00.300000Z       |
 | 5         | 2019-10-17T00:00:00.400000Z       |
-```
- 
-- Randomized timestamp increase, in this case steps between 10 and 50 milliseconds .
-```sql
-SELECT x, timestamp_sequence
-            (
+
+
+```sql title="Randomized timestamp increase"
+SELECT x, timestamp_sequence(
             to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'), 
-            rnd_short(1,5) * 100000L
-            ) 
+            rnd_short(1,5) * 100000L) 
 FROM long_sequence(5);
 ```
 
-```
+
 | x         | timestamp_sequence                |
 |-----------|-----------------------------------|
 | 1         | 2019-10-17T00:00:00.000000Z       |
@@ -60,4 +55,3 @@ FROM long_sequence(5);
 | 3         | 2019-10-17T00:00:00.600000Z       |
 | 4         | 2019-10-17T00:00:00.900000Z       |
 | 5         | 2019-10-17T00:00:01.300000Z       |
-```

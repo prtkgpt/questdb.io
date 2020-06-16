@@ -8,8 +8,7 @@ sidebar_label: Text Functions
 
 `concat(str, ...)`  - concatenates a string from one or more input values 
 
-Example
-```sql
+```sql title="Example"
 SELECT firstName, lastName, concat(firstName, ' ', lastName) FROM names;
 ```
 
@@ -21,9 +20,11 @@ SELECT firstName, lastName, concat(firstName, ' ', lastName) FROM names;
 | Tom           | Johnson           | Tom Johnson           |
 | Tim           | Smith             | Tim Smith             | 
 
+:::tip
+`concat()` can be used to generate `line protocol`. See example below.
+:::
 
-As another example, the below can be used to generate `line protocol`
-```sql
+```sql title="Generating line protocol"
 SELECT
 concat(
     'trades,instrument=', rnd_str(2,2,0), 
@@ -36,7 +37,7 @@ concat(
 FROM long_sequence(5) x;
 ```
 
-```
+``` title="Result"
 trades,instrument=CR,side=B price=70867,quantity=9192 1571270400000
 trades,instrument=LN,side=S price=37950,quantity=1439 1571270400100
 trades,instrument=ZJ,side=S price=82829,quantity=8871 1571270400200
@@ -57,8 +58,7 @@ trades,instrument=MI,side=B price=99348,quantity=8450 1571270400400
 - a `symbol`
 - a `binary` blob
 
-Example:
-```sql
+```sql title="Example"
 SELECT name a, length(name) b FROM names limit 4
 ```
 

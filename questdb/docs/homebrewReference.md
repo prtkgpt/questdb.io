@@ -12,13 +12,12 @@ on data files using your own local machine. This requires a 64-bit MacOS machine
 
 Follow the steps below to install and uninstall the QuestDB service using Homebrew.
 
-#### Installing the service
-```shell script
+```shell script title="Installing the service"
 brew install questdb
 ```
 
-#### Uninstalling the service
-```shell script
+
+```shell script title="Uninstalling the service"
 brew uninstall questdb
 ```
 
@@ -65,45 +64,35 @@ By default, QuestDB [root directory](rootDirectoryStructure.md) will be the foll
 - `-f` - force reload the web console. The web console is cached otherwise and the HTML page will not be reloaded automatically in case it has been changed.
 - `-t` - specify a service tag. You can use this option to run several services and administer them separately.
 
-##### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!-- Start (-d) -->
-```shell script
-questdb start -d '/home/user/my_new_root_directory'
-```
-<!-- Start (-d -t) -->
-```shell script
+```shell script title="Example with -d and -t"
 questdb start -d '/home/user/my_new_root_directory' -t 'mytag' 
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 ### Stop
 `stop` - stops the default `questdb` service, or the service specified with the `-t` option.
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Stop (default)-->
-```shell script
+
+```shell script title="Stop the default service"
 questdb stop
 ```
-<!--Stop (specific tag)-->
-```shell script
+
+```shell script title="Stop a specific service"
 questdb stop -t 'my-questdb-service'
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 
 ### Status
 `status` shows service status. This command is useful for troubleshooting problems with the service. It prints `Running` or `Not running` if the service is start or stopped respectively. On Unix systems, it also prints the `PID`
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Status (default)-->
-```shell script
+```shell script title="Default service"
 questdb status
 ```
-<!--Status (specific tag)-->
-```shell script
+
+```shell script title="Specific service"
 questdb status -t 'my-questdb-service'
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+

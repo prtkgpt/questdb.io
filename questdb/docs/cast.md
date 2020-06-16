@@ -23,16 +23,14 @@ where:
 
 ### Examples
 
-```sql
--- Query
+```sql title="Queries"
 SELECT cast(3L + 2L as int), cast  FROM long_sequence(1);
 SELECT cast(1578506142000000 as timestamp) FROM long_sequence(1);
 SELECT cast('10.2' as double) FROM long_sequence(1); --string to double
 SELECT cast('行' as int) FROM long_sequence(1);
 ```
-Result output
 
-```
+```shell script title="Results"
 | cast                        |
 |-----------------------------|
 | 5                           |
@@ -53,16 +51,13 @@ will result in decimals drop.
 
 ### Precision loss examples
 
-```sql
--- Query
+```sql title="Queries"
 SELECT cast(3.5 + 2 as int), cast  FROM long_sequence(1);
 SELECT cast(7234623 as short) FROM long_sequence(1);
 SELECT cast(2334444.323 as short) FROM long_sequence(1);
 ```
 
-Result output 
-
-```
+```shell script title="Results"
 | cast                        |
 |-----------------------------|
 | 5                           | -- Loss of the decimals
@@ -80,26 +75,30 @@ Type casting may be necessary in certain context such as
 - Inserting values where the originating type is different from the destination column type.
 
 QuestDB will attempt to convert to the data type required by the context. This is called `implicit cast` 
-and does not require using the `cast()` function. QuestDB will only perform implicit cast
+and does not require using the `cast()` function. 
+
+:::note
+QuestDB will only perform implicit cast
 when they would not result in data being truncated or precision being lost.
+:::
 
 The below chart illustrates the explicit and implicit cast available in QuestDB.
 
 ![cast map](/static/img/castmap.jpg)
 
-> Implicit casting prevents data loss. When an operation involves multiple types, the resulting type will be the smallest possible
+:::note
+Implicit casting prevents data loss. When an operation involves multiple types, the resulting type will be the smallest possible
 type so that no data is lost. 
+:::
 
-Examples:
-```sql
+```sql title="Queries"
 SELECT 1234L + 567 FROM long_sequence(1);
 SELECT 1234L + 0.567 FROM long_sequence(1);
 SELECT to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 323 FROM long_sequence(1);
 SELECT to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 0.323 FROM long_sequence(1);
 ```
-Result output
 
-```
+```shell script title="Results"
 | 1801                           | -- Returns a long.
 | 1234.567                       | -- Implicit cast to double.
 | 2019-10-17T00:00:00.000323Z    | -- Returns a timestamp with an extra 323 microseconds.
@@ -108,8 +107,7 @@ Result output
 
 > When inserting into a table, QuestDB will cast data implicitly to match the type of the destination column.
 
-Examples:
-```sql
+```sql title="Example"
 -- We create a table with one column of type long
 CREATE TABLE my_table(my_number long);
 
@@ -122,14 +120,14 @@ INSERT INTO my_table values((to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:
 SELECT * FROM my_table;
 ```
 
-will result in
-```
+
+```shell script title="Result"
 | 1571270400000000   | -- Returns a long.
 ``` 
 
 
 The above insert would have been equivalent to running with explicit cast, but QuestDB took care of this step automatically.
-```sql
+```sql title="Example"
 INSERT INTO my_table values
             (cast(
                 to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') 
@@ -137,8 +135,7 @@ INSERT INTO my_table values
             ))
 ```
 
-Same result
 
-```
+```shell script title="Result"
 | 1571270400000000   |
 ```

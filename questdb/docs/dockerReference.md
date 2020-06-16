@@ -4,13 +4,17 @@ title: Docker reference
 ---
 
 
-Docker is a convenient method to have QuestDB running very quickly via simple commands. You will of course need Docker
-to be installed on your system. QuestDB has images for Windows and Linux along with a manifest to automatically
+Docker is a convenient method to have QuestDB running very quickly via simple commands. 
+QuestDB has images for Windows and Linux along with a manifest to automatically
 download correct image for your target architecture.
 
-> Using Docker means QuestDB will be running in a virtualized environment with up to 20% performance penalty.
+:::note
+Using Docker means QuestDB will be running in a virtualized environment with up to 20% performance penalty.
+:::
 
+:::info
 You can find our docker repository **<a href="https://hub.docker.com/r/questdb/questdb" target="_blank">here</a>**.
+:::
 
 #### Supported platforms
 - Linux
@@ -32,8 +36,10 @@ You can use the Docker image in two ways:
 - [Run as a container](#run-as-a-container)
 - [Run as an interactive sandbox](#run-as-an-interactive-sandbox)
 
->The interactive sandbox will create a container on the fly and start it. Once stopped, the container will be
+:::caution
+The interactive sandbox will create a container on the fly and start it. Once stopped, the container will be
 removed and the data deleted.
+:::
 
 #### Ports & security
 
@@ -56,29 +62,12 @@ docker create --name questdb -p 9000:9000 -p 8812:8812 questdb/questdb:4.2.1
 
 ##### Options
 
-<table class="alt">
-<thead>
 
-<th>Option</th>
-<th>Comments</th>
-
-</thead>
-<tbody>
-<tr>
-<td><code>--name</code></td>
-<td>Name of your container. e.g <code>--name questdb</code></td>
-</tr>
-<tr>
-<td><code>-p</code> (optional)</td>
-<td>Allows Docker to expose a port e.g <code>-p 9000:9000</code> will expose port 9000.
-Though the parameter is optional, not opening the ports will limit interactions with the database.</td>
-</tr>
-<tr>
-<td><code>-v</code> (optional)</td>
-<td>Specify a path where QuestDB will save your data directly on the host machine e.g <code>-v /local/dir:/root/.questdb/db</code></td>
-</tr>
-</tbody>
-</table>
+| Option | Comments |
+|---|---|
+| `--name` | Name of the container. e.g `--name myContainer` |
+| `-p` | Allows Docker to map a port. e.g. `-p 9000:9000`. |
+| `-v` | Specify a path where QuestDB will save data, directly on the host machine. e.g `-v /local/dir:/root/.questdb/db`
 
 ##### -p ports
 - `-p 9000:9000` opens port 9000 for the HTTP API and the web console. The web console is available on localhost:9000.

@@ -57,16 +57,17 @@ please refer the page about **[row generators](functionsRowGenerator.md)**.
 Return value type is `boolean`.
 
 #### Examples
-```sql
-SELECT value a, count() b FROM (SELECT rnd_boolean() value FROM long_sequence(100));
+```sql title="Random boolean"
+SELECT 
+    value a, 
+    count() b 
+FROM (SELECT rnd_boolean() value FROM long_sequence(100));
 ```
 
-```
 | a                    | b              |
 |----------------------|----------------|
 | true                 | 47             |
-| false                | 53             |
-```
+| false                | 53             
 
 ## rnd_byte
 - `rnd_byte()` - generates a random `byte` value.
@@ -85,8 +86,7 @@ or between 1 and 10).
 Return value type is `byte`.
 
 #### Examples
-```sql
--- Query:
+```sql title="Random byte"
 SELECT rnd_byte() FROM long_sequence(5);
 SELECT rnd_byte(-1,1) FROM long_sequence(5);
 ```
@@ -113,8 +113,7 @@ or between 1 and 10). Supplying `min` above `max` will result in an `invalid ran
 Return value type is `short`.
 
 #### Examples
-```sql
--- Query:
+```sql title="Random short"
 SELECT rnd_short() FROM long_sequence(5);
 SELECT rnd_short(-1,1) FROM long_sequence(5);
 ```
@@ -146,7 +145,7 @@ or between 1 and 10), or to get occasional `NaN` values along with int values.
 Return value type is `int`.
 
 #### Examples
-```sql
+```sql title="Random int"
 SELECT rnd_int() FROM long_sequence(5)
 SELECT rnd_int(1,4,0) FROM long_sequence(5);
 SELECT rnd_int(1,4,1) FROM long_sequence(5);
@@ -181,12 +180,13 @@ or between 1 and 10), or to get occasional `NaN` values along with int values.
 Return value type is `long`.
 
 #### Examples
-```sql
+```sql title="Random long"
 SELECT rnd_long() FROM long_sequence(5);
 SELECT rnd_long(1,4,0) FROM long_sequence(5);
 SELECT rnd_long(1,4,1) FROM long_sequence(5);
 SELECT rnd_long(-10000000,10000000,2) FROM long_sequence(5);
 ```
+
 ```sql
 1,4,3,1,2
 null,null,null,null,null 
@@ -212,7 +212,7 @@ null,null,null,null,null
 Return value type is `long256`.
 
 #### Examples
-```sql
+```sql title="Random long256"
 SELECT rnd_long256() FROM long_sequence(5);
 ```
 ```
@@ -242,7 +242,7 @@ SELECT rnd_long256() FROM long_sequence(5);
 Return value type is `float`.
 
 #### Examples
-```sql
+```sql title="Random float"
 SELECT rnd_float() FROM long_sequence(5);
 SELECT rnd_float(2) FROM long_sequence(6);
 ```
@@ -271,7 +271,7 @@ SELECT rnd_float(2) FROM long_sequence(6);
 Return value type is `double`.
 
 #### Examples
-```sql
+```sql title="Random double"
 SELECT rnd_double() FROM long_sequence(5);
 SELECT rnd_double(2) FROM long_sequence(5);
 ```
@@ -303,9 +303,12 @@ Return value type is `date`.
 
 #### Examples
 
-```sql
--- Query:
-SELECT rnd_date(to_date('2015', 'yyyy'), to_date('2016', 'yyyy'), 0) FROM long_sequence(5);
+```sql title="Random date"
+SELECT rnd_date(
+    to_date('2015', 'yyyy'), 
+    to_date('2016', 'yyyy'), 
+    0) 
+FROM long_sequence(5);
 ```
 
 ```sql
@@ -336,9 +339,12 @@ Return value type is `timestamp`.
 
 #### Examples
 
-```sql
--- Query:
-SELECT rnd_timestamp(to_timestamp('2015', 'yyyy'), to_timestamp('2016', 'yyyy'), 0) FROM long_sequence(5);
+```sql title="Random timestamp"
+SELECT rnd_timestamp(
+    to_timestamp('2015', 'yyyy'), 
+    to_timestamp('2016', 'yyyy'), 
+    0) 
+FROM long_sequence(5);
 ```
 
 ```sql
@@ -361,7 +367,7 @@ SELECT rnd_timestamp(to_timestamp('2015', 'yyyy'), to_timestamp('2016', 'yyyy'),
 Return value type is `char`.
 
 #### Examples
-```sql
+```sql title="Random char"
 SELECT rnd_char() FROM long_sequence(5);
 ```
 
@@ -399,17 +405,17 @@ symbols length is between `minLength` and `maxLength` (both inclusive). The func
 Return value type is `symbol`.
 
 #### Examples
-- Using a list of symbols
-```sql
-SELECT rnd_symbol('ABC','def', '123') FROM long_sequence(5);
+```sql title="Random symbol from a list"
+SELECT rnd_symbol('ABC','def', '123') 
+FROM long_sequence(5);
 ```
 ```
 'ABC', '123', 'def', '123', 'ABC'
 ```
 
-- Using randomly generated symbols
-```sql
-SELECT rnd_symbol(2, 3, 4, 0) FROM long_sequence(5);
+```sql title="Random symbol, randomly generated"
+SELECT rnd_symbol(2, 3, 4, 0) 
+FROM long_sequence(5);
 ```
 ```
 'ABC', 'DEFG', 'ABC', 'DEFG', 'DEFG'
@@ -444,17 +450,17 @@ strings length is between `minLength` and `maxLength` (both inclusive). The func
 Return value type is `string`.
 
 #### Examples
-- Using a list of string
-```sql
-SELECT rnd_str('ABC','def', '123') FROM long_sequence(5);
+```sql title="Random string from a list"
+SELECT rnd_str('ABC','def', '123') 
+FROM long_sequence(5);
 ```
 ```
 'ABC', '123', 'def', '123', 'ABC'
 ```
 
-- Using randomly generated string
-```sql
-SELECT rnd_str(3, 2, 2, 4) FROM long_sequence(8);
+```sql title="Random string, randomly generated"
+SELECT rnd_str(3, 2, 2, 4) 
+FROM long_sequence(8);
 ```
 ```
 'AB', 'CD', null, 'EF', 'CD', 'EF', null, 'AB'
@@ -481,7 +487,7 @@ and returns `null` at a rate defined by `nullRate`.
 Return value type is `binary`.    
 
 #### Examples
-```sql
+```sql title="Random binary"
 SELECT rnd_bin() FROM long_sequence(5);
 SELECT rnd_bin(2, 5, 2) FROM long_sequence(5);
 ```

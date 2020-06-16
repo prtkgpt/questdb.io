@@ -4,6 +4,7 @@ title: Storage Model
 sidebar_label: Storage Model
 ---
 
+
 QuestDB uses a **column-based** storage model. Data is stored in tables with each column stored in its own file
  and its own native format. New data is appended to the bottom of each column 
  to allow data to be organically retrieved in the same order versus ingestion.  

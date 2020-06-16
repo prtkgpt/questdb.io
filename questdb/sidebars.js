@@ -29,7 +29,8 @@ module.exports = {
       "sqlExtensions",
       "partitions",
       "symbol",
-      "indexes"
+      "indexes",
+      "sqlExecutionOrder"
     ],
     "Reference": [
       {

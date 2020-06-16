@@ -16,7 +16,7 @@ The linux page points to several guides depending on your distribution (Fedora, 
 ## Pull the QuestDB image
 With Docker installed, you need to pull the QuestDB image. The below command will pull the latest image from our repository, which is updated with every release.
 
-```sql
+```sql title="Pull the latest image"
 docker pull questdb/questdb
 ```
 
@@ -26,30 +26,28 @@ In this guide, we mostly look at the following two arguments. For a complete lis
 
 | argument | description |
 |---|---|
-|--name | name for your container |
-|-p | port to map. For the HTTP API and web console, open `9000:9000`. For Postgres wire protocol, open `8812:8812`|
+|`--name` | name for your container |
+|`-p` | port to map. For the HTTP API and web console, open `9000:9000`. For Postgres wire protocol, open `8812:8812`|
 
 The below will use the image you just pulled to create a container called **questdb** with local port 9000 mapped to the container. This will open up the HTTP API.
 
-```sql
+```sql title="Create a container"
 docker create --name questdb -p 9000:9000 questdb/questdb
 ```
 
 
 ## Start the container
 Now that you have created a container.
-
-```sql
+```sql title="Start the container"
 docker start questdb
 ```
-
 Here is what it looks like to start QuestDB on docker in just 3 commands
 
 ![docker gif](/static/img/dockergif.gif)
 
 You can check the status of your container with **docker ps**. It also lists the ports we have mapped.
 
-```sql
+```sql title="Check existing containers"
 docker ps
 ```
 
@@ -66,16 +64,18 @@ Congratulations, you have a running QuestDB server. You can now start to interac
 
 ## Shut down and cleanup
 As QuestDB is a persisted database, the data will remain after you shut down the container. If you would like to remove the data, you can run the following to drop the tables.
-```sql
+```sql title="Remove tables"
 DROP TABLE trips;
 DROP TABLE weather;
 ```
 
-> You can run QuestDB in Sandbox mode which will delete all data when the container is stopped. Find out more in 
->our [Docker reference](dockerReference.md)
+:::info
+You can run QuestDB in Sandbox mode which will delete all data when the container is stopped. Find out more in 
+our [Docker reference](dockerReference.md)
+:::
 
 You can then shut down and remove the container.
-```sql
+```sql title="Stop and remove the container"
 docker stop questdb  
 docker rm questdb
 ```

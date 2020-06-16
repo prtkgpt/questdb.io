@@ -8,18 +8,22 @@ sidebar_label: DROP TABLE
 ## DROP TABLE
 `DROP TABLE` is used to permanently delete a table and its contents.
 
-### Syntax
-`DROP TABLE` uses the following syntax
+:::caution
+This command irremediably deletes the data in the target table. In doubt, make sure you have created
+[backups](backup.md) of your data.
+:::
 
+### Syntax
 ```sql
 DROP TABLE 'TABLE_NAME';
 ```
 
-### Examples
+### Example
 ```sql
 DROP TABLE ratings;
 ```
 
-> When you would like to delete the data inside a table but to keep the table, use **[TRUNCATE](sqlTRUNCATE.md)**.
-
+:::tip
+To delete the data inside a table but keep the table and its structure, use **[TRUNCATE](sqlTRUNCATE.md)**.
+:::
 

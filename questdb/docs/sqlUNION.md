@@ -29,6 +29,7 @@ SELECT . .
 
 Let's assume the following two tables
 listA
+
 | Description   | ID                     |
 |---------------|------------------------|
 | Red Pen       | 1                      |
@@ -36,6 +37,7 @@ listA
 | Green Pen     | 3                      |
 
 listB
+
 | Description   | ID                     |
 |---------------|------------------------|
 | Pink Pen      | 1                      |
@@ -47,6 +49,7 @@ liastA UNION listB
 ```
 
 will return
+
 | Description   | ID                     |
 |---------------|------------------------|
 | Red Pen       | 1                      |
@@ -60,6 +63,7 @@ liastA UNION ALL listB
 ```
 
 will return
+
 | Description   | ID                     |
 |---------------|------------------------|
 | Red Pen       | 1                      |

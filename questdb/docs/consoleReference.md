@@ -8,8 +8,10 @@ sidebar_label: Console Reference
 This is a reference for the Console. If you want to learn how to use it, we suggest you 
 follow the [Quickstart Guide](consoleGuide.md)
 
-> We are currently updating the web console so part of this page is out of date. 
->This page will be updated with the next release.
+:::info
+We are currently updating the web console so part of this page is out of date. 
+This page will be updated with the next release.
+:::
 
 ## Import 
 
@@ -18,12 +20,12 @@ Description of the fields in the import details table
 
 | Column | Description |
 |--------|--------------|
-|File name| Name of the file imported. If imported from copy & paste, an automatically-generated file name|
-|Size| Size of the imported file|
-|Total rows| Number of rows successfully imported|
-|Failed rows| Number of rows that failed to import|
-|Header row| Whether the dataset has been recognised to have a header row or not|
-|Status| Status of the import. See below|
+|`File name`| Name of the file imported. If imported from copy & paste, an automatically-generated file name|
+|`Size`| Size of the imported file|
+|`Total rows`| Number of rows successfully imported|
+|`Failed rows`| Number of rows that failed to import|
+|`Header row`| Whether the dataset has been recognised to have a header row or not|
+|`Status`| Status of the import. See below|
 
 
 ### Import statuses
@@ -31,10 +33,10 @@ Description of the import statuses
 
 | Status | Description |
 |----|----|
-| importing | data is being imported |
-| failed    | import failed, nothing was imported|
-| imported in [time] | import is finished. The completion time will be displayed next to the status|
-| exists | you are trying to import a file that already exists. To import it anyways, you can either **append** or **override**. See [importing again](#custom-import) for a more exhaustive description| 
+| `importing` | data is being imported |
+| `failed`    | import failed, nothing was imported|
+| `imported in [time]` | import is finished. The completion time will be displayed next to the status|
+| `exists` | you are trying to import a file that already exists. To import it anyways, you can either **append** or **override**. See [importing again](#custom-import) for a more exhaustive description| 
 
 
 ### Amending the schema
@@ -49,10 +51,10 @@ You can amend the import behaviour with the following options. This will trigger
 
 |Option | Name | Description |
 |----|----|----|
-| A | Append | Uploaded data will be appended at the end of the table|
-| O | Override | Uploaded data will override existing data in the table |
-| LEV | Skip lines with extra values | Skips rows that contains dangling values that don't fit the schema |
-| H | Header row | Flag whether the first row should be considered header |
+| `A` | Append | Uploaded data will be appended at the end of the table|
+| `O` | Override | Uploaded data will override existing data in the table |
+| `LEV` | Skip lines with extra values | Skips rows that contains dangling values that don't fit the schema |
+| `H` | Header row | Flag whether the first row should be considered header |
 
 
 **To start the import, click the following button:**
@@ -65,8 +67,8 @@ You can amend the import behaviour with the following options. This will trigger
 
 | Shortcut | Action |
 |---|---|
-| Run Query | `F9` or `CTRL` + `Enter` or `CMD` + `Enter` (MacOS) |
-| Locate cursor | `F2`. Use this to focus the SQL editor on your cursor in order to locate it|
+| `Run Query` | `F9` or `CTRL` + `Enter` or `CMD` + `Enter` (MacOS) |
+| `Locate cursor` | `F2`. Use this to focus the SQL editor on your cursor in order to locate it|
 
 ### Behaviour
 

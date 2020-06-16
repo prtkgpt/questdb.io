@@ -8,16 +8,21 @@ sidebar_label: REST API reference
 The QuestDB REST API is based around standard HTTP features and is understood by off-the-shelf HTTP clients. 
 It provides a simple way to interact with QuestDB and is compatible with most programming languages. 
 API functions are fully keyed on the URL and they use query parameters as their arguments. 
+
 Responses are function specific, for example you can download query results as CSV files, 
 directly from the API. You can also get JSON responses.
 
 The REST API can be accessed interactively using Web Console that is a part of QuestDB distribution.
 Find out more in the section **[using the web console](consoleGuide.md)**.
 
->Other machines on your network can access the console or connect to the DB on
+:::tip
+Other machines on your network can access the console and the HTTP API on
   `http://IP_OF_THE_HOST_MACHINE:9000`
+:::
 
->All strings need to be passed as url-encoded, for example by using `--data-urlencode`
+:::note
+All strings need to be passed as url-encoded, for example by using `--data-urlencode`
+:::
 
 ## Available methods 
 - [`/imp` to load data](#imp---loading-data)
@@ -31,10 +36,10 @@ It supports CSV, TAB and Pipe (`|`) delimited inputs and optional headers. There
 data size. Data type and structure is detected automatically and usually without additional configuration.
 However in some cases additional configuration can be provided to augment automatic detection results.
 
-
-> The structure detection algorithm analyses the chunk in the beginning and relies on relative uniformity 
-> of data. When the first chunk is non-representative of the rest of the data, automatic imports can yield errors.
-
+:::note
+The structure detection algorithm analyses the chunk in the beginning and relies on relative uniformity 
+of data. When the first chunk is non-representative of the rest of the data, automatic imports can yield errors.
+:::
 
 `/imp` column names from header row as table columns. The following characters are removed from column names:
 
@@ -43,12 +48,6 @@ However in some cases additional configuration can be provided to augment automa
 ~~~
 
 When a header row is missing, column names are generated automatically.
-
-### Syntax
-`/imp` requests are HTTP POST, multipart requests. they accept a mixture of form and query arguments:
-
-@TODO
-
 
 ### ACID Compliance
 `/imp` is fully ACID compliant, although Atomicity and Durability can be relaxed to meet convenience
@@ -75,13 +74,12 @@ The following examples upload ratings.csv, which can be found [here](https://gro
 Response shows table name, columns, types, error count in each column and total rows.
 When column types are correct error count must be zero. 
 
-### Basic import
-```shell script
+```shell script title="Import from file, automatic schema detection"
 curl -i -F data=@ratings.csv http://localhost:9000/imp
 ```
 
-Response:
-```
+
+```shell script title="Response"
 HTTP/1.1 200 OK
 Server: questDB/1.0
 Date: Fri, 28 Oct 2016 17:58:31 GMT
@@ -104,7 +102,7 @@ Content-Type: text/plain; charset=utf-8
 
 JSON response for the same request would be:
 
-~~~ json
+~~~ json title="JSON response"
 {
     "status": "OK",
     "location": "ratings.csv",
@@ -140,19 +138,17 @@ JSON response for the same request would be:
 ~~~
 
 
-### Import with schema
+### Import with user-defined schema
 This example overrides types of `userId` and `movieId` by including `schema` parameter. Schema is passed as a `JSON object`.
 
-```shell script 
+```shell script title="Import with custom schema"
 curl -i \
 -F schema='[{"name":"userId", "type": "STRING"},{"name":"movieId", "type":"STRING"}]' \
 -F data=@ratings.csv \
 http://localhost:9000/imp
 ```
 
-
-Response:
-```shell script
+```shell script title="Response"
 HTTP/1.1 200 OK
 Server: questDB/1.0
 Date: Sun, 30 Oct 2016 1:20:7 GMT
@@ -173,11 +169,10 @@ Content-Type: text/plain; charset=utf-8
 +-----------------------------------------------------------------------------------+
 ```
 
->If the table already exists its structure will take precedence over all but DATE schema fields.
 
-### Import with several parameters
+### Import with multiple options
 This example shows the concatenation of several import parameters
-```shell script
+```shell script title="Using multiple options"
 curl -i \
 -F data=@ratings.csv \
 'http://localhost:9000/imp?forceHeaders=true&overwrite=true'
@@ -197,52 +192,18 @@ Query execution terminates automatically when the socket connection is closed.
 ### Syntax
 `/exec` is HTTP GET request with following query arguments:
 
-<table class="alt tall">
-<thead>
-<th>Argument</th>
-<th>Remarks</th>
-</thead>
-<tbody>
-<tr>
-<td class="param"><code>query</code> (required)</td>
-<td>
-URL-encoded query text. It can be multi-line, but query separator, such as <code>;</code> must not be included.
-</td>
-</tr>
-
-<tr>
-<td class="param"><code>limit</code> (optional)</td>
-<td>
-This argument is used for paging. Limit can be either in format of <code>X,Y</code> where <code>X</code> is the lower 
-limit and <code>Y</code> is the upper, or just <code>Y</code>. For example, <code>limit=10,20</code> will return row numbers 10 thru to 20 inclusive.
-and <code>limit=20</code> will return first 20 rows, which is equivalent to <code>limit=0,20</code>
-</td>
-</tr>
-
-<tr>
-<td class="param"><code>count</code> (optional, boolean)</td>
-<td>
-Instructs <code>/exec</code> to count rows and return this value in message header. Default value is <code>false</code>. There
-is slight performance hit for requesting row count.
-</td>
-</tr>
-
-<tr>
-<td class="param"><code>nm</code> (optional, boolean)</td>
-<td>
-Skips metadata section of the response when <code>true</code>. When metadata is known and client is paging this flag
-should typically be set to <code>true</code> to reduce response size. Default value is <code>false</code> and metadata is
-included in the response.
-</td>
-</tr>
-
-</tbody>
-</table>
-
+|Argument | Remarks | 
+|---|---|
+|`query` (required) |`URL-encoded` query text. It can be multi-line |
+| `limit` (optional) | Paging argument. For example, `limit=10,20` will return row numbers 10 thru to 20 inclusive.and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows.|
+|`count` (optional, boolean) | Counts the number of rows and returns this value in the message header. Default value is `false`. |
+| `nm` (optional, boolean) | Skips the metadata section of the response when set to `true`. Default value is `false`  |
 
 The following will use `curl` to send a query over http. The result will be sent back over HTTP.
 
-> Note that the `query` must be url-encoded.
+:::note 
+The `query` text must be URL-encoded.
+:::
 
 ```shell script
 curl -v \
@@ -253,7 +214,7 @@ curl -v \
 ### Success Response
 This is an example of successful query execution response. HTTP status code `200`.
 
-~~~ json
+~~~ json title="JSON response - success"
 {
    "query":"select timestamp, tempF from weather limit 2;",
    "columns":[
@@ -285,7 +246,7 @@ This is an example of successful query execution response. HTTP status code `200
 Example of error response. HTTP status code `400` is used for query errors and `500` for internal server
 errors, which should not normally occur.
 
-~~~ json
+~~~ json title="JSON response - error"
 {
     "query": "\nselect AccidentIndex, Date, Time2 from 'Accidents0514.csv' limit 10",
     "error": "Invalid column: Time2",
@@ -302,31 +263,10 @@ Server responds with HTTP `200` when query execution is successful and `400` whe
 
 ### Syntax
 `/exp` is HTTP GET request with following query arguments:
-
-<table class="alt tall">
-<thead>
-<th>Argument</th>
-<th>Remarks</th>
-</thead>
-<tbody>
-<tr>
-<td class="param"><code>query</code> (required)</td>
-<td>
-URL-encoded query text. It can be multi-line, but query separator, such as <code>;</code> must not be included.
-</td>
-</tr>
-
-<tr>
-<td class="param"><code>limit</code> (optional)</td>
-<td>
-This argument is used for paging. Limit can be either in format of <code>X,Y</code> where <code>X</code> is the lower 
-limit and <code>Y</code> is the upper, or just <code>Y</code>. For example, <code>limit=10,20</code> will return row numbers 10 thru to 20 inclusive.
-and <code>limit=20</code> will return first 20 rows, which is equivalent to <code>limit=0,20</code>
-</td>
-</tr>
-
-</tbody>
-</table>
+|Argument | Remarks | 
+|---|---|
+|`query` (required) |`URL-encoded` query text. It can be multi-line |
+| `limit` (optional) | Paging argument. For example, `limit=10,20` will return row numbers 10 thru to 20 inclusive.and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows.|
 
 
 ### Success response
@@ -338,8 +278,7 @@ curl -v -G http://localhost:9000/exp \
     -d limit=5
 ```
       
-Response:
-```shell script      
+```shell script  title="Success response"    
 *   Trying ::1...
 * connect to ::1 port 9000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -369,7 +308,7 @@ Response:
 When query contains syntax errors `/exp` attempts to return as much diagnostic information as possible.
 Example erroneous request:
 
-```shell script
+```shell script title="Error response"
 curl -v -G http://localhost:9000/exp \
     --data-urlencode "query=select AccidentIndex2, Date, Time from 'Accidents0514.csv'" \
     -d limit=5

@@ -5,8 +5,9 @@ sidebar_label: CRUD operations
 ---
 
 
-QuestDB's data store is mostly meant to be immutable. We plan to support out-of-order inserts from 4.3 which 
-in effect allows `UPDATE` and `DELETE` operations if needed. However, the most efficient way to use QuestDB is as `append only`.
+QuestDB's data store is mostly meant to be immutable. 
+While we plan to support out-of-order inserts from 4.3, the most efficient way to use QuestDB is as `append only`.
+
 We propose an efficient model to perform CRUD operations revolving around the use of `LATEST BY`.
 This page describes each of CRUD operations ([create](#create), [read](#read), [update](#update), [delete](#delete)) and how to implement them in an append-only scenario at high efficiency.
 
@@ -23,8 +24,21 @@ When a table does not have a `designated timestamp`, records can be added in any
 
 Let's first create table that holds bank balances for customers.
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--SQL-->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue="sql"
+  values={[
+    { label: 'SQL', value: 'sql', },
+    { label: 'REST', value: 'rest', },
+    { label: 'Java', value: 'java', },
+    { label: 'JDBC', value: 'jdbc', },
+  ]
+}>
+<TabItem value="sql">
+
 ```sql
 create table balances (
 	cust_id int, 
@@ -33,9 +47,13 @@ create table balances (
 	inactive boolean,
 	timestamp timestamp
 );
+}
 ```
-<!--REST-->
-```shell 
+
+</TabItem>
+<TabItem value="rest">
+
+```shell script
 curl -G "http://localhost:13005/exec" --data-urlencode "query=
 create table balances (
     cust_id int,
@@ -45,7 +63,10 @@ create table balances (
     timestamp timestamp
 )"
 ```
-<!--Java-->
+
+</TabItem>
+<TabItem value="java">
+
 ```java
 final String cairoDatabaseRoot = "/tmp";
 try (CairoEngine engine = new CairoEngine(
@@ -62,7 +83,10 @@ try (CairoEngine engine = new CairoEngine(
     }
 }
 ```
-<!--JDBC-->
+
+</TabItem>
+<TabItem value="jdbc">
+
 ```java
 Properties properties = new Properties();
 properties.setProperty("user", "admin");
@@ -82,9 +106,11 @@ PreparedStatement statement = connection.prepareStatement(
 );
 statement.execute();
 connection.close();
-
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+</TabItem>
+</Tabs>
+
 
  - `cust_id` is the customer identifier. It uniquely identifies customer.
  - `balance_ccy` balance currency. We use `SYMBOL` here to avoid storing text against each record to save space and increase database performance.
@@ -93,8 +119,19 @@ connection.close();
  - `timestamp` timestamp in microseconds of the record. Note that if you receive the timestamp data as a string, it could also be inserted using [to_timestamp](functionsDateAndTime.md#to_timestamp).
 
 Let's now insert a few records:
-<!--DOCUSAURUS_CODE_TABS-->
-<!--SQL-->
+
+
+
+<Tabs
+  defaultValue="sql"
+  values={[
+    { label: 'SQL', value: 'sql', },
+    { label: 'REST', value: 'rest', },
+    { label: 'Java', value: 'java', },
+    { label: 'JDBC', value: 'jdbc', },
+  ]
+}>
+<TabItem value="sql">
 
 ```sql
 insert into balances (cust_id, balance_ccy, balance, timestamp)
@@ -108,15 +145,21 @@ values (2, 'USD', 900.75, 1587571963504432);
 
 insert into balances (cust_id, balance_ccy, balance, timestamp)
 values (2, 'EUR', 880.20, 1587572314404665);
+}
 ```
-<!--REST-->
-```shell 
+
+</TabItem>
+<TabItem value="rest">
+
+```shell script
 curl -G "http://localhost:13005/exec" --data-urlencode "query=
 insert into balances (cust_id, balance_ccy, balance, timestamp)
 	values (1, 'USD', 1500.00, 1587571882704665)
-"
 ```
-<!--Java Raw-->
+
+</TabItem>
+<TabItem value="java">
+
 ```java
 CairoConfiguration configuration = new DefaultCairoConfiguration(".");
 try (CairoEngine engine = new CairoEngine(configuration)) {
@@ -151,7 +194,10 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
     }
 }
 ```
-<!-- JDBC -->
+
+</TabItem>
+<TabItem value="jdbc">
+
 ```java
 Properties properties = new Properties();
 properties.setProperty("user", "admin");
@@ -175,7 +221,9 @@ connection.close();
 
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
+
 
 Our resulting table looks like the following.
 
@@ -193,16 +241,34 @@ Reading via the [Java API](embeddedJavaAPI.md) (see tab `Java Raw`) iterates ove
 If you would like to query various tables via the Java API, you can pass SQL to Java and read the resulting table 
 (see tab `Java SQL`).
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--SQL-->
+
+<Tabs
+  defaultValue="sql"
+  values={[
+    { label: 'SQL', value: 'sql', },
+    { label: 'REST', value: 'rest', },
+    { label: 'Java with SQL', value: 'javasql', },
+    { label: 'Java RAW', value: 'javaraw', },
+    { label: 'JDBC', value: 'jdbc', },
+  ]
+}>
+<TabItem value="sql">
+
 ```sql
 balances; 
 ```
-<!--REST-->
-```shell 
-curl -G "http://localhost:9000/exec" --data-urlencode "query=select * from balances"
+
+</TabItem>
+<TabItem value="rest">
+
+```shell script
+curl -G "http://localhost:9000/exec" \
+--data-urlencode "query=select * from balances"
 ```
-<!--Java SQL-->
+
+</TabItem>
+<TabItem value="javasql">
+
 ```java
 final String cairoDatabaseRoot = "/tmp";
 CairoConfiguration configuration = new DefaultCairoConfiguration(cairoDatabaseRoot);
@@ -224,7 +290,10 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
     }
 }
 ```
-<!--Java Raw-->
+
+</TabItem>
+<TabItem value="javaraw">
+
 ```java
 CairoConfiguration configuration = new DefaultCairoConfiguration(".");
 try (CairoEngine engine = new CairoEngine(configuration)) {
@@ -243,7 +312,10 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
     }
 }
 ```
-<!--JDBC-->
+
+</TabItem>
+<TabItem value="jdbc">
+
 ```java
 Properties properties = new Properties();
 properties.setProperty("user", "admin");
@@ -265,9 +337,13 @@ while (resultSet.next()) {
 }
 connection.close();
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+</TabItem>
+</Tabs>
+
 
 The results are shown below
+
 |cust_id|balance_ccy|balance|inactive|timestamp
 |---|---|---|---|---
 |1|USD|1500|FALSE|2020-04-22T16:11:22.704665Z
@@ -339,9 +415,11 @@ where balance > 800
 |2|USD|900.75|FALSE|2020-04-22T16:12:43.504432Z
 |2|EUR|880.2|FALSE|2020-04-22T16:18:34.404665Z
 
-> `latest by` performance note: QuestDB will search time series from newest values to oldest. For single `SYMBOL` column in `latest by` clause QuestDB will know all distinct values upfront. Time series scan will end as soon as
-> all values are matched. For all other field types, or multiple fields QuestDB will scan entire time series. Although scan is very fast you should be aware that in certain setups, performance will degrade on hundreds of millions of records. 
-
+:::note
+With `latest by`, QuestDB will search time series from most recent values to oldest. 
+For single `SYMBOL` columns, QuestDB will know all distinct values upfront. Time series scan will end as soon as
+all values are matched. For all other field types, or multiple fields QuestDB will scan entire time series. Although scan is very fast you should be aware that in certain setups, performance will degrade on hundreds of millions of records. 
+:::
 
 ## (D)elete
 
@@ -379,9 +457,11 @@ The results will exclude deleted records (the USD balance) and only show the lat
 |---|---|---|---|---
 |1|EUR|650.5|FALSE|2020-04-22T16:11:32.904234Z
 
-> Note that in the above sql example, we use brackets. This is because our [SQL execution order](sqlExecutionOrder.md) will execute WHERE 
->clauses before LATEST BY. By encapsulating the query and applying `where not inactive` to the whole result set, we 
->are able to easily remove the inactive accounts. 
+:::note
+The above sql example uses brackets. This is because our [SQL execution order](sqlExecutionOrder.md) will execute WHERE 
+clauses before LATEST BY. By encapsulating the query and applying `where not inactive` to the whole result set, we 
+are able to easily remove the inactive accounts. 
+:::
 
 In other words, the brackets allow us to get "the latest balance excluding inactive". 
 If we were to remove the brackets and use the following query, we would get "the latest non inactive balance" which is slightly different.

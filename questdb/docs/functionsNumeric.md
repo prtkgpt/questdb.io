@@ -23,10 +23,16 @@ Return value type is `double`.
 
 #### Examples
 ```sql
-SELECT d, round(d, -2), round(d, -1), round(d,0), round(d,1), round(d,2) FROM dbl;
+SELECT 
+    d, 
+    round(d, -2), 
+    round(d, -1), 
+    round(d,0), 
+    round(d,1), 
+    round(d,2) 
+FROM dbl;
 ```
 
-```
 
 | d	             | round-2	| round-1	| round0	| round1	| round2     |
 |----------------|----------|-----------|-----------|-----------|------------|
@@ -39,7 +45,6 @@ SELECT d, round(d, -2), round(d, -1), round(d,0), round(d,1), round(d,2) FROM db
 | 86.91359825    | 100	    | 90	    | 87	    | 86.9	    | 86.91      |
 | 376.3807766    | 400	    | 380	    | 376	    | 376.4	    | 376.38     |
 
-```
 
 ## round_down
 
@@ -59,9 +64,14 @@ Return value type is `double`.
 
 #### Examples
 ```sql
-SELECT d, round_down(d, -2), round_down(d, -1), round_down(d,0), round_down(d,1), round_down(d,2) FROM dbl;
-```
-
+SELECT 
+    d, 
+    round_down(d, -2), 
+    round_down(d, -1), 
+    round_down(d,0), 
+    round_down(d,1), 
+    round_down(d,2) 
+FROM dbl;
 ```
 
 | d	             | r_down-2| r_down-1	| r_down0	| r_down1	| r_down2    |
@@ -74,10 +84,6 @@ SELECT d, round_down(d, -2), round_down(d, -1), round_down(d,0), round_down(d,1)
 | 4.003627053    | 0	    | 0	        | 4	        | 4	        | 4          |
 | 86.91359825    | 0	    | 80	    | 86	    | 86.9	    | 86.91      |
 | 376.3807766    | 400	    | 370	    | 376	    | 376.3	    | 376.38     |
-
-```
-
-
 
 
 
@@ -98,10 +104,16 @@ Return value type is `double`.
 
 #### Examples
 ```sql
-SELECT d, round_up(d, -2), round_up(d, -1), round_up(d,0), round_up(d,1), round_up(d,2) FROM dbl;
+SELECT 
+    d, 
+    round_up(d, -2), 
+    round_up(d, -1), 
+    round_up(d,0), 
+    round_up(d,1), 
+    round_up(d,2) 
+FROM dbl;
 ```
 
-```
 
 | d	             | r_up-2   | r_up-1	| r_up0	    | r_up1	    | r_up2     |
 |----------------|----------|-----------|-----------|-----------|------------|
@@ -113,10 +125,6 @@ SELECT d, round_up(d, -2), round_up(d, -1), round_up(d,0), round_up(d,1), round_
 | 4.003627053    | 100	    | 10	    | 5	        | 4.1	    | 4.01       |
 | 86.91359825    | 100	    | 90	    | 87	    | 87	    | 86.92      |
 | 376.3807766    | 400	    | 380	    | 377	    | 376.4	    | 376.39     |
-
-```
-
-
 
 
 
@@ -140,23 +148,30 @@ to the nearest tenths.
 Return value type is `double`.
 
 #### Examples
-- Tie-breaker behavior
-```sql
-SELECT round_half_even(5.55, 1), round_half_even(5.65, 1) FROM long_sequence(1);
+
+```sql title="Tie-breaker behavior"
+SELECT 
+    round_half_even(5.55, 1), 
+    round_half_even(5.65, 1) 
+FROM long_sequence(1);
 ```
 
-```
 | round_half_even  | round_half_even    |
 |------------------|--------------------|
 | 5.6              | 5.6                |
+
+
+```sql title="More examples"
+SELECT 
+    d, 
+    round_half_even(d, -2), 
+    round_half_even(d, -1), 
+    round_half_even(d,0),
+    round_half_even(d,1), 
+    round_half_even(d,2) 
+FROM dbl;
 ```
 
-- General examples
-```sql
-SELECT d, round_half_even(d, -2), round_half_even(d, -1), round_half_even(d,0), round_half_even(d,1), round_half_even(d,2) FROM dbl;
-```
-
-```
 
 | d	             | r_h_e-2  | r_h_e-1	| r_h_e0	| r_h_e1	| r_h_e2     |
 |----------------|----------|-----------|-----------|-----------|------------|
@@ -168,9 +183,6 @@ SELECT d, round_half_even(d, -2), round_half_even(d, -1), round_half_even(d,0), 
 | 4.003627053    | 0	    | 0	        | 4	        | 4 	    | 4          |
 | 86.91359825    | 100	    | 90	    | 87	    | 86.9	    | 86.91      |
 | 376.3807766    | 400	    | 380	    | 376	    | 376.4	    | 376.38     |
-
-```
-
 
 
 ## abs
@@ -190,13 +202,15 @@ Return value type is `double`.
 
 #### Examples
 ```sql
-SELECT x - 2 a, abs(x -2) FROM long_sequence(3);
+SELECT 
+    x - 2 a, 
+    abs(x -2) 
+FROM long_sequence(3);
 ```
 
-```
+
 | a         | abs      |
 |-----------|----------|
 | -1        | 1        |
 | 0         | 0        |
 | 1         | 1        |
-```

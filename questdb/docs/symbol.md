@@ -13,7 +13,9 @@ repetitive strings as a table of integers and corresponding string values.
 - greatly improved query performance (comparing and writing `int` instead of `string`)
 - greatly improved storage efficiency (storing `int` instead of `string`)
 
-> `symbol` comparison across tables is not directly supported. 
+:::note
+`symbol` comparison across tables is not directly supported. 
+:::
 
 #### Usage
 To declare a column as `SYMBOL` please refer to the [CREATE TABLE](createTable.md) section.

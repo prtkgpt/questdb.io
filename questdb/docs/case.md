@@ -24,9 +24,7 @@ Assume the following data
 | Anna | 25 |
 | Jack | 8 |
 
-#### CASE with ELSE
-
-```sql
+```sql title="CASE with ELSE"
 select 
 Name, 
 case
@@ -36,6 +34,8 @@ end
 from table
 ```
 
+Result 
+
 | Name | case |
 |---|---|
 | Tom | minor |
@@ -44,9 +44,7 @@ from table
 | Jack | minor |
 
 
-#### CASE WITHOUT ELSE
-
-```sql
+```sql title="CASE without ELSE"
 select 
 Name, 
 case
@@ -54,6 +52,9 @@ case
 end 
 from table
 ```
+
+
+Result 
 
 | Name | case |
 |---|---|

@@ -20,19 +20,20 @@ Calculates `UTC timestamp` using system's real time clock. The value is affected
 Return value type is `timestamp`.
 
 #### Examples:
-- Insert current system timestamp along with a value:
 
-```sql
-INSERT INTO readings VALUES(systimestamp(), 123.5);
+```sql title="Insert current system timestamp"
+INSERT INTO readings 
+VALUES(systimestamp(), 123.5);
 ```
 
 | ts                            | reading       |
 |-------------------------------|---------------|
 | 2020-01-02T19:28:48.727516Z   | 123.5         |
 
-- Perform queries based on current system timestamp, for example last 60 seconds:
-```sql
-SELECT * FROM readings WHERE date_time > systimestamp() - 60000000L;
+
+```sql title="Query based on last minute"
+SELECT * FROM readings 
+WHERE date_time > systimestamp() - 60000000L;
 ```
 
 ## sysdate
@@ -50,18 +51,20 @@ jumps in the system time (e.g., if the system administrator manually changes the
 Return value type is `date`.
 
 #### Examples:
-- Insert current system date along with a value:
-```sql
-INSERT INTO readings VALUES(sysdate(), 123.5);
+
+```sql title="Insert current system date along with a value"
+INSERT INTO readings 
+VALUES(sysdate(), 123.5);
 ```
 
 | sysdate                       | reading       |
 |-------------------------------|---------------|
 | 2020-01-02T19:28:48.727516Z   | 123.5         |
 
-- Perform queries based on current system date, for example last 60 seconds:
-```sql
-SELECT * FROM readings WHERE date_time > sysdate() - 60000000L;
+
+```sql title="Query based on last minute"
+SELECT * FROM readings 
+WHERE date_time > sysdate() - 60000000L;
 ```
 
 ## to_timestamp
@@ -82,9 +85,10 @@ see the **[date and timestamp format section](#date-and-timestamp-format)**.
 Return value type is `timestamp`
 
 #### Examples
-- `string` and `format` match:
-```sql
-SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') FROM long_sequence(1);
+
+```sql title="string matches format"
+SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') 
+FROM long_sequence(1);
 ```
 
 | to_timestamp                  |
@@ -92,9 +96,9 @@ SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') FROM long_sequ
 | 2020-03-01T15:43:21.000000Z   |
 
 
-- `string` and `format` do NOT match:
-```sql
-SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy') FROM long_sequence(1);
+```sql title="string does not match format"
+SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy') 
+FROM long_sequence(1);
 ```
 
 | to_timestamp                  |
@@ -102,9 +106,9 @@ SELECT to_timestamp('2020-03-01:15:43:21', 'yyyy') FROM long_sequence(1);
 | null                          |
 
 
-- using with `INSERT`
-```sql
-INSERT INTO measurements values(to_timestamp('2019-12-12T12:15', 'yyyy-MM-ddTHH:mm'), 123.5);
+```sql title="Using with INSERT"
+INSERT INTO measurements 
+values(to_timestamp('2019-12-12T12:15', 'yyyy-MM-ddTHH:mm'), 123.5);
 ```
 
 | timestamp                        | value    |
@@ -130,9 +134,10 @@ see the **[date and timestamp format section](#date-and-timestamp-format)**.
 Return value type is `date`
 
 #### Examples
-- `string` and `format` match:
-```sql
-SELECT to_date('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') FROM long_sequence(1);
+
+```sql title="string matches format"
+SELECT to_date('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') 
+FROM long_sequence(1);
 ```
 
 | to_date                       |
@@ -140,9 +145,9 @@ SELECT to_date('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss') FROM long_sequence(
 | 2020-03-01T15:43:21.000Z      |
 
 
-- `string` and `format` do NOT match:
-```sql
-SELECT to_date('2020-03-01:15:43:21', 'yyyy') FROM long_sequence(1);
+```sql title="string does not match format"
+SELECT to_date('2020-03-01:15:43:21', 'yyyy') 
+FROM long_sequence(1);
 ```
 
 | to_date                       |
@@ -150,9 +155,9 @@ SELECT to_date('2020-03-01:15:43:21', 'yyyy') FROM long_sequence(1);
 | null                          |
 
 
-- using with `INSERT`
-```sql
-INSERT INTO measurements values(to_date('2019-12-12T12:15', 'yyyy-MM-ddTHH:mm'), 123.5);
+```sql title="Using with INSERT"
+INSERT INTO measurements 
+values(to_date('2019-12-12T12:15', 'yyyy-MM-ddTHH:mm'), 123.5);
 ```
 
 | date                             | value    |
@@ -214,25 +219,26 @@ Return value type is `timestamp`
 
 #### Examples
 
-##### Adding hours
-```sql
-SELECT systimestamp(), dateadd('h', 2, systimestamp()) FROM long_sequence(1);
+
+```sql title="Adding hours"
+SELECT systimestamp(), dateadd('h', 2, systimestamp()) 
+FROM long_sequence(1);
 ```
 | systimestamp | dateadd |
 |---|---|
 | 2020-04-17T00:30:51.380499Z| 2020-04-17T02:30:51.380499Z|
 
-##### Adding days
-```sql
-SELECT systimestamp(), dateadd('d', 2, systimestamp()) FROM long_sequence(1);
+```sql title="Adding days"
+SELECT systimestamp(), dateadd('d', 2, systimestamp()) 
+FROM long_sequence(1);
 ```
 | systimestamp | dateadd |
 |---|---|
 | 2020-04-17T00:30:51.380499Z| 2020-04-19T00:30:51.380499Z|
 
-##### Adding months
-```sql
-SELECT systimestamp(), dateadd(`M`, 2, systimestamp()) FROM long_sequence(1);
+```sql title="Adding months"
+SELECT systimestamp(), dateadd(`M`, 2, systimestamp()) 
+FROM long_sequence(1);
 ```
 | systimestamp | dateadd |
 |---|---|
@@ -255,24 +261,30 @@ Return value type is `int`
 
 #### Examples
 
-##### Days difference
-```sql
-select datediff('d', to_timestamp('2020-01-23','yyyy-MM-dd'), to_timestamp('2020-01-27','yyyy-MM-dd')) from long_sequence(1);
+
+```sql title="Difference in days"
+select datediff(
+    'd', 
+    to_timestamp('2020-01-23','yyyy-MM-dd'), 
+    to_timestamp('2020-01-27','yyyy-MM-dd')) 
+from long_sequence(1);
 ```
 
 | datediff |
 |-----|
 |4|
 
-##### Months difference
+```sql title="Difference in months"
 ```sql
-select datediff('M', to_timestamp('2020-01-23','yyyy-MM-dd'), to_timestamp('2020-02-22','yyyy-MM-dd')) from long_sequence(1);
-select datediff('M', to_timestamp('2020-01-23','yyyy-MM-dd'), to_timestamp('2020-02-23','yyyy-MM-dd')) from long_sequence(1);
+select datediff(
+    'M', 
+    to_timestamp('2020-01-23','yyyy-MM-dd'), 
+    to_timestamp('2020-02-24','yyyy-MM-dd')) 
+from long_sequence(1);
 ```
 
 | datediff |
 |-----|
-|0|
 |1|
 
 
@@ -289,9 +301,11 @@ select datediff('M', to_timestamp('2020-01-23','yyyy-MM-dd'), to_timestamp('2020
 Return value type is `int`
 
 #### Examples
-- Extracting the millis from a timestamp
-```sql
-SELECT millis(to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SSSUUU')) FROM long_sequence(1);
+
+```sql title="Millis of the second"
+SELECT millis(
+    to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SSSUUU')) 
+FROM long_sequence(1);
 ```
 
 
@@ -300,8 +314,7 @@ SELECT millis(to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SS
 | 123          |
 
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select millis(ts), count() from transactions;
 ```
 
@@ -328,9 +341,10 @@ select millis(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting the micros from a timestamp
-```sql
-SELECT micros(to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SSSUUU')) FROM long_sequence(1);
+
+```sql title="Micros of the second"
+SELECT micros(to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SSSUUU')) 
+FROM long_sequence(1);
 ```
 
 
@@ -339,8 +353,8 @@ SELECT micros(to_timestamp('2020-03-01:15:43:21.123456', 'yyyy-MM-dd:HH:mm:ss.SS
 | 456          |
 
 
-- Using as part of an aggregation
-```sql
+
+```sql title="Using in an aggregation"
 select micros(ts), count() from transactions;
 ```
 
@@ -366,9 +380,9 @@ select micros(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting the second from a timestamp
-```sql
-SELECT second(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+```sql title="Second of the minute"
+SELECT second(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) 
+FROM long_sequence(1);
 ```
 
 | second      |
@@ -376,8 +390,7 @@ SELECT second(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM l
 | 43          |
 
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select second(ts), count() from transactions;
 ```
 
@@ -404,9 +417,9 @@ select second(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting the minute from a timestamp
-```sql
-SELECT minute(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+```sql title="Minute of the hour"
+SELECT minute(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) 
+FROM long_sequence(1);
 ```
 
 
@@ -415,8 +428,7 @@ SELECT minute(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM l
 | 43          |
 
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select minute(ts), count() from transactions;
 ```
 
@@ -442,9 +454,9 @@ select minute(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting hour from a timestamp
-```sql
-SELECT hour(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+```sql title="Hour of the day"
+SELECT hour(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss'))
+FROM long_sequence(1);
 ```
 
 | hour        |
@@ -452,8 +464,7 @@ SELECT hour(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM lon
 | 12          |
 
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select hour(ts), count() from transactions;
 ```
 
@@ -479,18 +490,16 @@ select hour(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting day from a timestamp
-```sql
-SELECT day(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+```sql title="Day of the month"
+SELECT day(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) 
+FROM long_sequence(1);
 ```
 
 | day        |
 |-------------|
 | 01          |
 
-
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select day(ts), count() from transactions;
 ```
 
@@ -517,9 +526,9 @@ select day(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting month from a timestamp
-```sql
-SELECT month(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+```sql title="Month of the year"
+SELECT month(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) 
+FROM long_sequence(1);
 ```
 
 | month        |
@@ -527,8 +536,7 @@ SELECT month(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM lo
 | 03          |
 
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select month(ts), count() from transactions;
 ```
 
@@ -553,17 +561,17 @@ select month(ts), count() from transactions;
 Return value type is `int`
 
 #### Examples
-- Extracting year from a timestamp
-```sql
-SELECT year(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) FROM long_sequence(1);
+
+```sql title="Year"
+SELECT year(to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss')) 
+FROM long_sequence(1);
 ```
 
 | year        |
 |-------------|
 | 2020          |
 
-- Using as part of an aggregation
-```sql
+```sql title="Using in an aggregation"
 select month(ts), count() from transactions;
 ```
 
@@ -685,29 +693,29 @@ Format letters are case-sensitive and are used as is (e.g. without any prefix)
 
 |Letter	|Date or Time Component     |Presentation	    |Examples   |
 |-------|---------------------------|-------------------|-----------|
-|G	    |Era designator	            |Text	            |AD         |
-|y	    |Year	                    |Year            	|1996; 96   |
-|Y	    |Week year  	            |Year	            |2009; 09   |
-|M    	|Month in year	            |Month	            |July; Jul; 07|
-|w	    |Week in year	            |Number	            |27         |
-|W    	|Week in month	            |Number	            |2          |
-|D    	|Day in year	            |Number         	|189         |
-|d    	|Day in month	            |Number         	|10|
-|F    	|Day of week in month	    |Number         	|2|
-|E    	|Day name in week	        |Text           	|Tuesday; Tue|
-|u	    |Day number of week (1 = Monday, ..., 7 = Sunday)	|Number	|1|
-|a	    |Am/pm marker	            |Text	            |PM|
-|H	    |Hour in day (0-23)	        |Number         	|0|
-|k	    |Hour in day (1-24)	        |Number         	|24|
-|K	    |Hour in am/pm (0-11)	    |Number	            |0|
-|h	    |Hour in am/pm (1-12)	    |Number           	|12|
-|m    	|Minute in hour	            |Number     	    |30|
-|s	    |Second in minute	        |Number         	|55|
-|S	    |Millisecond	            |Number         	|978|
-|z    	|Time zone	                |General time zone	|Pacific Standard Time; PST; GMT-08:00|
-|Z	    |Time zone	                |RFC 822 time zone	|-0800|
-|X	    |Time zone	                |ISO 8601 time zone	|-08; -0800; -08:00|
-|U      |Microsecond                |Number             |698|
+|`G`	    |Era designator	            |Text	            |AD         |
+|`y`	    |Year	                    |Year            	|1996; 96   |
+|`Y`	    |Week year  	            |Year	            |2009; 09   |
+|`M`    	|Month in year	            |Month	            |July; Jul; 07|
+|`w`	    |Week in year	            |Number	            |27         |
+|`W`    	|Week in month	            |Number	            |2          |
+|`D`    	|Day in year	            |Number         	|189         |
+|`d`    	|Day in month	            |Number         	|10|
+|`F`    	|Day of week in month	    |Number         	|2|
+|`E`    	|Day name in week	        |Text           	|Tuesday; Tue|
+|`u`	    |Day number of week (1 = Monday, ..., 7 = Sunday)	|Number	|1|
+|`a`	    |Am/pm marker	            |Text	            |PM|
+|`H`	    |Hour in day (0-23)	        |Number         	|0|
+|`k`	    |Hour in day (1-24)	        |Number         	|24|
+|`K`	    |Hour in am/pm (0-11)	    |Number	            |0|
+|`h`	    |Hour in am/pm (1-12)	    |Number           	|12|
+|`m`    	|Minute in hour	            |Number     	    |30|
+|`s`	    |Second in minute	        |Number         	|55|
+|`S`	    |Millisecond	            |Number         	|978|
+|`z`    	|Time zone	                |General time zone	|Pacific Standard Time; PST; GMT-08:00|
+|`Z`	    |Time zone	                |RFC 822 time zone	|-0800|
+|`X`	    |Time zone	                |ISO 8601 time zone	|-08; -0800; -08:00|
+|`U`      |Microsecond                |Number             |698|
 
 #### See also
 - **[to_timestamp](#to_timestamp)**

@@ -4,7 +4,9 @@ title: SQL Execution Order
 sidebar_label: SQL Execution Order
 ---
 
-QuestDB attempts to implement standard ANSI SQL. We also attempt to be PostgresSQL compatible, although some of it is work in progress. QuestDB implements the following clauses in this execution order:
+QuestDB attempts to implement standard ANSI SQL. 
+We also attempt to be PostgresSQL compatible, although some of it is work in progress. 
+QuestDB implements the following clauses in this execution order:
 
 1. FROM
 2. ON

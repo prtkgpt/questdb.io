@@ -57,12 +57,11 @@ in the table to read the corresponding values. As a result, it would only scan t
 leave irrelevant rows untouched. 
 
 ### Tradeoffs
-There are two tradeoffs with Index. 
 
-**Storage space**: The index will maintain a table with each distinct symbol value and the locations where these symbols can be found. As a result,
+- **Storage space**: The index will maintain a table with each distinct symbol value and the locations where these symbols can be found. As a result,
 there is a small cost of storage associated with indexing a symbol field.
 
-**Ingestion performance**: Each new entry in the table will trigger an entry in the Index table. This means that any
+- **Ingestion performance**: Each new entry in the table will trigger an entry in the Index table. This means that any
 write will now require two write operations, and therefore take twice as long.
 
 

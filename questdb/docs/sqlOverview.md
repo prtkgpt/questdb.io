@@ -11,27 +11,24 @@ This page presents the main extensions we bring to SQL and the main differences 
 
 We have extended SQL language to support our data storage model and simplify semantics of time series queries.
 
-#### LATEST BY
+### LATEST BY
 [LATEST BY](crudOperations.md) is a clause introduced to help perform UPDATE and DELETE operations within an append-only framework.
 
-#### SAMPLE BY
+### SAMPLE BY
 [SAMPLE BY](sqlSELECT.md#sample-by) for time-based [aggregations](functionsAggregation.md) with an efficient syntax.
 The short query below will return the simple average balance from a list of accounts by one month buckets.
-```sql
+```sql title="Using SAMPLE BY"
 select avg(balance) from accounts sample by 1M
 ```
 
 ## Important differences from standard SQL
 
-#### `SELECT * FROM` Optionality
+### `SELECT * FROM` Optionality
 
-In QuestDB `select * from` is optional.
-
-So `SELECT * FROM tab;` achieves the same effect as `tab;`
-
+In QuestDB `select * from` is optional. So `SELECT * FROM tab;` achieves the same effect as `tab;`
 While `select * from` makes SQL look more complete on a single time, there are examples where its optionality makes things a lot easier to read. See examples in [GROUP BY](#absence-of-group-by) section.
 
-#### Absence of `GROUP BY`
+### Absence of `GROUP BY`
 
 We do not support explicit `GROUP BY` clause. Instead, QuestDB optimiser derives group-by implementation from `SELECT` clause. 
 

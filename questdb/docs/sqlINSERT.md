@@ -14,24 +14,39 @@ Inserts data into a database table
 
 ## Examples
 
-### Inserting values
-```sql
-INSERT INTO trades values(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),'AAPL',255,123.33,'B');
+
+```sql title="Inserting all columns"
+INSERT INTO trades 
+VALUES(
+    to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),
+    'AAPL',
+    255,
+    123.33,
+    'B');
 ```
 
-### Inserting values specifying columns
-```sql
-INSERT INTO trades (timestamp, symbol, quantity, price, side) values(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),'AAPL',255,123.33,'B');
+
+```sql title="Specifying schema"
+INSERT INTO trades (timestamp, symbol, quantity, price, side) 
+VALUES(
+    to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),
+    'AAPL',
+    255,
+    123.33,
+    'B');
 ```
 
-Note that columns can be omitted during `INSERT` in which case value will be `NULL`
+:::note
+Columns can be omitted during `INSERT` in which case value will be `NULL`
+:::
 
-```sql
-INSERT INTO trades (timestamp, symbol, price) values(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),'AAPL','B');
+```sql title="Inserting only specific columns"
+INSERT INTO trades (timestamp, symbol, price) 
+VALUES(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'),'AAPL','B');
 ```
 
 ### Inserting query results
-```sql
+```sql title="Insert as select"
 INSERT INTO confirmed_trades 
     SELECT timestamp, instrument, quantity, price, side
     FROM unconfirmed_trades
@@ -39,4 +54,6 @@ INSERT INTO confirmed_trades
 ;
 ```
 
-> Note that using this method, you may insert one or several results at once depending on the output of your query.
+:::note
+This method allows you to insert several rows at once (as many as your query returns).
+:::

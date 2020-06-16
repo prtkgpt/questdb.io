@@ -9,8 +9,10 @@ sidebar_label: SELECT
 ## Syntax
 ![select syntax](/static/img/select-statement.svg)
 
->Note that the `TABLE` you query from can either be a table in your database (in which case you would pass the table's name),
->or the result of a sub query.
+:::tip
+The `TABLE` can either be a in your database (in which case you would pass the table's name),
+or the result of a sub query.
+:::
 
 ## Simple Select
 
@@ -20,13 +22,14 @@ the table name.
 
 The two examples below are equivalent
 
-```sql
-SELECT * FROM ratings;
-
-// is equivalent to //
-
+```sql title="QuestDB dialect"
 ratings;
 ```
+
+```sql title="Traditional SQL equivalent"
+SELECT * FROM ratings;
+````
+
 
 
 ### Specific columns
@@ -54,8 +57,9 @@ The result of `rating > 3.5` is a boolean. The column will be named good and tak
 Using aliases allow you to give expressions or column names of your choice. You can assign an alias to a column or an 
 expression by writing the alias name you want after that expression
 
->Alias names and column names must be unique.
-Example:
+:::note
+Alias names and column names must be unique.
+:::
 
 ```sql
 SELECT movieId alias1, rating alias2 
@@ -64,15 +68,10 @@ FROM ratings
 
 
 ## Aggregation
-Aggregation functions can be used in arithmetic expressions.
 
-### Aggregate functions
-
-
-Currently implemented aggregate functions:
-
-@TODO
-
+:::info
+Supported aggregation functions are listed [here](functionsAggregation.md).
+:::
 
 ### Aggregation by group
 
@@ -80,12 +79,15 @@ QuestDB evaluates aggregation functions without need for traditional `GROUP BY`.
 names and aggregation functions in a `SELECT` clause. You can have any number of discrete value columns and
 any number of aggregation functions.
 
-```sql
-SELECT movieId, avg(rating), count() FROM ratings;
+```sql title="QuestDB dialect"
+SELECT movieId, avg(rating), count() 
+FROM ratings;
+```
 
-// is equivalent to //
-
-SELECT movieId, avg(rating), count() FROM ratings GROUP BY movieId;
+```sql title="Traditional SQL equivalent"
+SELECT movieId, avg(rating), count() 
+FROM ratings 
+GROUP BY movieId;
 ```
 
 
@@ -94,11 +96,16 @@ SELECT movieId, avg(rating), count() FROM ratings GROUP BY movieId;
 Aggregation functions can be used in arithmetic expressions. The following computes `mid` of rating values for
 every movie.
 
-
 ```sql
-SELECT movieId, (min(rating) + max(rating))/2 mid, count() count FROM ratings;
+SELECT movieId, (min(rating) + max(rating))/2 mid, count() count 
+FROM ratings;
 ```
 
+:::tip
+Whenever possible, it is recommended to perform arithmetics `outside` of aggregation functions as this can have 
+a dramatic impact on performance. For example, `min(value/2)` is going to execute considerably slower than `min(value)/2` 
+although both alternative will return the same result
+:::
 
 ## WHERE clause
 
@@ -116,14 +123,6 @@ WHERE CONDITIONS;
 
 `CONDITIONS` are expressions that return boolean results.
 
-### Operators
-
-Advanced conditions can be built using logical operators. 
-
-List of supported `BOOLEAN` operators:
-
-@TODO
-
 
 ### Exact timestamp 
 
@@ -136,25 +135,38 @@ QuestDB SQL optimiser will create more efficient plan when data is time series n
 
 ### Interval timestamp
 
-> QuestDB supports interval timestamp search with comparison operators. However, to obtain best performance, 
->we recommend using our timestamp search notation described below
+:::tip
+QuestDB supports interval timestamp search with comparison operators. However, to obtain best performance, 
+we recommend using our timestamp search notation described below
+:::
 
 #### Using `>`,`>=`,`<`,`<=` operators:
 
 ~~~ sql
-SELECT ratings WHERE timestamp > '2010-01-12T00:00:00.000Z' and timestamp < '2010-01-12T00:59:59.999Z' 
+SELECT ratings 
+WHERE 
+    timestamp > '2010-01-12T00:00:00.000Z' 
+    and 
+    timestamp < '2010-01-12T00:59:59.999Z' 
 ~~~
 
 
 #### Using `in` operator: 
 
 ~~~ sql
-SELECT ratings WHERE timestamp in ('2010-01-12T00:00:00.000Z', '2010-01-12T00:59:59.999Z') 
+SELECT ratings 
+WHERE timestamp in ('2010-01-12T00:00:00.000Z', '2010-01-12T00:59:59.999Z') 
 ~~~
 
+:::note
 `in` is inclusive of edges and supports exactly two UTC timestamps.
+:::
 
 #### Using QuestDB timestamp search notation
+
+:::tip
+This timestamp search method is recommended.
+:::
 
 Using `=` operator and partial UTC timestamp string. Example below selects data between 14:00 and 14:59 on 12 January 2010: 
 
@@ -187,7 +199,19 @@ Interval modifier format is:
 
 where letters stand for:
 
-@TODO
+| letter | meaning |
+|---|---|
+|`s` | second |
+|`m` | minute |
+|`h` | hour |
+|`d` | day |
+|`M` | month |
+|`y`| |year|
+
+:::tip
+You can use multipliers for the above intervals. For example `WHERE timestamp = '2010-01-12T14;24h'` is equivalent to 
+`WHERE timestamp = '2010-01-12T14;1d'`
+:::
 
 ### Floating Point
 
@@ -206,8 +230,10 @@ SELECT prices WHERE bid = 1.56
 
 but `=` would not match `1.56` and `1.559999999999`.
 
->Best practice for floating point values would be to store as LONG integer using scaling factors 
->to avoid rounding-related issues.
+:::tip
+Best practice for floating point values would be to store as LONG integer using scaling factors 
+to avoid rounding-related issues.
+:::
 
 ### Search using aggregation results
 
@@ -216,22 +242,25 @@ the optional nature of `select .. from`.
  
 The following example selects all movies that received over 50,000 ratings.
 
-~~~ sql
-(select movieId x, (min(rating) + max(rating))/2 mid, count() count from ratings) where count > 50000
-~~~
+``` sql title="QuestDB dialect"
+(SELECT movieId x, (min(rating) + max(rating))/2 mid, count() count from ratings) 
+WHERE count > 50000
+```
 
-Standard SQL equivalent would be:
-
-~~~ sql
-select movieId, (min(rating) + max(rating))/2 mid, count() count from ratings
-group by movieId
-having count() > 50000
-~~~
+```sql title="Traditional SQL equivalent"
+SELECT movieId, (min(rating) + max(rating))/2 mid, count() count from ratings
+GROUP BY movieId
+HAVING count() > 50000
+```
 
 ## ORDER BY
 
 ### Usage
 `ORDER BY` is used to sort the results of a query in ascending or descending order.
+
+:::caution
+Ordering data requires holding it in RAM. For large operations, we suggest you check you have sufficient memory to perform the operation.
+:::
 
 ### Syntax
 ```sql
@@ -240,29 +269,23 @@ FROM TABLENAME
 ORDER BY COLUMN1 [ASC]|DESC, COLUMN2 [ASC]|DESC ...;
 ```
 
-@TODO
+:::tip
+Default order is `ASC`. You can omit to order in ascending order.
+:::
 
-> Note that ASC is optional and can be omitted.
->
 
 ### Examples
 Order by one column in ascending order:
-```sql
+```sql title="Omitting ASC will default to ascending order"
 ratings ORDER BY userId;
-// is equivalent to //
-SELECT * FROM ratings ORDER BY userId ASC;
 ```
 
-Order by one column in descending order:
-```sql
+```sql title="Ordering in descending order"
 ratings ORDER BY userId DESC;
 ```
 
-Order by several columns:
-```sql
+```sql title="Multi-level ordering"
 ratings ORDER BY userId, rating DESC;
-// is equivalent to //
-SELECT * FROM ratings ORDER BY userId ASC , rating DESC;
 ```
 
 ## SELECT DISTINCT
@@ -283,7 +306,9 @@ SELECT DISTINCT rating
 FROM ratings;
 ```
 
-> SELECT DISTINCT can be used in conjunction with more advanced queries and filters.
+:::tip
+SELECT DISTINCT can be used in conjunction with more advanced queries and filters.
+:::
 
 The following query will return a list of all unique ratings in the table, and the number of times they occur.
 ```sql
@@ -305,8 +330,10 @@ WHERE rating > 3;
 `LIMIT` is used to specify the number of records to return. Furthermore, you can specify whether the position of the rows 
 (first n rows, last n rows, n rows after skipping m rows etc) .
 
->In other implementations of SQL, this is sometimes replaced by statements such as `OFFSET` or `ROWNUM`
->Our implementation of `LIMIT` encompasses both in one statement.
+:::note
+In other implementations of SQL, this is sometimes replaced by statements such as `OFFSET` or `ROWNUM`
+Our implementation of `LIMIT` encompasses both in one statement.
+:::
 
 ### Syntax
 Statements with `LIMIT` follow this syntax:
@@ -320,21 +347,20 @@ LIMIT NUM_ROWS;
 Where
 `NUM_ROWS` is the number of rows you want to return with the query.
 
-> Limit will by default start from the TOP of the table. If you would like to get results
->from the BOTTOM of the table, then l should be a negative number.
+:::tip Limit will by default start from the TOP of the table. If you would like to get results
+from the BOTTOM of the table, then `l` should be a `negative number`.
+:::
 
 ### Examples
 The following will return the TOP 5 results.
 ```sql
 SELECT * FROM ratings LIMIT 5;
 ```
->For a results table with rows from 1 to n, it will return rows [1, 2, 3, 4, 5]
 
 The following will return the BOTTOM 5 results:
 ```sql
 SELECT * FROM ratings LIMIT -5;
 ```
->For a results table with rows from 1 to n, it will return rows [n-5, n-4, n-3, n-2, n-1, n]
 
 ### Range
 You can use two parameters to return a range. To do so, you should use the syntax
@@ -356,16 +382,73 @@ For example, the following will return records between n-7 (exclusive) and n-3 (
 ratings LIMIT -7, -3;
 ```
 
+## LATEST BY
+
+### Overview
+`LATEST BY` is used to retrieve the latest entry by timestamp for a given key or combination of keys
+
+:::note
+To use `LATEST BY`, one column needs to be designated as `timestamp`. Find out more in the **[designated timestamp](designatedTimestamp.md)** section.
+:::
+
+:::note
+latest by performance note: QuestDB will search time series from newest values to oldest. For single SYMBOL column in latest by clause QuestDB will know all distinct values upfront. Time series scan will end as soon as all values are matched. For all other field types, or multiple fields QuestDB will scan entire time series. Although scan is very fast you should be aware that in certain setups, performance will degrade on hundreds of millions of records.
+:::
+
+
+
+### Syntax
+```sql
+SELECT columns
+FROM table 
+LATEST BY column_name 
+```
+
+:::note
+By default, QuestDB executes `where` clauses before `latest by`. To execute `where` after `latest by`, you need 
+to use sub-queries using brackets. See the following two queries as example.
+:::
+
+### Examples
+```sql title="Latest balance by customer and currency"
+SELECT cust_id, balance_ccy, balance 
+FROM balances 
+LATEST BY cust_id, balance_ccy;
+```
+
+```sql title="Latest balance by customer and currency, with filters"
+SELECT cust_id, balance_ccy, balance 
+FROM balances 
+LATEST BY cust_id, balance_ccy 
+WHERE cust_id=1 AND balance > 500;
+```
+
+
+:::note
+The below two queries illustrate how to change the execution order in a query by using brackets. This makes it possible 
+to simply answer two different questions.
+:::
+
+```sql title="Select the latest balances which were above 800"
+balances latest by cust_id, balance_ccy
+WHERE balance > 800;
+```
+
+```sql title="Select latest balances, then filter to only keep balances aboge 800"
+(balances latest by cust_id, balance_ccy) --note the brackets
+WHERE balance > 800;
+```
 
 ## SAMPLE BY 
 
 ### Overview
 `SAMPLE BY` is used on time-series data to summarise large datasets into aggregates of homogeneous time chunks.
 
->To use `SAMPLE BY`, one column needs to be designated as `timestamp`. Find out more in the **[CREATE TABLE](createTable.md)** section.
+:::note
+To use `SAMPLE BY`, one column needs to be designated as `timestamp`. Find out more in the **[designated timestamp](designatedTimestamp.md)** section.
+:::
 
 ### Syntax
-`SAMPLE BY` syntax is as follows:
 ```sql
 SELECT columns
 FROM table 
@@ -373,58 +456,7 @@ SAMPLE BY nSAMPLE_SIZE
 ```
 
 WHere `SAMPLE_SIZE` is the unit of time by which you wish to aggregate your results, and `n` is the number of
- time-chunks that will be summarised together. You can sample by any multiple of the following:
- 
-<table class="alt tall">
-<thead>
-<th>Modifier</th>
-<th>Remarks</th>
-</thead>
-<tbody>
-<tr>
-<td class="param">s</td>
-<td>
-Seconds
-</td>
-</tr>
-
-<tr>
-<td class="param">m</td>
-<td>
-Minutes
-</td>
-</tr>
-
-<tr>
-<td class="param">h</td>
-<td>
-Hours
-</td>
-</tr>
-
-<tr>
-<td class="param">d</td>
-<td>
-Days
-</td>
-</tr>
-
-<tr>
-<td class="param">M</td>
-<td>
-Months
-</td>
-</tr>
-
-<tr>
-<td class="param">y</td>
-<td>
-Years
-</td>
-</tr>
-
-</tbody>
-</table>
+ time-chunks that will be summarised together. 
 
 ### Examples
 Assume the following table
@@ -476,54 +508,19 @@ SAMPLE BY YOUR_SAMPLE_SIZE
 FILL(FILL_OPTION_1, FILL_OPTION_2...);
 ```
 
-`FILL_OPTION` can be any of the following:
+Available options for `FILL_OPTION` are
 
-<table class="alt tall">
-<thead>
-<th>Option</th>
-<th>Remarks</th>
-</thead>
-<tbody>
-<tr>
-<td class="param">NONE</td>
-<td>
-Will not fill. In case there is no data, the time-chunk will be skipped in the results. This means your table could
-potentially be missing intervals.
-</td>
-</tr>
+|Option | Description|
+|---|---|
+|`NONE`| Will not fill. In case there is no data, the time-chunk will be skipped in the results. This means your table could potentially be missing intervals. |
+|`NULL`| Fills with `null` |
+|`PREV`| Fills using the previous value |
+|`LINEAR`| Fills by linear interpolation of the 2 surrounding points |
+|`x`| Fills with the constant defined (replace the `x` by the value you want. For example `fill 100.05`  |
 
-<tr>
-<td class="param">NULL</td>
-<td>
-Will fill with NULL
-</td>
-</tr>
-
-<tr>
-<td class="param">PREV</td>
-<td>
-Will fill using the previous data point.
-</td>
-</tr>
-
-<tr>
-<td class="param">LINEAR</td>
-<td>
-Will fill with the result of the linear interpolation of the surrounding 2 points.
-</td>
-</tr>
-
-<tr>
-<td class="param">0</td>
-<td>
-Will fill with 0. Note you can replace 0 with any number of your choice (e.g fill 100.00)
-</td>
-</tr>
-
-</tbody>
-</table>
-
-> Fill must be used on aggregations such as sum(), count() etc.
+:::note
+Fill is used on aggregations such as sum(), count() etc.
+:::
 
 ### Examples
 Consider the following table

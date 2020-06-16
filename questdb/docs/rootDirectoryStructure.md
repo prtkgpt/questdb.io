@@ -15,7 +15,7 @@ questdb
 └── public 
 ```
 
-## conf
+## `conf` directory
 Contains configuration files for QuestDB
 
 ```filestructure
@@ -25,16 +25,14 @@ Contains configuration files for QuestDB
 │   └── server.conf
 ```
 
-#### date.formats
-A list of date formats in plain text.
 
-#### mime.types
-Mapping file used by the HTTP server to map file extension to response type when an user downloads a file.
+|file| description|
+|---|---|
+|`date.formats`| A list of date formats in plain text.|
+|`mime.types`| Mapping file used by the HTTP server to map file extension to response type when an user downloads a file.|
+|`server.conf` |Server configuration file. Find out more in the [server configuration](serverConf.md) section.|
 
-#### server.conf
-Server configuration file. Find out more in the [server configuration](serverConf.md) section.
-
-## db
+## `db` directory
 
 This directory contains all the files related to database tables. It is organised as follows:
 - Each table has its own `table_directory` under `root_directory/db/table_name`
@@ -83,11 +81,13 @@ If the table is not partitioned, data is stored in a directory called `default`
 │   └──  table_1.lock
 ```
 
-> As tempting as it may be to delete partitions by manually removing the directories from the file system, we really discourage this. 
->The partitions are organised with metadata and deleting them directly could corrupt the table. 
->We recommend you use [ALTER TABLE DROP PARTITION](alterTableDropPartition.md) for this effect.
+:::caution
+As tempting as it may be to delete partitions by manually removing the directories from the file system, we really discourage this. 
+The partitions are organised with metadata and deleting them directly could corrupt the table. 
+We recommend you use [ALTER TABLE DROP PARTITION](alterTableDropPartition.md) for this effect.
+:::
 
-## log
+## `log` directory
 
 Contains the log files for QuestDB
 
@@ -126,7 +126,7 @@ Log files look like this
 ```
 
 
-## public
+## `public` directory
 
 Contains the web files for the web console. 
 

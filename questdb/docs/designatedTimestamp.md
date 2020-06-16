@@ -16,15 +16,16 @@ will reject out of order inserts.
     - during table creation.
     - on the fly on sub-tables created within a query.
 
->Once a column is elected `designated timestamp`, it will enforce an order policy on this column. 
-- Inserts in `designated timestamp` need to be incrementing
-- Out of order timestamps inserts will be rejected
-- This does not affect the behaviour of other columns.
+:::note
+Once a column is elected `designated timestamp`, it will enforce an order policy on this column. 
+Inserts in `designated timestamp` need to be incrementing and out of order timestamps inserts will be rejected.
+This does not affect the behaviour of other columns.
+:::
 
-However it is worth noting that:
-- Timestamps need not be unique. Duplicate timestamps are accepted.
-- New timestamps need only be `superior or equal` to the latest timestamp in the column.
-
+:::note
+Timestamps need NOT be unique. Duplicate timestamps are accepted. 
+New timestamps need only be `superior or equal` to the latest timestamp in the column.
+:::
 
 #### Advantages
 Electing a `designated timestamp` allows you to:
@@ -48,16 +49,20 @@ Attempts to insert `out of order` timestamps will be rejected:
 #### Working with timestamp order constraint
 The constraint provides many benefits for both insert and query speed. However, it may be impractical in certain cases,
 for example when inserting values from multiple devices with slightly different clocks or network conditions.
-Luckily, there are ways to circumvent this with little overhead:
+Luckily, there are ways to circumvent this with little overhead.
+
+:::note
+This is a temporary workaround. We are working on a table implementation which supports out of order inserts
+:::
 
 - Use the `database host clock` as `designated timestamp` by using `systimestamp()`:
 
-```sql
+```sql title=""
 CREATE TABLE readings(
-db_ts timestamp, 
-device_ts timestamp, 
-device_name symbol, 
-reading int) 
+    db_ts timestamp, 
+    device_ts timestamp, 
+    device_name symbol, 
+    reading int) 
 timestamp(db_ts);
 ```
 
@@ -70,31 +75,33 @@ to_timestamp('2020-03-01:15:43:21', 'yyyy-MM-dd:HH:mm:ss'),
 );
 ```
 
-> For more information about `systimestamp()` and related functions, check the 
+:::info
+For more information about `systimestamp()` and related functions, check the 
 **[date & time functions section](functionsDateAndTime.md)**.
+:::
 
 - Use a temporary table for the latest partition and order data to insert into the main table when changing partition.
 
-```sql
+```sql title="Main table"
 CREATE TABLE readings(
-db_ts timestamp, 
-device_ts timestamp, 
-device_name symbol, 
-reading int)
-timestamp(db_ts)
+    db_ts timestamp, 
+    device_ts timestamp, 
+    device_name symbol, 
+    reading int)
+    timestamp(db_ts)
 PARTITION BY DAY;
 ```
 
-```sql
+```sql title="Temporary table"
 CREATE TABLE readings_temp(
-db_ts timestamp, 
-device_ts timestamp, 
-device_name symbol, 
-reading int);
+    db_ts timestamp, 
+    device_ts timestamp, 
+    device_name symbol, 
+    reading int);
 ```
 
 When switching over to a new day, insert the last day of data in an ordered fashion:
-```sql
+```sql title="Insert ordered data"
 INSERT INTO readings 
     SELECT * FROM (readings_temp ORDER BY db_ts) timestamp(db_ts);
 ```

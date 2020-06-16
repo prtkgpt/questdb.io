@@ -4,19 +4,22 @@ title: How to connect QuestDB to PSQL (aplha)
 sidebar_label: Postgres Wire (alpha)
 ---
 
-
 This short guide explains how to connect to QuestDB using `psql`.
 
-> Our implementation of the Postgres wire protocol is still in alpha. 
->Some features such as metadata are not yet supported. 
+:::note
+Our implementation of the Postgres wire protocol is still in alpha. 
+Some features such as metadata are not yet supported. 
+:::
 
-> This guide assumes you have installed QuestDB and have it running.
+:::info
+This guide assumes you have installed QuestDB and have it running.
+:::
 
 ## How to Install psql
 
 You can check if you already have psql installed with
 
-```shell script
+```shell script title="Check psql version"
 psql --version
 ```
 
@@ -54,11 +57,11 @@ psql -h [host] -p [port] -U [user] -W -d [database]
 ### Connection parameters
 |Parameter | Description |
 |---|---|
-|database|Default database is `qdb`|
-|host|Your IP. If running locally, that's `localhost`|
-|password|You will be prompted manually. Default is `quest`|
-|port |Default is `8812`|
-|user |Default is `admin`|
+|`database`|Default database is `qdb`|
+|`host`|Your IP. If running locally, that's `localhost`|
+|`password`|You will be prompted manually. Default is `quest`|
+|`port` |Default is `8812`|
+|`user` |Default is `admin`|
 
 ### Establishing a connection
 
@@ -70,7 +73,7 @@ psql -h localhost -p 8812 -U admin -W -d qdb
 This will prompt you for a password. Enter the default password `quest`. 
 A successful connection will return the following
 
-```shell script
+```shell script title="Successful connection"
 psql -h localhost -p 8812 -U admin -W -d qdb
 Password: 
 psql (12.2, server 11.3)
@@ -88,7 +91,7 @@ Now that you are connected to QuestDB, you can use the `psql` prompt to run SQL 
 
 ### Create tables
 Let's create a simple table with three columns (timestamp, location and a temperature reading) with a designated timestamp.
-```sql
+```sql title="Create table"
 CREATE TABLE temp(
     ts timestamp, 
     location symbol, 
@@ -96,9 +99,10 @@ CREATE TABLE temp(
 timestamp(ts);
 ```
 
-> Symbol is a special type which allows us to write strings but store them efficiently as an int which 
->makes writes and scans more efficient and reduces the storage requirements. Find out more [here](symbol.md).
-
+:::info
+Symbol is a special type which allows us to write strings but store them efficiently as an int which 
+makes writes and scans more efficient and reduces the storage requirements. Find out more [here](symbol.md).
+:::
 
 ### Insert data
 
@@ -107,7 +111,7 @@ test data.
 
 #### Manual insert
 We can insert data points manually as follows
-```sql
+```sql title="Inserting values"
 INSERT INTO temp VALUES(
     systimestamp() , 
     rnd_symbol('kitchen', 'bedroom', 'bathroom', 'garage'),
@@ -122,7 +126,7 @@ to quickly create test data. We use `long_sequence()` which generates rows and r
 values. As `x` is of type `long`, we use `cast` to convert it to `int`.
 
 The below will add 1 million readings from a location chosen at random approximatively every 30 seconds.
-```sql
+```sql title="Inserting randomly generated values"
 INSERT INTO temp 
     SELECT 
         dateadd('s', 30 * cast(x as int), systimestamp()) ts,
@@ -134,8 +138,7 @@ INSERT INTO temp
 ### Query data
 Now that we have data, we can run a few queries to start leveraging QuestDB's time-series SQL extensions.
 
-#### Weekly average kitchen temperature over time
-```sql
+```sql title="Weekly average temperature"
 SELECT ts, avg(tempC) 
 FROM temp 
 WHERE location = 'kitchen' 
@@ -150,10 +153,11 @@ SAMPLE BY 7d;
 | 2020-06-25 00:00:00.000000 | 12.8|
 | 2020-07-02 00:00:00.000000 | 13.0|
 
+:::info
 This query uses [SAMPLE BY](sqlSELECT.md#sample-by) to generate weekly time buckets in just 3 words.
+:::
 
-#### Last temperature readings
-```sql
+```sql title="Last temperature reading by location"
 SELECT * FROM temp
 LATEST BY location;
 ```
@@ -165,14 +169,15 @@ LATEST BY location;
 | 2020-11-29 06:46:38.793172 | bedroom  | 14.5|
 | 2020-11-29 06:46:53.793172 | garage   | 14.4|
 
-#### Last reading of december
-```sql
+
+```sql title="Last reading of december"
 SELECT * FROM temp
 LATEST BY location 
 WHERE ts='2020-12';
 ```
-
+:::info
 This query uses [LATEST BY](crudOperations.md) and our [timestamp search](sqlSELECT.md#interval-timestamp).
+:::
 
 |             ts             | location |       tempC       |        
 |---|---|---|
@@ -187,7 +192,7 @@ There is plenty to do with QuestDB. As a next step, you could check out our guid
 how to join time-series with [ASOF JOIN](joins.md#asof-join) or how to [FILL](sqlSELECT.md#fill) missing intervals within a select statement.
 
 Before we leave, let's remember to cleanup and delete all the data
-```sql
+```sql title="Drop the table and the data"
 DROP TABLE temp;
 ```
 

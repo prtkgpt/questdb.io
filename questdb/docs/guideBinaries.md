@@ -7,22 +7,29 @@ sidebar_label: Using the binaries
 
 This guides shows how to install QuestDB using the binaries and how to start using the server.
 
->For complete information on how to use QuestDB's binary, please refer to the [Binaries reference](binariesReference.md)
+:::info
+For complete information on how to use QuestDB's binary, please refer to the [Binaries reference](binariesReference.md)
+:::
 
 ## Setup QuestDB
 
-You need Java 11 or above. To check installation, use
-```shell script
+You need Java 11 or above. You can check your installation as follows
+```shell script title="Check Java version"
 java -version
 ```
 
-If you do not already have Java installed, download and install the package for your architecture 
- <a href="https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html" target="_blank">here</a>.
- 
-Then, download the QuestDB binaries by clicking [here](https://github.com/questdb/questdb/releases/download/4.2.1/questdb-4.2.1-bin.tar.gz) to download QuestDB's binaries (4mb)
 
-The binaries come as a tarball. Extract it as follows.
-```shell script
+
+If you do not already have Java installed, download and install the package for your architecture. You will also need to download 
+QuestDB binaries.
+
+| Asset | Link |
+|---|---|
+| Java | <a href="https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html" target="_blank">Go to Oracle download page</a> |
+| QuestDB binaries | <a href="https://github.com/questdb/questdb/releases/download/4.2.1/questdb-4.2.1-bin.tar.gz" target="_blank"> Download now (4Mb) </a> |
+
+The QuestDB binaries come as a tarball which needs to be extracted
+```shell script title="Extract the tarball"
 tar -xvf questdb-4.2.1-bin.tar.gz
 ```
 
@@ -34,36 +41,33 @@ cd questdb-4.2.1-bin.tar.gz
 ```
 
 To start the QuestDB server service, simply run the below
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS-->
-```sql
+
+```shell script title="Linux & MacOS"
 ./questdb.sh start
 ```
-<!--Windows-->
-```sql
+
+```shell script title="Windows"
 questdb.exe start
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 This will use the following [root directories](rootDirectoryStructure.md)
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux -->
-```shell script
+```shell script title="Linux"
 $HOME/.questdb
 ```
-<!--MacOS -->
-```shell script
+
+```shell script title="MacOS"
 /usr/local/var/questdb/
 ```
-<!--Windows-->
-```shell script
+
+```shell script title="Windows"
 C:\Windows\System32\questdb
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 ## Status
 You can use the following to get the status of the QuestDB service. 
-```shell script
+```shell script title="Check status"
 questdb status
 ```
 
@@ -74,14 +78,12 @@ Here are some guides to get started using the QuestDB service. These will show y
 
 ## Stop QuestDB
 Stop the QuestDB service as follows
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS-->
-```sql
+
+```shell script title="Linux & MacOS"
 ./questdb.sh stop
 ```
-<!--Windows-->
-```sql
+
+```shell script title="Windows"
 questdb.exe stop
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
 

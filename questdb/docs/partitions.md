@@ -46,7 +46,7 @@ In the example below, we assume a table `trips` that has been partitioned using 
 Each partition on the disk contains the column data files of the corresponding timestamp interval.
 ```
 [quest-user 2019-06]$ dir
-_archive    cab_type.v              dropoff_latitude.d     ehail_fee.d    improvement_surcharge.d  passenger_count.d  pickup_latitude.d     rate_code_id.d  total_amount.d   vendor_id.d
-cab_type.d  congestion_surcharge.d  dropoff_location_id.d  extra.d        mta_tax.d                payment_type.d     pickup_location_id.d  tip_amount.d    trip_distance.d
-cab_type.k  dropoff_datetime.d      dropoff_longitude.d    fare_amount.d  originating_file.d       pickup_datetime.d  pickup_longitude.d    tolls_amount.d  trip_type.d
+_archive    cab_type.v              dropoff_latitude.d     ehail_fee.d    
+cab_type.d  congestion_surcharge.d  dropoff_location_id.d  extra.d        
+cab_type.k  dropoff_datetime.d      dropoff_longitude.d    fare_amount.d 
 ```

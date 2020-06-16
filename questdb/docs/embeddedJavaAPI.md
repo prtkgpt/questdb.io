@@ -5,27 +5,22 @@ sidebar_label: Embedded Java API
 ---
 
 
-QuestDB is written in Java and can be used as any other Java library. Moreover, it is a single JAR with no additional dependencies.
+QuestDB is written in Java and can be used as any other Java library. 
+Moreover, it is a single JAR with no additional dependencies.
 
-To include QuestDB in your project use the latest Maven coordinates:
+To include QuestDB in your project, use the latest Maven coordinates:
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--gradle-->
-```shell script
+```shell script title="gradle"
     implementation 'org.questdb:core:4.2.1'
 ```
-<!--maven-->
-```xml
+
+```xml title="maven"
     <dependency>
         <groupId>org.questdb</groupId>
         <artifactId>core</artifactId>
         <version>4.2.1</version>
     </dependency>
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
-
->Please note that latest QuestDB version number in this documentation may not be up to date. Follow this
-><a href="https://search.maven.org/artifact/org.questdb/core" target="_blank">Maven Central URL</a> to check the exact version number
 
 ## Writing data
 
@@ -34,9 +29,7 @@ The `TableWriter` facilitates table writes. To successfully create an instance o
 - have no other open writers against it as the `TableWriter` constructor will attempt to obtain an exclusive
 cross-process lock on the table.
 
-### Example
-
-~~~ java
+~~~ java title="Example table writer"
 AllowAllSecurityContextFactory securityContextFactor = new AllowAllSecurityContextFactory();
 CairoSecurityContext cairoSecurityContext = securityContextFactor.getInstance("admin");
 try (TableWriter writer = engine.getWriter(cairoSecurityContext, "abc")) {
@@ -61,23 +54,28 @@ try (TableWriter writer = engine.getWriter(cairoSecurityContext, "abc")) {
 ~~~
 
 ### Detailed Steps
-Detailed steps are:
 
-1 - Create an instance of TableWriter. In this case, we use engine but we can also use TableWriter constructor directly.
-~~~ java
+
+`1 - Create an instance of TableWriter`
+
+In this case, we use engine but we can also use TableWriter constructor directly.
+
+~~~ java title="New table writer instance"
 AllowAllSecurityContextFactory securityContextFactor = new AllowAllSecurityContextFactory();
 CairoSecurityContext cairoSecurityContext = securityContextFactor.getInstance("admin");
 try (TableWriter writer = engine.getWriter(cairoSecurityContext, "abc")) {
 ~~~
+
 The `writer` instance must be eventually released to release resources.
 In this case, it will be released back to the engine for re-use.
 Constructing a new writer is a resource-intensive operation and it will allocate memory on JVM heap.
 Writers lifecycle should be carefully considered for your particular use case.
 
-2 - Create a new row
+`2 - Create a new row`
 ~~~ java
 TableWriter.Row row = writer.newRow(Os.currentTimeMicros());
 ~~~
+
 Although this operation semantically looks like a new object creation, the row instance is actually being re-used under
 the hood. A Timestamp is necessary to determine a partition for the new row. Its value has to be
 either increment or stay the same as the last row. When the table is not partitioned and does not have a
@@ -86,7 +84,7 @@ designated timestamp column, timestamp value can be 0, e.g.
 TableWriter.Row row = writer.newRow(0);
 ~~~
 
-3 - Populate row columns
+`3 - Populate columns`
 There are put* methods for every supported data type. Columns are updated by an index for performance reasons:
 ~~~ java
 row.putLong(3, 333);
@@ -94,7 +92,7 @@ row.putLong(3, 333);
 
 Column update order is not important and update can be sparse. All unset columns will default to NULL values.
 
-4 - Append row
+`4 - Append row`
 It is a trivial and lightweight method call:
 
 ~~~ java
@@ -105,9 +103,11 @@ Appended rows are not visible to readers until they are committed. An unneeded r
 row.cancel();
 ~~~
 
+:::note
 A pending row is automatically cancelled when `writer.newRow()` is called.
+:::
 
-5 - Commit changes
+`5 - Commit changes`
 `writer.commit` commits changes, which makes them visible to readers.
 This method call is atomic and has a complexity of O(1).
 
@@ -115,11 +115,13 @@ This method call is atomic and has a complexity of O(1).
 
 JAVA users can use the `SqlCompiler` to run SQL queries like they would do in the web console for example.
 
-> Note this can be used for any SQL query. This means you can use this with any supported SQL statement. For example
-> [INSERT](sqlINSERT.md) or [COPY](copy.md) to write data, DDL such as [CREATE TABLE](createTable.md) or [SELECT](sqlSELECT.md) to query data.
+:::note
+This can be used for any supported SQL statement. For example
+[INSERT](sqlINSERT.md) or [COPY](copy.md) to write data, DDL such as [CREATE TABLE](createTable.md) or [SELECT](sqlSELECT.md) to query data etc.
+:::
 
 ### Syntax
-```java
+```java title="Compiling SQL"
 CairoConfiguration configuration = new DefaultCairoConfiguration("/tmp/my_database");
 BindVariableService bindVariableService = new BindVariableService();
 try (CairoEngine engine = new CairoEngine(configuration)) {
@@ -131,15 +133,14 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
 }
 ```
 
-`configuration` holds various settings that can be overridden via a subclass.
+
+- `configuration` holds various settings that can be overridden via a subclass.
 Most importantly configuration is bound to the database root - directory where table sub-directories will be created.
-
-`engine` is a concurrent pool of table readers and writers.
-
-`compiler` is the entry point for QuestDB's SQL engine.
+- `engine` is a concurrent pool of table readers and writers.
+- `compiler` is the entry point for QuestDB's SQL engine.
 
 ### Example
-The following will create a new table abc with the specifications set below.
+The following will create a new table with the specifications set below.
 
 ```java
 CairoConfiguration configuration = new DefaultCairoConfiguration("/tmp/my_database");
@@ -170,12 +171,10 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
 
 Querying data is a three-step process:
 
-1 - Compile the SQL text to an instance of `RecordCursorFactory`, an instance that encapsulates execution plan. You can
+- 1 - Compile the SQL text to an instance of `RecordCursorFactory`, an instance that encapsulates execution plan. You can
 run custom SQL queries by instantiating `RecordCursorFactory` to `compiler.compile("YOUR_SQL_HERE")`
-
-2 - Create a `RecordCursor` instance using a factory from step 1.
-
-3 - Iterate on `RecordCursor` to read the data.
+- 2 - Create a `RecordCursor` instance using a factory from step 1.
+- 3 - Iterate on `RecordCursor` to read the data.
 
 ### Example
 ~~~ java

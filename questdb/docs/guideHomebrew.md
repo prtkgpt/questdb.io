@@ -12,7 +12,7 @@ please refer to our [Homebrew reference](homebrewReference.md)
 If you already have homebrew installed, you can skip this part.
 
 To install Homebrew, run the following.
-```shell script
+```shell script title="Install Homebrew"
 /bin/bash -c \
 "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
@@ -20,25 +20,27 @@ To install Homebrew, run the following.
 
 ## Installing QuestDB
 The below will install the `questdb` service.
-```shell script
+```shell script title="Install QuestDB"
 brew install questdb
 ```
 
 ## Starting QuestDB
 
 Run the below to start the QuestDB service. The service will run in the background.
-```shell script
+```shell script title="Start QuestDB"
 questdb start
 ```
 
 This service will create the default `root directory` in `/usr/local/var/questdb/`. For a reference of startup options, 
 please refer to our [Homebrew reference](homebrewReference.md).
 
-> QuestDB will start and run in the background and continue running even if you close the session. You will need to actively [stop it](#stop).
+:::note
+QuestDB will start and run in the background and continue running even if you close the session. You will need to actively [stop it](#stop).
+:::
 
 ## Status
 You can use the following to get the status of the QuestDB service. 
-```shell script
+```shell script title="Get status"
 questdb status
 ```
 
@@ -49,12 +51,12 @@ Here are some guides to get started using the QuestDB service. These will show y
 
 ## Stopping QuestDB
 To stop the QuestDB service, simply run the following.
-```shell script
+```shell script title="Stop QuestDB"
 questdb stop
 ```
 
 ## Uninstalling QuestDB
 To Uninstall the QuestDB service, run 
-```shell script
+```shell script title="Uninstall QuestDB"
 questdb uninstall
 ```

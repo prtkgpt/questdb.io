@@ -4,22 +4,24 @@ title: Binaries reference
 ---
 
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 QuestDB comes with an executable `questdb.exe` for Windows, and script `questdb.sh` for MacOS and Linux which can 
 be used to control QuestDB as a service. On Windows, QuestDB can also be [started interactively](#use-interactively-windows).
 
 
 ## Available commands
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS syntax-->
-```sql
-./questdb.sh [start|stop|status] [-d dir] [-f] [-t tag] 
-```
-<!--Windows syntax-->
-```sql
-questdb.exe [start|stop|status|install|remove] [-d dir] [-f] [-j JAVA_HOME] [-t tag] 
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+  ```sql title="Linux & MacOS"
+  ./questdb.sh [start|stop|status] [-d dir] [-f] [-t tag] 
+  ```
+
+  ```sql title="Windows"
+  questdb.exe [start|stop|status|install|remove] \
+    [-d dir] [-f] [-j JAVA_HOME] [-t tag] 
+  ```
 
 |Command | Description |
 |-----|------|
@@ -33,37 +35,35 @@ questdb.exe [start|stop|status|install|remove] [-d dir] [-f] [-j JAVA_HOME] [-t 
 ### Start 
 `start` - starts the questdb service.
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS-->
-```sql
+
+```sql title="Linux & MacOS"
 ./questdb.sh start
 ```
-<!--Windows-->
-```sql
+
+```sql title="Windows"
 questdb.exe start
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
 
-#### Behaviour
+
+:::info
 QuestDB will start and run in the background and continue running even if you close the session. You will need to actively [stop it](#stop).
-
+:::
 
 #### Default directories
 By default, QuestDB [root directory](rootDirectoryStructure.md) will be the following
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux -->
-```shell script
+
+```shell script title="Linux"
 $HOME/.questdb
 ```
-<!--MacOS -->
-```shell script
+
+```shell script title="MacOS"
 /usr/local/var/questdb/
 ```
-<!--Windows-->
-```shell script
+
+```shell script title="Windows"
 C:\Windows\System32\questdb
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 
 #### Options
@@ -72,106 +72,90 @@ C:\Windows\System32\questdb
 - `-j (Windows only)` - path to JAVA_HOME
 - `-t` - specify a service tag. You can use this option to run several services and administer them separately.
 
+:::tip
+The tag option, `-t`, can be used to start and manipulate independent QuestDB services. Each can be started, stopped etc using its own service tag name. 
+:::
+
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!-- -d Linux-->
-```sql
+
+```sql title="Linux & MacOS - custom root_directory"
 ./questdb.sh start -d '/home/user/my_new_root_directory'
 ```
-<!-- -d Windows-->
-```sql
+
+```sql title="Windows - custom root_directory"
 questdb.exe start -d 'C:\Users\user\my_new_root_directory'
 ```
-<!-- -j -f Windows -->
-```sql
+
+```sql title="Windows - custom JAVA_HOME"
 questdb.exe start -j 'C:\Program Files\Java\jdk1.8.0_141'
 ```
-<!-- -d -j -t Windows -->
-```sql
-questdb.exe start -d 'C:\Users\user\my_new_root_directory' -j 'C:\Program Files\Java\jdk1.8.0_141' -t 'mytag' 
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 ### Stop
 `stop` - stops the default `questdb` service, or the service specified with the `-t` option.
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS (default)-->
-```sql
-./questdb.sh stop
-```
-<!--Windows (default)-->
-```sql
+
+```sql title="Windows"
 questdb.exe stop
 ```
-<!--Linux & MacOS (specific tag)-->
-```sql
+
+```sql title="Linux & MacOS - specific tag"
 ./questdb.sh stop -t 'my-questdb-service'
 ```
-<!--Windows (specific tag)-->
-```sql
-questdb.exe stop -t 'my-questdb-service'
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+
 
 
 ### Status
 `status` shows service status. This command is useful for troubleshooting problems with the service. It prints `Running` or `Not running` if the service is start or stopped respectively. On Unix systems, it also prints the `PID`
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Linux & MacOS (default)-->
-```sql
+
+```sql title="Linux & MacOS"
 ./questdb.sh status
 ```
-<!--Windows (default)-->
-```sql
-questdb.exe status
-```
-<!--Linux & MacOS (specific tag)-->
-```sql
-./questdb.sh status -t 'my-questdb-service'
-```
-<!--Windows (specific tag)-->
-```sql
+
+```sql title="Windows - specific tag"
 questdb.exe status -t 'my-questdb-service'
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 ### Install
 `install` - installs the Windows questdb service. It will start automatically at startup.
 
-> `install` is only available on Windows.
+:::note
+`install` is only available on Windows.
+:::
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Install (default)-->
-```sql
+
+```sql title="Default service"
 questdb.exe install
 ```
-<!--Install (specific tag)-->
-```sql
+
+```sql title="Specific tag"
 questdb.exe install -t 'my-questdb-service'
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 ### Remove
 `remove` - removes the Windows questdb service. It will no longer start at startup.
 
-> `remove` is only available on Windows.
+:::note
+`remove` is only available on Windows.
+:::
+
 
 #### Examples
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Remove (default)-->
-```sql
+
+```sql title="Default service"
 questdb.exe remove
 ```
-<!--Remove (specific tag)-->
-```sql
+
+```sql title="Specific tag"
 questdb.exe remove -t 'my-questdb-service'
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 ## Use interactively (Windows)
 You can start QuestDB interactively by running `questdb.exe`.
@@ -184,10 +168,10 @@ When started interactively, QuestDB's root directory defaults to the `current` d
 
 #### Start
 To start, run the following.
-```sql
+```sql title="Start"
 questdb.exe
 ```
 
 #### Stop
-To stop, simply press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the `Shell` window or close it.
+To stop, simply press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the Shell window or close it.
 
