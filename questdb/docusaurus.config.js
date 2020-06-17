@@ -19,7 +19,7 @@ module.exports = {
     announcementBar: {
       id: 'support_us', // Any value that will identify this message.
       content:
-          '<b><emoji>⭐</emoji> If you like QuestDB, consider <a href="https://github.com/questdb/questdb" target="_blank">giving a star on GitHub </a> <emoji>⭐</emoji></b>',
+          '<b> If you like QuestDB <br/> <emoji>⭐ </emoji> <a href="https://github.com/questdb/questdb" target="_blank">  Give us a star on GitHub </a> <emoji>⭐</emoji></b>',
       backgroundColor: '#0090c2', // Defaults to `#fff`.
       textColor: '#fefeff', // Defaults to `#000`.
     },
@@ -112,7 +112,7 @@ module.exports = {
         {to: 'blog', label: 'Blog', position: 'left'},
         {to: 'docs/documentationOverview', label: 'Docs', position: 'right'},
         {to: 'https://github.com/questdb/questdb', label: 'Github', position: 'right'},
-        {to: 'https://join.slack.com/t/questdb/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY>', label: 'Join Slack', position: 'right'},
+        {to: 'https://questdb.slack.com', label: 'Join Slack', position: 'right'},
       ],
     },
     footer: {
@@ -135,12 +135,8 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Slack',
+              href: 'https://questdb.slack.com',
             },
             {
               label: 'Twitter',

@@ -19,13 +19,34 @@
   --ifm-color-warning: #ce1f00;
   --ifm-tabs-color-active: var(--ifm-tabs-color);
   --ifm-alert-color: white;
+  --ifm-color-info: #06b4f1;
 }
 
+/*Header colors*/
 h2, h3, h4 {
   color: gray;
 }
 
+h5 {
+  color: var(--ra-admonition-icon-color);
+}
 
+/*Hover colors*/
+a, a:hover, .menu__link:hover, .table-of-contents__link:hover, .footer__link-item:hover {
+  color: #06b4f1;
+}
+
+/*TOC colors*/
+.table-of-contents__link--active, .menu__link--active {
+  color: #06b4f1;
+}
+
+/*Announcement bar height*/
+div.announcementBar_node_modules-\@docusaurus-theme-classic-src-theme-AnnouncementBar- {
+  height: fit-content;
+}
+
+/*Table looks*/
 table th, table td {
   padding: 3px;
   padding-left: 8px;
@@ -34,10 +55,15 @@ table th, table td {
   text-align: left;
 }
 
-h5 {
-  color: var(--ra-admonition-icon-color);
+/*Code block looks*/
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
 }
 
+/*Page section looks*/
 .section-lg {
   margin-top: 100px;
 }
@@ -46,6 +72,11 @@ h5 {
   color: lightgray;
 }
 
+.wide {
+  width: 80%;
+}
+
+/*Images*/
 img.featureImage_src-pages- {
   max-width: 40%;
 filter: drop-shadow(0 0 0.75rem lightgray);
@@ -58,8 +89,6 @@ img.web-console {
   display: block;
   filter: drop-shadow(0 1px 0.25rem #a9a9a9);
 }
-
-
 
 img.psql {
   max-width: 80%;
@@ -98,22 +127,4 @@ img.pgicon, img.ossicon {
   display: block;
 }
 
-.wide {
-  width: 80%;
-}
 
-.docusaurus-highlight-code-line {
-  background-color: rgb(72, 77, 91);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
-}
-
-/*Links color*/
-a, a:hover, .menu__link:hover, .table-of-contents__link:hover {
-  color: #06b4f1;
-}
-
-.table-of-contents__link--active, .menu__link--active {
-  color: #06b4f1;
-}

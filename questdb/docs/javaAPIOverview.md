@@ -20,4 +20,4 @@ are fully documented yet, but we are getting there. Here is a list to whet your 
 
 
 If you would like us to help you use one of the above components while we catch up on the documentation, 
-feel free to ask us on [Slack](https://join.slack.com/t/questdb/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY>). 
+feel free to ask us on [Slack](https://questdb.slack.com). 
