@@ -20,6 +20,7 @@
   --ifm-tabs-color-active: var(--ifm-tabs-color);
   --ifm-alert-color: white;
   --ifm-color-info: #06b4f1;
+
 }
 
 /*Header colors*/
@@ -76,6 +77,34 @@ table th, table td {
   width: 80%;
 }
 
+.white  {
+  color: white;
+}
+
+.docker-sect {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #494949;
+  border: 1px solid transparent;
+  border-radius: 15px;
+
+}
+
+.docker-sub-sect {
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.button.button--secondary.button--outline:not(.button--active):not(:hover){
+  color: #06b4f1;
+}
+
 /*Images*/
 img.featureImage_src-pages- {
   max-width: 40%;
@@ -116,10 +145,10 @@ img.slackicon {
   display: block;
 }
 
-img.pgicon, img.ossicon {
+img.pgicon, img.ossicon  {
   width: 50%;
   max-width: 150px;
-  filter: invert(100%);
+  filter: invert(80%);
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
@@ -127,4 +156,13 @@ img.pgicon, img.ossicon {
   display: block;
 }
 
+img.dockericon {
+  width: 50%;
+  max-width: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
 

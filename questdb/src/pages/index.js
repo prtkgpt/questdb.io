@@ -10,8 +10,7 @@ import CustomCodeBlock from '../components/CustomCodeBlock'
 
 const installDocker = `
 docker pull questdb/questdb
-docker create --name questdb -p 9000:9000 questdb/questdb
-docker start questdb
+docker run -p 9000:9000 questdb/questdb
 `.trim()
 
 const searchTime = `
@@ -45,7 +44,7 @@ const features = [
         imageUrl: 'img/fast.svg',
         description: (
             <>
-                - millions of writes per secomd... per thread
+                - millions of writes per second... per thread
                 <br/>
                 - SIMD boosted aggregations
                 <br/>
@@ -105,8 +104,9 @@ function Home() {
             title={`QuestDB`}
             description="Description will go into a meta tag in <head />">
 
-            <header className={classnames('hero hero--primary', styles.heroBanner)}>
-                <div className="col col--5">
+            <header className={classnames('container', styles.heroBanner)}>
+                <div className={classnames('row', styles.responsiveCentered)}>
+                <div className="col col--6 ">
                     <h1 className="hero__title">{siteConfig.title}</h1>
                     <p className="hero__subtitle">{siteConfig.tagline}</p>
                     <div className={styles.buttons}>
@@ -129,10 +129,13 @@ function Home() {
                     </div>
                 </div>
 
-                <div className="col col--5">
-                    <div className="container">
-                        <CustomCodeBlock header="Get started in 3 steps" js={installDocker}/>
-                    </div>
+                <div className="col col--5 docker-sect">
+                        <div className="docker-sub-sect">
+                        <img className="dockericon" src="/static/img/docker.svg" alt="docker"/>
+                            <p className="white"> Launch in 2 steps with Docker </p>
+                        <CustomCodeBlock header="" js={installDocker}/>
+                        </div>
+                </div>
                 </div>
             </header>
             <main>
@@ -160,7 +163,7 @@ function Home() {
                                 <h2 className="with-underline">SQL - augmented for time-series</h2>
                                 <p className="">
                                     QuestDB enhances ANSI SQL with time-series extensions to manipulate timestamped
-                                    data in an efficient way which avoids verbose.
+                                    data efficiently, without verbose.
                                 </p>
                             </div>
                         </div>
@@ -359,7 +362,7 @@ function Home() {
                                     further releases and new features!
                                 </p>
                             </div>
-                            <div className="col col--2">
+                            <div className="col col--2 ">
                                 <img
                                     className={'ghicon'}
                                     src={'/img/github.svg'}
