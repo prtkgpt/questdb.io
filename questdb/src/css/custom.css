@@ -18,11 +18,21 @@
   --ifm-heading-color: #06b4f1;
   --ifm-color-warning: #ce1f00;
   --ifm-tabs-color-active: var(--ifm-tabs-color);
+  --ifm-alert-color: white;
+}
+
+h2, h3, h4 {
+  color: gray;
 }
 
 
-
-
+table th, table td {
+  padding: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: 1px solid gray;
+  text-align: left;
+}
 
 h5 {
   color: var(--ra-admonition-icon-color);
@@ -106,8 +116,4 @@ a, a:hover, .menu__link:hover, .table-of-contents__link:hover {
 
 .table-of-contents__link--active, .menu__link--active {
   color: #06b4f1;
-}
-
-a {
-  font-weight: bold;
 }

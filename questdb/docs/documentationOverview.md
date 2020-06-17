@@ -1,6 +1,6 @@
 ---
 id: documentationOverview
-title: 'Weocome to QuestDB'
+title: 'Welcome to QuestDB'
 --- 
 
 QuestDB is a relational column-oriented database designed for real-time analytics on time-series and event data.
