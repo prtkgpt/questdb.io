@@ -175,7 +175,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/questdb/questdb.io/edit/master/',
         },
 
         blog: {
@@ -184,9 +184,6 @@ module.exports = {
             copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc.`,
           },
             showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/questdb/questdb/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
