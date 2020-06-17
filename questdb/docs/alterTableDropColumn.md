@@ -15,6 +15,7 @@ This action irremediably deletes the data contained in the dropped column
 ## Syntax
 
 ![alter table syntax](/static/img/alter-table.svg)
+
 ![drop column syntax](/static/img/alter-table-drop-column.svg)
 
 ## Description

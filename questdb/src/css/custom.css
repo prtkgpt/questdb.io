@@ -15,9 +15,18 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
-  --ifm-heading-color: lightgray;
+  --ifm-heading-color: #06b4f1;
+  --ifm-color-warning: #ce1f00;
+  --ifm-tabs-color-active: var(--ifm-tabs-color);
 }
 
+
+
+
+
+h5 {
+  color: var(--ra-admonition-icon-color);
+}
 
 .section-lg {
   margin-top: 100px;
@@ -37,8 +46,9 @@ img.web-console {
   margin-left: auto;
   margin-right: auto;
   display: block;
-  filter: drop-shadow(0 1px 0.25rem darkgray);
+  filter: drop-shadow(0 1px 0.25rem #a9a9a9);
 }
+
 
 
 img.psql {
@@ -90,7 +100,14 @@ img.pgicon, img.ossicon {
 }
 
 /*Links color*/
-a, a:hover {
-  color: hotpink;
+a, a:hover, .menu__link:hover, .table-of-contents__link:hover {
+  color: #06b4f1;
 }
 
+.table-of-contents__link--active, .menu__link--active {
+  color: #06b4f1;
+}
+
+a {
+  font-weight: bold;
+}

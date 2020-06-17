@@ -2,10 +2,10 @@
          <defs>
             <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
-    .line                 {fill: none; stroke: #002233;}
+    .line                 {fill: none; stroke: #038cbc;}
     .bold-line            {stroke: #000E14; shape-rendering: crispEdges; stroke-width: 2; }
     .thin-line            {stroke: #00141F; shape-rendering: crispEdges}
-    .filled               {fill: #002233; stroke: none;}
+    .filled               {fill: #038cbc; stroke: none;}
     text.terminal         {font-family: Verdana, Sans-serif;
                             font-size: 12px;
                             fill: #000E14;
@@ -21,11 +21,11 @@
                             fill: #00141F;
                             font-weight: normal;
                           }
-    rect, circle, polygon {fill: #002233; stroke: #002233;}
-    rect.terminal         {fill: #4DC3FF; stroke: #002233;}
-    rect.nonterminal      {fill: #9EDFFF; stroke: #002233;}
+    rect, circle, polygon {fill: #038cbc; stroke: #038cbc;}
+    rect.terminal         {fill: #4DC3FF; stroke: #038cbc;}
+    rect.nonterminal      {fill: #9EDFFF; stroke: #038cbc;}
     rect.text             {fill: none; stroke: none;}    
-    polygon.regexp        {fill: #C7ECFF; stroke: #002233;}
+    polygon.regexp        {fill: #C7ECFF; stroke: #038cbc;}
   </style>
          </defs>
          <polygon points="9 33 1 29 1 37"/>
