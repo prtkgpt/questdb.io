@@ -11,14 +11,14 @@ Moreover, it is a single JAR with no additional dependencies.
 To include QuestDB in your project, use the latest Maven coordinates:
 
 ```shell script title="gradle"
-    implementation 'org.questdb:core:4.2.1'
+    implementation 'org.questdb:core:5.0.0'
 ```
 
 ```xml title="maven"
     <dependency>
         <groupId>org.questdb</groupId>
         <artifactId>core</artifactId>
-        <version>4.2.1</version>
+        <version>5.0.0</version>
     </dependency>
 ```
 

@@ -26,18 +26,18 @@ QuestDB binaries.
 | Asset | Link |
 |---|---|
 | Java | <a href="https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html" target="_blank">Go to Oracle download page</a> |
-| QuestDB binaries | <a href="https://github.com/questdb/questdb/releases/download/4.2.1/questdb-4.2.1-bin.tar.gz" target="_blank"> Download now (4Mb) </a> |
+| QuestDB binaries | <a href="https://github.com/questdb/questdb/releases/download/5.0.0/questdb-5.0.0-bin.tar.gz" target="_blank"> Download now (4Mb) </a> |
 
 The QuestDB binaries come as a tarball which needs to be extracted
 ```shell script title="Extract the tarball"
-tar -xvf questdb-4.2.1-bin.tar.gz
+tar -xvf questdb-5.0.0-bin.tar.gz
 ```
 
 
 ## Start QuestDB
 Navigate to the directory created in the previous step
 ```shell script
-cd questdb-4.2.1-bin.tar.gz
+cd questdb-5.0.0-bin.tar.gz
 ```
 
 To start the QuestDB server service, simply run the below

@@ -72,7 +72,8 @@ module.exports = {
           "functionsRandomValueGenerators",
           "functionsRowGenerator",
           "functionsTimestampGenerator",
-          "functionsText"
+          "functionsText",
+          "functionsMeta"
         ]
       },
       {
@@ -94,6 +95,7 @@ module.exports = {
           "insert",
           "joins",
           "select",
+          "show",
           "truncate",
           "union"
         ]

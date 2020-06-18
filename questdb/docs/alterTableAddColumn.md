@@ -44,7 +44,7 @@ ALTER TABLE ratings ADD COLUMN comment SYMBOL NOCACHE INDEX
 ```
 
 :::tip
-For` symbol`, both `nocache` and `index` keywords are optional. 
+For `symbol`, both `nocache` and `index` keywords are optional. 
 :::
 
 :::note

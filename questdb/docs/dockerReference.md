@@ -28,7 +28,7 @@ docker pull questdb/questdb
 
 #### Specific tag
 ```shell script
-docker pull questdb/questdb:4.2.1
+docker pull questdb/questdb:5.0.0
 ```
 
 ## Using the image
@@ -57,7 +57,7 @@ docker create --name questdb -p 9000:9000 -p 8812:8812 questdb/questdb
 If you would like to use a specific release tag, you can specify it as follows when creating the container:
 
 ```shell script
-docker create --name questdb -p 9000:9000 -p 8812:8812 questdb/questdb:4.2.1
+docker create --name questdb -p 9000:9000 -p 8812:8812 questdb/questdb:5.0.0
 ```
 
 ##### Options
