@@ -20,12 +20,11 @@
   --ifm-tabs-color-active: var(--ifm-tabs-color);
   --ifm-alert-color: white;
   --ifm-color-info: #06b4f1;
-
 }
 
 /*Header colors*/
 h2, h3, h4 {
-  color: gray;
+  color: var(--ifm-heading-color);
 }
 
 h5 {
@@ -34,12 +33,12 @@ h5 {
 
 /*Hover colors*/
 a, a:hover, .menu__link:hover, .table-of-contents__link:hover, .footer__link-item:hover {
-  color: #06b4f1;
+  color: var(--ifm-heading-color);
 }
 
 /*TOC colors*/
 .table-of-contents__link--active, .menu__link--active {
-  color: #06b4f1;
+  color: var(--ifm-heading-color);
 }
 
 /*Announcement bar height*/
@@ -84,8 +83,6 @@ table th, table td {
 .docker-sect {
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: #494949;
-  border: 1px solid transparent;
   border-radius: 15px;
 
 }
@@ -101,8 +98,12 @@ table th, table td {
   margin-right: 10px;
 }
 
+.pagination-nav__item{
+  border: none;
+}
+
 .button.button--secondary.button--outline:not(.button--active):not(:hover){
-  color: #06b4f1;
+  color: var(--ifm-heading-color);
 }
 
 /*Images*/

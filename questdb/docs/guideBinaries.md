@@ -73,7 +73,7 @@ questdb status
 
 ## Using QuestDB
 Here are some guides to get started using the QuestDB service. These will show you how to import data and run queries
-- with the [HTTP API](guidePSQL.md)
+- with the [HTTP API](guideBinaries.md)
 - with [psql](guidePSQL.md) over Postgres wire protocol
 
 ## Stop QuestDB
