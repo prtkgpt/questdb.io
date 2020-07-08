@@ -1,6 +1,6 @@
 {
-  "name": "questdb",
-  "version": "0.0.0",
+  "name": "questdb.io.v2",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
@@ -9,12 +9,12 @@
     "deploy": "docusaurus deploy"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.56",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.56",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.39",
-    "classnames": "^2.2.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "@docusaurus/core": "2.0.0-alpha.58",
+    "@docusaurus/preset-classic": "2.0.0-alpha.58",
+    "@docusaurus/theme-live-codeblock": "2.0.0-alpha.58",
+    "classnames": "2.2.6",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "browserslist": {
     "production": [
