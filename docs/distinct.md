@@ -16,7 +16,6 @@ SELECT DISTINCT movieId
 FROM ratings;
 ```
 
-
 SELECT DISTINCT can be used in conjunction with more advanced queries and filters.
 
 ```sql title="With aggregate"

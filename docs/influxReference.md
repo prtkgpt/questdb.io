@@ -4,39 +4,36 @@ title: Influx Line Protocol Reference
 ---
 
 
-QuestDB is able to ingest data over **Influx Line Protocol**. Existing systems already publishing line protocol
-need not change at all. Although QuestDB uses relational model, line protocol parser will automatically create
-tables and add missing columns.
+Influx Line Protocol ingestion makes it easy for existing InfluxDB users 
+to try QuestDB by only changing the address they send data to.
 
-For the time being QuestDB can listen for UDP packets, either multicast or unicast. TCP and HTTP support for line
-protocol is on our road map. Find an example of how to use this [here](influxSenderLibrary.md)
+It is not necessary to create a table schema beforehand: the table will be created on the fly.
+If new columns are added, the table is automatically updated to reflect the new structure.
 
-:::info
-QuestDB listens for multicast on `232.1.2.3:9009`. The address change or switch to unicast can be done via configuration. If you run QuestDB via Docker
-start container as `run --rm -it -p 9000:9000 -p 8812:8812 -p 9009:9009 --net=host questdb/questdb`  and publish
-multicast packets with TTL of at least 2.
-:::
 
-### Syntax
-Influx Line Protocol follows this syntax
+QuestDB can listen for Line protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver)
 
+### Using line protocol
+
+#### Syntax
 ```shell script title="ILP syntax"
 table_name,tagset valueset  timestamp
 ```
-
-where:
 
 | Element               | Definition                                                                                 |
 |-----------------------|--------------------------------------------------------------------------------------------|
 | `table_name`            | Name of the table where QuestDB will write data.                                           |
 | `tagset`                | Array of string key-value pairs  separated by commas that represent the reading's associated metadata|
 | `values`                | Array of key-value pairs separated by commas that represent the readings. The keys are string, values can be numeric or boolean|
-| `timestamp`             | UNIX timestamp. By default in microseconds. Can be changed in the configuration (see below) |
+| `timestamp`             | UNIX timestamp. By default in microseconds. Can be changed in the configuration|
 
-:::tip
-When the `table_name` does not correspond to an existing table, QuestDB will create the table on the fly using the name
+
+#### Behaviour
+- When the `table_name` does not correspond to an existing table, QuestDB will create the table on the fly using the name
 provided. Column types will be automatically recognized and assigned based on the data.
-:::
+- The `timestamp` column is automatically created as [designated timestamp](designatedTimestamp.md) with the [partition strategy](partitions.md) set to `NONE`. If you would like to 
+define a partition stragey, you should [CREATE](createTable.md) the table beforehand.
+- When the timestamp is empty, QuestDB will use the server timestamp.
 
 #### Examples
 Let's assume the following data:
@@ -60,7 +57,7 @@ There are only 2 spaces in each line. First between the `tagset` and `values`. S
 `values` and `timestamp`.
 :::
 
-### Dealing with irregularly-structured data
+#### Dealing with irregularly-structured data
 :::info
 QuestDB can support on-the-fly data structure changes with minimal overhead. Should users decide to send
 varying quantities of readings or metadata tags for different entries, QuestDB will adapt on the fly.
@@ -101,26 +98,68 @@ populated if they contain values. Whilst we offer this function for flexibility.
 structural changes to maintain operational simplicity. 
 :::
 
-### Configuration
-The following configuration parameters can be added to the configuration file to customise the interaction using 
-Influx line protocol. The configuration file is found under `/questdb/conf/questdb.conf`
+### TCP receiver
 
-:::info
-For more information on configuration keys, refer to the [configuration reference](serverConf.md).
-:::
+The TCP receiver can handle both single and multi-row write requests. 
+It is fully multi-threaded and customizable. 
+It can work from the common worker pool or out of dedicated threads.
+A load balancing mechanism dynamically assigns work between the threads.
 
-| Property                       | Type           | Default value  | Description                                         |
-|--------------------------------|----------------|----------------|-----------------------------------------------------|
-|`line.udp.join`               | `string`       |*"232.1.2.3"*   | Multicast address receiver joins. This values is ignored when receiver is in "unicast" mode   |
-|`line.udp.bind.to`            | `string`       |*"0.0.0.0:9009"* | IP address of the network interface to bind listener to and port. By default UDP receiver listens on all network interfaces|
-|`line.udp.commit.rate`       | `long`         |*1000000*        | For packet bursts the number of continuously received messages after which receiver will force commit. Receiver will commit irrespective of this parameter when there are no messages.                 |
-|`line.udp.msg.buffer.size`    | `long`         |*2048*          | Buffer used to receive single message. This value should be roughly equal to your MTU size.                |
-|`line.udp.msg.count`          | `long`         |*10000*        | Only for Linux. On Linix QuestDB will use recvmmsg(). This is the max number of messages to receive at once.                                                    |
-|`line.udp.receive.buffer.size`| `long`         |*8388608*       | UDP socket buffer size. Larger size of the buffer will help reduce message loss during bursts.                                                    |
-|`line.udp.enabled`            | `boolean`      |*true*          | Flag to enable or disable UDP receiver                                                    |
-|`line.udp.own.thread`         | `boolean`      |*false*         | When "true" UDP receiver will use its own thread and busy spin that for performance reasons. "false" makes receiver use worker threads that do everything else in QuestDB.                                                    |
-|`line.udp.own.thread.affinity`         | `int`      |*-1*    |  -1 does not set thread affinity. OS will schedule thread and it will be liable to run on random cores and jump between the. 0 or higher pins thread to give core. This propertly is only valid when UDP receiver uses own thread. |
-|`line.udp.unicast`            | `boolean`      |*false*         | When true, UDP will me unicast. Otherwise multicast |
-|`line.udp.timestamp`          | `string` | "n" | Input timestamp resolution. Possible values are "n", "u", "ms", "s" and "h". |
-|`line.udp.commit.mode`        | `string` | "nosync" | Commit durability. Available values are "nosync", "sync" and "async"   |
+#### Overview
+By default, QuestDB listens to line protocol packets over TCP on `0.0.0.0:9009`. If you are running QuestDB with Docker, 
+you will need to map port 9009 using `-p 9009:9009 --net=host`. This port can be customised.
 
+The TCP receiver uses two types of threads.
+- **Worker threads** - write data to the different tables. Each worker is writing to designated tables. The worker-table repartition is modified over time by the load balancing jobs.
+- **Network IO thread** - receives messages from the network and adds them in a queue for the writers. The network IO thread does not have a dedicated thread. Instead, it shares a common thread with the least busy worker.
+
+The workflow is as follows.
+
+![influx line protocol structure diagram](/static/img/influxLineProtocolTCPStructure.svg)
+
+The network IO thread receives write requests and sets up a queue for the workers. 
+Workers pick up write requests for their assigned tables and insert the data. 
+
+#### Load balancing
+A load balancing job reassigns work between threads in order to relieve the busiest threads and maintain high ingestion speed.
+It can be triggered in two ways.
+- After a certain number of updates per table
+- After a certain amount of time has passed
+
+Once either is met, QuestDB will calculate a load ratio as the number of writes by the busiest thread divided by 
+the number of writes in the least busy thread. If this ratio is above the threshold, the table with the least writes in the busiest worker thread 
+will be reassigned to the least busy worker thread.
+
+![influx line protocol load balancing diagram](/static/img/influxLineProtocolTCPLoadBalancing.svg)
+
+#### Commit strategy
+Uncommitted rows are committed either 
+- after `line.tcp.maintenance.job.hysterisis.in.ms` milliseconds have passed
+- once reaching `line.tcp.max.uncommitted.rows` uncommitted rows.
+
+#### Configuration
+The TCP receiver configuration can be completely customised using [configuration keys](serverConf.md#influx-line-protocol-config-tcp).
+You can use this to configure the tread pool, buffer and queue sizes, receiver IP address and port, load balancing etc.
+
+### UDP receiver
+
+The UDP receiver can handle both single and multi row write requests. 
+It is currently single-threaded, and performs both network IO and write jobs out of one thread.
+The UDP worker thread can work either on its own thread or use the common thread pool.
+It supports both multicast and unicast.
+
+Find an example of how to use this [here](influxSenderLibrary.md)
+
+#### Overview
+By default, QuestDB listens for `multicast` line protocol packets over UDP on `232.1.2.3:9009`. If you are running QuestDB with Docker, 
+you will need to map port 9009 using `-p 9009:9009 --net=host` and publish multicast packets with TTL of at least 2. 
+This port can be customised, and you can also configure QuestDB to listen for `unicast`.
+
+#### Commit strategy
+Uncommitted rows are committed either 
+- after receiving a number of continuous messages equal to `line.udp.commit.rate`
+- when messages are no longer being received
+
+#### Configuration
+The UDP receiver configuration can be completely customised using [configuration keys](serverConf.md#influx-line-protocol-config-udp).
+You can use this to configure the IP address and port the receiver binds to, commit rates, buffer size, whether it should run on a separate thread etc. 
