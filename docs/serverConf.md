@@ -26,6 +26,11 @@ A restart of QuestDB is required to pickup the new configuration
 
 ### Available keys and default values
 
+### Telemetry
+|Property|Default value|Description|
+|---|---|---|
+|telemetry.enabled|true|Enables and disables anonymous usage sharing to better understand and help Questdb users. We do not collect any personally-identifying information.|
+
 ### Worker config
 |Property|Default value|Description|
 |---|---|---|
@@ -184,7 +189,7 @@ A restart of QuestDB is required to pickup the new configuration
 |pg.halt.on.error|false||
 |pg.daemon.pool|true||
 
-### Influx Line Protocol config
+### Influx Line Protocol config (UDP)
 | Property                     | Default value  | Description                                         |
 |--------------------------------|----------------|-----------------------------------------------------|
 |line.udp.join               |"232.1.2.3"   | Multicast address receiver joins. This values is ignored when receiver is in "unicast" mode   |
@@ -200,3 +205,33 @@ A restart of QuestDB is required to pickup the new configuration
 |line.udp.timestamp          | n | Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`. |
 |line.udp.commit.mode     | "nosync" | Commit durability. Available values are "nosync", "sync" and "async"   |
 
+
+### Influx Line Protocol config (TCP)
+| Property                     | Default value  | Description                                         |
+|--------------------------------|----------------|-----------------------------------------------------|
+|line.tcp.enabled|true|Enable or disable line protocol over TCP|
+|line.tcp.net.active.connection.limit|10||
+|line.tcp.net.bind.to|0.0.0.0:9009| IP address of the network interface to bind listener to and port. By default TCP receiver listens on all network interfaces|
+|line.tcp.net.event.capacity|1024||
+|line.tcp.net.io.queue.capacity|1024||
+|line.tcp.net.idle.timeout|300000||
+|line.tcp.net.interest.queue.capacity|1024||
+|line.tcp.net.listen.backlog|50000||
+|line.tcp.net.recv.buf.size|-1||
+|line.tcp.connection.pool.capacity|64||
+|line.tcp.timestamp|n|Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`.|
+|line.tcp.msg.buffer.size|2048|Size of the buffer read from queue. Maximum size of write request, regardless of the number of measurements.|
+|line.tcp.max.measurement.size|2048|Maximum size of any measurement.|
+|line.tcp.writer.queue.size|128|Size of the queue between network iO and writer jobs. Each queue entry represents a measurement. |
+|line.tcp.worker.count|0|Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.|
+|line.tcp.worker.affinity|0|Comma-separated list of thread numbers which should be pinned for line protocol ingestion over TCP. Example `line.tcp.worker.affinity=1,3,4` |
+|line.tcp.halt.on.error|false||
+
+Load balancing
+
+| Property                     | Default value  | Description                                         |
+|--------------------------------|----------------|-----------------------------------------------------|
+|line.tcp.n.updates.per.load.balance|10000| Maximum number of updates in a given table since the last load balancing before triggering a new load balancing job|
+|line.tcp.max.load.ratio|1.9|Maximum load ratio (max loaded worker/min loaded worker) before questdb will attempt to rebalance the load between the writer workers|
+|line.tcp.max.uncommitted.rows|1000|Maximum number of uncommitted rows, note that rows will always be commited if they have been received line.tcp.maintenance.job.hysteresis.in.ms ms ago|
+|line.tcp.maintenance.job.hysteresis.in.ms|1000|Maximum amount of time in between maintenance jobs, these will commit any uncommited data|

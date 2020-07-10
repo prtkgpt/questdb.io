@@ -50,7 +50,7 @@ distinct
   ::= 'SELECT' 'DISTINCT' ( columnName (',' columnName)* ) 'FROM' tableName
 
 latestBy
-::= 'SELECT' ( columnName (',' columnName)* ) 'FROM' tableName 'LATEST' 'BY' columnName
+::= 'SELECT' ( columnName (',' columnName)* ) 'FROM' tableName 'LATEST' 'BY' ( columnName (',' columnName)* )
 
 limit
   ::= 'SELECT' someSelectStatement 'LIMIT' ( numberOfRecords | (upperBound ',' lowerBound) ) ';'
@@ -107,6 +107,22 @@ renameTable
 
 cast
          ::= 'CAST' '(' expression 'AS' type ')'
+
+
+InfluxLineProtocolOverTCP
+  ::= (user_1 | user_2 | '...') 'TCP requests' network_IO_thread 'write_queue' ((worker_1 'write' (table_1|table_2|'...')) | (worker_2 'write' (table_3|table_4|'...')))
+
+InfluxLineProtocolOverTCPLoadRebalance
+  ::= Launch_Load_Balancing_Job  ('IF' load_ratio '>' 'max.load.ratio' Rebalance_Load)? ( 'IF' (updates_since_last_rebalance '<' 'n.updates.per.load.balance' | time_since_last_rebalance '<' 'maintenance.job.hysteresis.in.ms') Launch_Load_Balancing_Job ('IF' load_ratio '>' 'max.load.ratio' Rebalance_Load)?  )*
+
+
+
+
+
+
+
+
+
 
 
 
