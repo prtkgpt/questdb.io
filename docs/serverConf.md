@@ -47,23 +47,23 @@ A restart of QuestDB is required to pickup the new configuration
 |http.multipart.header.buffer.size|512|HeaderParser buffer size in bytes.|
 |http.multipart.idle.spin.count|10_000|How long the code accumulates incoming data chunks for column and delimiter analysis.|
 |http.receive.buffer.size|1m|Size of receive buffer|
-|http.request.header.buffer.size|64k||
-|http.response.header.buffer.size|32k||
-|http.worker.count|0||
-|http.worker.affinity|httpWorkerCount||
-|http.worker.haltOnError|false||
-|http.send.buffer.size|2m|Size of send data buffer.|
+|http.request.header.buffer.size|64k|Size of internal buffer allocated for HTTP request headers. The value is rounded up to the nearest power of 2. When HTTP request contains headers that exceeed the buffer size server will disconnect the client with HTTP error in server log|
+|http.response.header.buffer.size|32k|Size of the internal response buffer. The value will be rounded up to the nearest power of 2. The buffer size should be large enough to accomodate max size of server response headers|
+|http.worker.count|0|Number of threads in private worker pool. When value is 0, HTTP server will be using shared worker pool of the server. Vaues above 0 switch on private pool|
+|http.worker.affinity||comma separated list of CPU core indexes. The number of items of this list must be equal to the worker count|
+|http.worker.haltOnError|false|Flag that indicates if worker thread must shutdown on unhandled error. We strongly rocommend not to change default value|
+|http.send.buffer.size|2m|Size of the internal send buffer. The larger than buffer size the fewer IO interruptions server is making at expense of memory usage per connection. There is a limit of send buffer size after which incresing it stops being useful in terms of performance. 2MB seems to be optimal value.|
 |http.static.index.file.name|index.html|Name of index file for the web console|
-|http.frozen.clock|false|Sets the clock to always return zero.|
-|http.allow.deflate.before.send|false||
-|http.keep-alive.timeout|5||
-|http.keep-alive.max|10_000||
-|http.static.pubic.directory|public||
-|http.net.active.connection.limit|256||
-|http.net.event.capacity|1024||
-|http.net.io.queue.capacity|1024||
-|http.net.idle.connection.timeout|300000||
-|http.net.interest.queue.capacity|1024||
+|http.frozen.clock|false|Sets the clock to always return zero. This configuration parameter is used for internal testing.|
+|http.allow.deflate.before.send|false|Enables gzip compression of outgoing data|
+|http.keep-alive.timeout|5|Used together with `http.keep-alive.max` to set the value of HTTP `Keep-Alive` response header. This instructs browser to keep TCP connection open|
+|http.keep-alive.max|10_000|See `http.keep-alive.timeout`|
+|http.static.pubic.directory|public|The name of directory for public web site|
+|http.net.active.connection.limit|256|The number of simultaneous TCP connection to the HTTP server. The rationale of the value is to control server memory consumption.|
+|http.net.event.capacity|1024|Internal IO event queue capacity (EPoll, KQqueu, Select). Size of these queues must be larger than `http.net.active.connection.limit`|
+|http.net.io.queue.capacity|1024|Intenal IO queue of HTTP server. Size of this queue must be larger than `http.net.active.connection.limit`. Queue size smaller than active connection max will substantially slow down the server by increasing wait times. Queue larger than connection max reduces wait time to 0|
+|http.net.idle.connection.timeout|300000|TCP connection idle timeout in milliseconds. Conection is closed by HTTP server when this timeout lapses|
+|http.net.interest.queue.capacity|1024|Inernal queue size. This is also related to `http.net.active.connection.limit` in a way that sizes larger than connection max remove any waiting|
 |http.net.listen.backlog|256||
 |http.net.snd.buf.size|2m||
 |http.net.rcv.buf.size|2m||
