@@ -42,7 +42,7 @@ A restart of QuestDB is required to pickup the new configuration
 |Property|Default value|Description|
 |---|---|---|
 |http.enabled|true|Enable HTTP server.|
-|http.connection.pool.initial.capacity|16|Initial size of the connection pool.|
+|http.connection.pool.initial.capacity|16|Initial size of pool of reusable objects that hold connection state. The pool should be configured to maximum realistic load so that it does not resize at runtime|
 |http.connection.string.pool.capacity|128|Initial size of the string pool shared by HttpHeaderParser and HttpMultipartContentParser|
 |http.multipart.header.buffer.size|512|HeaderParser buffer size in bytes.|
 |http.multipart.idle.spin.count|10_000|How long the code accumulates incoming data chunks for column and delimiter analysis.|
@@ -64,24 +64,24 @@ A restart of QuestDB is required to pickup the new configuration
 |http.net.io.queue.capacity|1024|Intenal IO queue of HTTP server. Size of this queue must be larger than `http.net.active.connection.limit`. Queue size smaller than active connection max will substantially slow down the server by increasing wait times. Queue larger than connection max reduces wait time to 0|
 |http.net.idle.connection.timeout|300000|TCP connection idle timeout in milliseconds. Conection is closed by HTTP server when this timeout lapses|
 |http.net.interest.queue.capacity|1024|Inernal queue size. This is also related to `http.net.active.connection.limit` in a way that sizes larger than connection max remove any waiting|
-|http.net.listen.backlog|256||
-|http.net.snd.buf.size|2m||
-|http.net.rcv.buf.size|2m||
-|http.text.date.adapter.pool.capacity|16||
-|http.text.json.cache.limit|16384||
-|http.text.json.cache.size|8192||
-|http.text.max.required.delimiter.stddev|0.1222d||
-|http.text.max.required.line.length.stddev|0.8||
-|http.text.metadata.string.pool.capacity|128||
-|http.text.roll.buffer.limit|4m||
-|http.text.roll.buffer.size|1024||
+|http.net.listen.backlog|256|Backlog argment value for [listen()](https://man7.org/linux/man-pages/man2/listen.2.html) call|
+|http.net.snd.buf.size|2m|Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default|
+|http.net.rcv.buf.size|2m|Maximum receive buffer size on each TCP socket. If value is -1 socket receive buffer remains unchanged from OS default|
+|http.text.date.adapter.pool.capacity|16|Size of date adaptor pool. This should be set to the anticipated maximum number of `DATE` fields a text input can have. The pool is assigned to connection state and is reused alongside of connection state object|
+|http.text.json.cache.limit|16384|JSON parser cache limit. Cache is used to compose json elements that have been broken up by TCP protocol. This value limits the maximum length of invividual tag or tag value|
+|http.text.json.cache.size|8192|Initial size of JSON parser cache. The value must not exceed `http.text.json.cache.limit` and should be set to avoid cache resizes at runtime.|
+|http.text.max.required.delimiter.stddev|0.1222d|The maximum standard devation value for the algorithm that calculates text file delimiter. Usually when text parser cannot regognise the delimiter it will log the calculated and maximum standard deviation for the delimiter candidate.|
+|http.text.max.required.line.length.stddev|0.8|Maximum standad devaition value for the algorithm that classifies input as text or binary. For the values above configured stddev input will be considered binary|
+|http.text.metadata.string.pool.capacity|128|The initial size of pool for objects that wrap individual elements of metadata JSON, such as column names, date pattern strings and locale values|
+|http.text.roll.buffer.limit|4m|The limit of text roll buffer. See `http.text.roll.buffer.size` for description|
+|http.text.roll.buffer.size|1024|Roll buffer is a structure in text parser that holds a copy of a line that has been broken up by TCP. The size should be set to the maximum length of text line in text input|
 |http.text.analysis.max.lines|1000||
-|http.text.lexer.string.pool.capacity|64||
-|http.text.timestamp.adapter.pool.capacity|64||
-|http.text.utf8.sink.size|4096||
-|http.json.query.connection.check.frequency|1_000_000||
-|http.json.query.float.scale|10||
-|http.bind.to|0.0.0.0:9000|IP address and port of HTTP server.|
+|http.text.lexer.string.pool.capacity|64|The initial capacity of string fool, which wraps `STRING` column types in text input. The value should correspond to the maximum anticipated number of STRING columns in text input|
+|http.text.timestamp.adapter.pool.capacity|64|Size of timestamp adaptor pool. This should be set to the anticipated maximum number of `TIMESTAMP` fields a text input can have. The pool is assigned to connection state and is reused alongside of connection state object|
+|http.text.utf8.sink.size|4096|Initial size of UTF8 adaptor sink. The value should correspond the maximum individual field value length in text input|
+|http.json.query.connection.check.frequency|1_000_000|The value to throttle check if client socket has been disconnected. It is not recommended to change this value|
+|http.json.query.float.scale|10|The scale value of string representation of `FLOAT` values|
+|http.bind.to|0.0.0.0:9000|IP address and port of HTTP server. 0 means that http server will bind to all network inerfaces. You can specify IP address of any indivudal network interface on your system|
 |http.security.readonly|false|Forces HTTP read only mode when `true`, which disables commands which modify the data or data structure.|
 |http.security.max.response.rows|Long.MAX_VALUE| Limit the number of response rows over HTTP.|
 |http.security.interrupt.on.closed.connection|true|Switch to turn on terminating SQL processing if the HTTP connection is closed, the mechanism affects performance so the connection is only checked after http.security.interruptor.iterations.per.check calls are made to the check method. The mechanism also reads from the input stream and discards it since some HTTP clients send this as a keep alive in between requests, http.security.interruptor.buffer.size denotes the size of the buffer for this.|
