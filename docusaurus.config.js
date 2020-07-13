@@ -91,7 +91,7 @@ module.exports = {
           items: [
             {
               label: "Web Console",
-              to: "docs/consoleGuide",
+              to: "docs/usingWebConsole",
             },
             {
               label: "Postgres Wire protocol (alpha)",
