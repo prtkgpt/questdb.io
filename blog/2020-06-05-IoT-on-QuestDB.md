@@ -34,9 +34,8 @@ great! Then all I have to do is start it:
 
 <a href="https://davidgs.com/wp-content/uploads/2020/06/StartQuest.gif">
   <img
-    class="wp-image-829"
     src="https://davidgs.com/wp-content/uploads/2020/06/StartQuest.gif"
-    alt=""
+    alt="Animation showing QuestDB being launched"
   />
 </a>
 
@@ -46,9 +45,8 @@ I'll need to create a table in QuestDB to store my IoT Data (A bit more on this
 later, so store a pointer to this).
 
 <img
-  title="Screen Shot 2020-06-04 at 9.15.33 AM.png"
+  alt="SQL query to create a table"
   src="https://davidgs.com/wp-content/uploads/2020/06/Screen-Shot-2020-06-04-at-9.15.33-AM-1.png"
-  alt="Screen Shot 2020 06 04 at 9 15 33 AM"
 />
 
 Remember, we're doing SQL here, so it there's no new language or syntax to
@@ -64,9 +62,8 @@ dollar or 2 each, easy to use, and largely disposable if I blow one up (which I
 do with alarming regularity.). The circuit is extremely simple to do:
 
 <img
-  title="Screen Shot 2020-06-04 at 9.24.39 AM.png"
+  alt="Sensor electrical schema"
   src="https://davidgs.com/wp-content/uploads/2020/06/Screen-Shot-2020-06-04-at-9.24.39-AM-1.png"
-  alt="Screen Shot 2020 06 04 at 9 24 39 AM"
 />
 
 I used an actual WEMOS Shield with the DHT11 on it, so I didn't have to
@@ -259,9 +256,8 @@ getting what you expect:
 
 <a href="https://davidgs.com/wp-content/uploads/2020/06/queries.gif">
   <img
-    class="wp-image-830"
+    alt="Running a SELECT query in the console"
     src="https://davidgs.com/wp-content/uploads/2020/06/queries.gif"
-    alt=""
   />
 </a>
 

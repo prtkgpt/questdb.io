@@ -23,7 +23,7 @@ combining SIMD with actual parallelisation and spanning the work across CPUs.
 QuestDB 4.2 introduces SIMD instructions, which made our aggregations faster by
 100x! QuestDB is available Open-Source (Apache 2.0) . If you like what we do,
 please consider [starring our repo](https://github.com/questdb/questdb)
-following us on Github and starring our project.
+following us on GitHub and starring our project.
 
 As of now, SIMD operations are available for non-keyed aggregation queries, such
 as `select sum(value) from table`. In future releases, we will extend these to

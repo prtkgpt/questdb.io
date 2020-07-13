@@ -228,7 +228,7 @@ This is a data iterator. The cursor has a fixed record instance, which is a
 moving window on the data set. `next()` calls push this "window" down one record
 at a time.
 
-<aside class="important">
+<aside className="important">
   <p>
     {" "}
     The `RecordCursor` must be explicitly released when no longer required in
