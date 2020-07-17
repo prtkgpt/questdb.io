@@ -4,8 +4,6 @@ title: ALTER TABLE COLUMN ADD INDEX
 sidebar_label: ALTER TABLE COLUMN ADD INDEX
 ---
 
-## Synopsis
-
 Adds an index to an existing column
 
 ## Syntax
@@ -22,7 +20,7 @@ new index for SQL executions.
 ## Example
 
 ```questdb-sql title="Adding an index"
-ALTER TABLE trades ALTER COLUMN symbol ADD INDEX
+ALTER TABLE trades ALTER COLUMN instrument ADD INDEX;
 ```
 
 :::info

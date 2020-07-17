@@ -4,8 +4,6 @@ title: ALTER TABLE DROP PARTITION
 sidebar_label: ALTER TABLE DROP PARTITION
 ---
 
-## Synopsis
-
 Drops a partition from an existing table.
 
 :::caution
@@ -45,13 +43,13 @@ Naming convention for partition directories is as follows:
 
 ```questdb-sql title="Drop a single partition"
 --DAY
-ALTER TABLE my_table DROP PARTITION '2019-05-18';
+ALTER TABLE measurements DROP PARTITION '2019-05-18';
 --MONTH
-ALTER TABLE my_table DROP PARTITION '2019-05';
+ALTER TABLE measurements DROP PARTITION '2019-05';
 --YEAR
-ALTER TABLE my_table DROP PARTITION '2019';
+ALTER TABLE measurements DROP PARTITION '2019';
 ```
 
 ```questdb-sql title="Drop multiple partitions"
-ALTER TABLE my_table DROP PARTITION '2018','2019';
+ALTER TABLE measurements DROP PARTITION '2018','2019';
 ```

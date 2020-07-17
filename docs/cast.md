@@ -29,24 +29,21 @@ where:
 ### Examples
 
 ```questdb-sql title="Queries"
-SELECT cast(3L + 2L as int), cast FROM long_sequence(1);
-SELECT cast(1578506142000000 as timestamp) FROM long_sequence(1);
-SELECT cast('10.2' as double) FROM long_sequence(1); --string to double
-SELECT cast('行' as int) FROM long_sequence(1);
+SELECT 
+cast(3L + 2L AS INT),
+cast(1578506142000000 AS TIMESTAMP),
+cast('10.2' AS DOUBLE),
+cast('行' AS INT);
 ```
 
-```script title="Results"
-| cast                        |
-|-----------------------------|
-| 5                           |
-| 2020-01-08T17:55:42.000000Z |
-| 10.2                        |
-| 34892                       |
-```
+| cast |cast1 |cast2 |cast3 |
+|---|---|---|---|
+|5                           | 2020-01-08T17:55:42.000000Z | 10.2                        | 34892                       |
 
-> Explicit casting of an expression to a smaller [data type](datatypes.md)
-> may result in loss of data when the output data type is smaller than the
-> expression.
+
+Explicit casting of an expression to a smaller [data type](datatypes.md)
+may result in loss of data when the output data type is smaller than the
+expression.
 
 - Casting a decimal number type (`float` or `double`) to an integer number type
   (`long`, `int`, `short`) will result in decimals drop.
@@ -58,18 +55,17 @@ SELECT cast('行' as int) FROM long_sequence(1);
 ### Precision loss examples
 
 ```questdb-sql title="Queries"
-SELECT cast(3.5 + 2 as int), cast FROM long_sequence(1);
-SELECT cast(7234623 as short) FROM long_sequence(1);
-SELECT cast(2334444.323 as short) FROM long_sequence(1);
+SELECT 
+cast(3.5 + 2 AS INT),
+cast(7234623 AS SHORT),
+cast(2334444.323 AS SHORT);
 ```
 
-```script title="Results"
-| cast                        |
-|-----------------------------|
-| 5                           | -- Loss of the decimals
-| 25663                       | -- Int truncated to Short*
-| -24852                      | -- Loss of decimals and integer part bits are truncated resulting in another number
-```
+
+| cast                        | cast1                       | cast2                       |
+|-----------------------------|-----------------------------|-----------------------------|
+| 5                           | 25663                       | -24852                      | 
+
 
 When casting numbers into a smaller data type, QuestDB will truncate the higher
 bits of this number.
@@ -101,21 +97,20 @@ lost.
 :::
 
 ```questdb-sql title="Queries"
-SELECT 1234L + 567 FROM long_sequence(1);
-SELECT 1234L + 0.567 FROM long_sequence(1);
-SELECT to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 323 FROM long_sequence(1);
-SELECT to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 0.323 FROM long_sequence(1);
+SELECT 
+1234L + 567, 
+1234L + 0.567,
+to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 323,
+to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss') + 0.323;
 ```
 
-```script title="Results"
-| 1801                           | -- Returns a long.
-| 1234.567                       | -- Implicit cast to double.
-| 2019-10-17T00:00:00.000323Z    | -- Returns a timestamp with an extra 323 microseconds.
-| 1571270400000000               | -- Implicit cast to double as timestamp are long integers.
-```
+|cast|cast1|cast2|cast3|
+|---|---|---|---
+| 1801   | 1234.567     | 2019-10-17T00:00:00.000323Z | 1571270400000000 |
 
-> When inserting into a table, QuestDB will cast data implicitly to match the
-> type of the destination column.
+
+When inserting into a table, QuestDB will cast data implicitly to match the
+type of the destination column.
 
 ```questdb-sql title="Example"
 -- We create a table with one column of type long
@@ -130,9 +125,10 @@ INSERT INTO my_table values((to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:
 SELECT * FROM my_table;
 ```
 
-```script title="Result"
-| 1571270400000000   | -- Returns a long.
-```
+|my_number|
+|---|
+| 1571270400000000   | 
+
 
 The above insert would have been equivalent to running with explicit cast, but
 QuestDB took care of this step automatically.
@@ -141,10 +137,11 @@ QuestDB took care of this step automatically.
 INSERT INTO my_table values
             (cast(
                 to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss')
-                as long
-            ))
+                AS LONG
+            ));
 ```
 
-```script title="Result"
+|my_number|
+|---|
 | 1571270400000000   |
-```
+

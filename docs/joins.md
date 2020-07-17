@@ -135,47 +135,38 @@ metadata.
 
 Consider the following tables.
 
-```script
-ASKS
-===================================
-ts,                          ask
------------------------------------
-2019-10-17T00:00:00.000000Z, 100
-2019-10-17T00:00:00.200000Z, 101
-2019-10-17T00:00:00.400000Z, 102
-```
+| ts |  ask |
+|---|---|
+|2019-10-17T00:00:00.000000Z| 100|
+|2019-10-17T00:00:00.200000Z| 101|
+|2019-10-17T00:00:00.400000Z| 102|
 
-```script
-BIDS
-=================================
- ts,                          bid
----------------------------------
- 2019-10-17T00:00:00.100000Z, 101
- 2019-10-17T00:00:00.300000Z, 102
- 2019-10-17T00:00:00.500000Z, 103
-```
+
+| ts |  bid |
+|---|---|
+|2019-10-17T00:00:00.100000Z| 101|
+|2019-10-17T00:00:00.300000Z| 102|
+|2019-10-17T00:00:00.500000Z| 103|
+
 
 Therefore the following query:
 
 ```questdb-sql
 SELECT
- BIDS.ts timebid,
+ bids.ts timebid,
  bid,
  ask
-FROM BIDS ASOF JOIN ASKS
+FROM bids ASOF JOIN asks
 ```
 
-Will return the following results
+Will return the following 
 
-```script
-RESULTS
-=================================================
-timebid                      bid        ask
--------------------------------------------------
-2019-10-17T00:00:00.100000Z, 100,      100
-2019-10-17T00:00:00.300000Z, 101,      101
-2019-10-17T00:00:00.500000Z, 102,      102
-```
+|timebid   |                   bid |       ask|
+|---|---|---|
+|2019-10-17T00:00:00.100000Z| 100|      100|
+|2019-10-17T00:00:00.300000Z| 101|      101|
+|2019-10-17T00:00:00.500000Z| 102|      102|
+
 
 :::note
 There is no `ASKS` at timestamp `2019-10-17T00:00:00.100000Z`. The
@@ -188,10 +179,10 @@ chronological order, timestamp columns can be specified at runtime:
 
 ```questdb-sql
 SELECT
- BIDS.ts timebid,
+ bids.ts timebid,
  bid,
  ask
-FROM (BIDS timestamp(ts)) ASOF JOIN (ASKS timestamp (ts))
+FROM (bids timestamp(ts)) ASOF JOIN (asks timestamp (ts))
 ```
 
 :::caution
@@ -206,7 +197,7 @@ If both tables store data for multiple instruments `ON` clause will allow you to
 find bids for asks with matching instrument value.
 
 ```questdb-sql
-SELECT * FROM ASKS ASOF JOIN BIDS ON (instrument);
+SELECT * FROM asks ASOF JOIN bids ON (instrument);
 ```
 
 ## SPLICE JOIN
@@ -222,31 +213,27 @@ left table.
 
 Considering the following tables.
 
-```script
-ASKS
-===================================
-ts,                          ask
------------------------------------
-2019-10-17T00:00:00.000000Z, 100
-2019-10-17T00:00:00.200000Z, 101
-2019-10-17T00:00:00.400000Z, 102
-```
+| ts                         |ask|
+|---|---|
+|2019-10-17T00:00:00.000000Z| 100|
+|2019-10-17T00:00:00.200000Z| 101|
+|2019-10-17T00:00:00.400000Z| 102|
 
-```script
-BIDS
-=================================
- ts,                          bid
----------------------------------
- 2019-10-17T00:00:00.100000Z, 101
- 2019-10-17T00:00:00.300000Z, 102
- 2019-10-17T00:00:00.500000Z, 103
-```
+
+
+|ts                         |bid|
+|---|---|
+|2019-10-17T00:00:00.100000Z| 101|
+|2019-10-17T00:00:00.300000Z| 102|
+|2019-10-17T00:00:00.500000Z| 103|
+
+
 
 This query:
 
 ```questdb-sql
 SELECT ts timebid, bid, ask
-FROM BIDS SPLICE JOIN ASKS
+FROM bids SPLICE JOIN asks
 ```
 
 Will return the following results
@@ -270,11 +257,11 @@ follows:
 
 ```questdb-sql
 SELECT ts timebid, instrument bidInstrument, bid, ask
-FROM BIDS
+FROM bids
 SPLICE JOIN
     (
     SELECT ts timesask, instrument askInstrument, ask ask
-    FROM ASKS
+    FROM asks
     )
     ON bidInstrument=askInstrument;
 ```

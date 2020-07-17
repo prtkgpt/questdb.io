@@ -4,8 +4,6 @@ title: ALTER TABLE DROP COLUMN
 sidebar_label: ALTER TABLE DROP COLUMN
 ---
 
-## Synopsis
-
 Drops a column from an existing table.
 
 :::caution
@@ -39,5 +37,5 @@ The following example deletes the column called `comment` from the table
 `ratings`
 
 ```questdb-sql title="Dropping a column"
-ALTER TABLE ratings DROP COLUMN comment
+ALTER TABLE ratings DROP COLUMN movieId;
 ```
