@@ -3,15 +3,13 @@ title: Docker
 ---
 
 QuestDB has images for both Linux/macOS and Windows on
-[Docker Hub]({@dockerUrl}).
+[Docker Hub]({@dockerUrl@}).
 
 ## Install Docker
 
 Please follow the [official documentation](https://docs.docker.com/get-docker/).
 
 ## Using the image
-
-We publish our images to [Docker Hub]({@dockerUrl@}).
 
 If you never fetched QuestDB's image, you can run:
 

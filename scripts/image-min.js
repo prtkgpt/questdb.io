@@ -37,6 +37,9 @@ if (process.env.NETLIFY === "true") {
           {
             removeUnknownsAndDefaults: false,
           },
+          {
+            convertShapeToPath: false,
+          },
         ],
       }),
     ],

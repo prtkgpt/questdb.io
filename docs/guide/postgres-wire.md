@@ -20,7 +20,7 @@ This guide assumes you have installed QuestDB and have it running.
 
 ## How to Install psql
 
-You can check if you already have psql installed with
+You can check if you already have psql installed with:
 
 ```shell title="Check psql version"
 psql --version
@@ -127,7 +127,7 @@ table with test data.
 
 #### Manual insert
 
-We can insert data points manually as follows
+We can insert data points manually as follows:
 
 ```questdb-sql title="Inserting values"
 INSERT INTO temp VALUES(

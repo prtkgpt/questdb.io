@@ -4,7 +4,7 @@ sidebar_label: Web Console
 ---
 
 The web-console allows you to quickly interact with your data. In this guide, we
-will show you how to import data,
+will show you how to import data.
 
 ![Overview of the Web Console](/img/docs/console/overview.png)
 

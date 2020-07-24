@@ -15,7 +15,7 @@ For complete information on how to use QuestDB's binary, please refer to the
 
 ## Setup QuestDB
 
-You need Java 11 or above. You can check your installation as follows
+You need Java 11 or above. You can check your installation as follows:
 
 ```shell
 java -version

@@ -284,7 +284,7 @@ SELECT rnd_double(2) FROM long_sequence(1_000_000_000l); -- with nulls
 
 #### Non-null
 
-For non-null values, we adjusted the commands as follows
+For non-null values, we adjusted the commands as follows:
 
 - use `test_double_not_nul.csv` instead of `test_double.csv`.
 - for Clickhouse, skip declaring val as `nullable`:
