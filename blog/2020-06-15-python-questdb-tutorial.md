@@ -11,7 +11,7 @@ A short tutorial for Querying data from QuestDB in a Jupyter Notebook.
 
 <!-- truncate -->
 
-## Getting Started
+## Getting started
 
 To get started, you'll need a few things installed and set up. This should be
 quick.
@@ -20,9 +20,9 @@ quick.
 [Installation](https://questdb.io/docs/introduction#guides) for complete
 instructions in case you want to use
 [Docker](https://questdb.io/docs/guide/docker), or
-[brew](https://questdb.io/docs/guide/homebrew) on MacOS, but the easiest way is
+[brew](https://questdb.io/docs/guide/homebrew) on macOS, but the easiest way is
 to download the binaries and run it directly. Instructions for that are
-[Here](https://questdb.io/docs/guide/binaries).
+[in the official documentation](https://questdb.io/docs/guide/binaries).
 
 **Jupyter Notebooks:** These are interactive Python environments that will help
 you run a complete version of this tutorial interactively. To run it, you
@@ -46,7 +46,7 @@ of the libraries you installed above, double-check to make sure that you are
 actually using Python 3.x `jupytper --path` will let you know if Jupyter is
 using 2.7 or 3.x
 
-## Create A Database
+## Create a database
 
 We will need someplace to store our data, so let's create a test database where
 we can put some random data.
@@ -87,7 +87,7 @@ import requests import urllib.parse as par
   print(r.status_code)
 ```
 
-## Generate Some Data
+## Generate some data
 
 Since we have a new setup, we should add some data to QuestDB so that we can
 have something to query.
@@ -126,7 +126,7 @@ for x in range(1000):
     print("Rows Failed: " + str(fail))
 ```
 
-## Query Data From QuestDB
+## Query data from QuestDB
 
 Now that we have data available, let's try querying some of it to see what we
 get back!
@@ -140,7 +140,7 @@ rawData = r.text
 print(rawData)
 ```
 
-## Read The Content Into Pandas Dataframe
+## Read the content into pandas dataframe
 
 So you'll notice that the returned data is just a massive CSV string. If you'd
 rather have JSON data, then you would change the endpoint to
@@ -158,7 +158,7 @@ pData = pd.read_csv(io.StringIO(rawData), parse_dates=['timestamp'])
 print(pData)
 ```
 
-## Narrow The Search
+## Narrow the search
 
 That's just getting us all the data, but let's narrow the search using some SQL
 clauses.
@@ -197,7 +197,7 @@ rawData = pd.read_csv(io.StringIO(queryData), parse_dates=['timestamp'])
 print(rawData)
 ```
 
-## Plot The Data
+## Plot the data
 
 We will use matplotlib to plot the data
 
@@ -211,7 +211,7 @@ From that query we should get a nice little plot of our data, like this:
 
 ![Graph of the balance from the query](/img/blog/2020-06-15/graph.png)
 
-## Clean Up
+## Clean up
 
 Now we will clean everything up for the next time.
 
@@ -227,6 +227,6 @@ You can now stop your QuestDB instance, if you'd like, or leave it running and
 find some great uses for it!
 
 If you enjoyed this tutorial, please
-[follow us](https://twitter.com/intent/follow?screen_name=QuestDB) on twitter,
+[follow us](https://twitter.com/intent/follow?screen_name=QuestDB) on Twitter,
 and make sure you give our
 [GitHub repository](https://github.com/questdb/questdb) a star!

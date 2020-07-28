@@ -77,7 +77,7 @@ different entries, QuestDB will adapt on the fly.
 InfluxDB line protocol makes it possible to send data under different shapes.
 Each new entry may contain certain metadata tags or readings, and others not.
 Whilst the example just above highlights structured data, it is possible for
-Influx line protocol users to send data as follows.
+InfluxDB line protocol users to send data as follows.
 
 ```shell
 readings,city=London temperature=23.2 1465839830100400000
@@ -182,7 +182,7 @@ one thread. The UDP worker thread can work either on its own thread or use the
 common thread pool. It supports both multicast and unicast.
 
 Find an example of how to use this in the
-[InfluxDB sender library section](java#influxdb-sender-library).
+[InfluxDB sender library section](/docs/api/java/#influxdb-sender-library).
 
 ### Overview
 

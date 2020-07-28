@@ -58,7 +58,7 @@ const Console = () => {
             />
             <div className={consoleStyles.console__label}>Open source</div>
             <div className={consoleStyles.console__summary}>
-              QuestDB is open source. Follow us on Github. Watch the repo to get
+              QuestDB is open source. Follow us on GitHub. Watch the repo to get
               notified of further releases and new features!
             </div>
 

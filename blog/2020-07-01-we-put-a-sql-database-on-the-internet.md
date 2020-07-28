@@ -64,7 +64,7 @@ performed on whatever queries they threw at it.
 
 It was not disappointing!
 
-## The Hacker News post
+## The HackerNews post
 
 > A few weeks ago, we wrote about how we implemented SIMD instructions to
 > aggregate a billion rows in milliseconds [1] thanks in great part to Agner
@@ -164,7 +164,7 @@ We saw only a couple of bad actors try something cute:
 
 But those didn't work. We may be crazy, but we're not naive.
 
-## What We Learned
+## What we learned
 
 It turns out that when you do something like this, you learn a lot. You learn
 about your strengths and your weaknesses. And you learn about what users want to
@@ -213,12 +213,12 @@ Yes, the demo did break the Back button on your browser. There's an actual
 reason for that, but it is true, for now. We're definitely addressing that one
 right away.
 
-# Try It Yourself
+# Try it yourself
 
 Want to try it yourself? You've read this far, you really should! got to
 [http://try.questdb.io:9000/](http://try.questdb.io:9000/) to give it a whirl.
 
 We'd love to have you join us on our
-[Community Slack](https://questdb.slack.com/) Channel, give us a
-[Star](https://github.com/questdb/questdb) on GitHub, and
-[Download](https://questdb.io/getstarted) and try it yourself!
+[community Slack](https://questdb.slack.com/) channel, give us a
+[star](https://github.com/questdb/questdb) on GitHub, and
+[download](https://questdb.io/getstarted) and try it yourself!
