@@ -38,6 +38,7 @@
 .jumbotron__description {
   color: var(--palette-pink);
   font-size: var(--font-size-large);
+  text-align: center;
 }
 
 .jumbotron__right {
