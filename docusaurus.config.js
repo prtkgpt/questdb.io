@@ -4,7 +4,8 @@ const customFields = {
   copyright: `Copyright © ${new Date().getFullYear()} QuestDB`,
   dockerUrl: "https://hub.docker.com/r/questdb/questdb",
   githubUrl: "https://github.com/questdb/questdb",
-  slackUrl: "https://questdb.slack.com",
+  slackUrl:
+    "https://questdb.slack.com/join/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY#/",
   twitterUrl: "https://twitter.com/questdb",
   version: "5.0.2",
 }

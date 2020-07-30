@@ -218,7 +218,6 @@ right away.
 Want to try it yourself? You've read this far, you really should! got to
 [http://try.questdb.io:9000/](http://try.questdb.io:9000/) to give it a whirl.
 
-We'd love to have you join us on our
-[community Slack](https://questdb.slack.com/) channel, give us a
-[star](https://github.com/questdb/questdb) on GitHub, and
+We'd love to have you join us on our [community Slack]({@slackUrl@}) channel,
+give us a [star](https://github.com/questdb/questdb) on GitHub, and
 [download](https://questdb.io/getstarted) and try it yourself!

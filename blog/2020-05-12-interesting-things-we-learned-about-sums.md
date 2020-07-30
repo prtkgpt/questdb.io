@@ -320,6 +320,5 @@ It was also both interesting and surprising to be able to quantify the effect of
 prefetch on what is essentially sequential memory read.
 
 Your support means a lot to us! If you like content like this, what we do, and
-where we're going, please
-[join our community](https://join.slack.com/t/questdb/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY>)
-and give us a [star️]({@githubUrl@}) on GitHub.
+where we're going, please [join our community]({@slackUrl}) and give us a
+[star️]({@githubUrl@}) on GitHub.

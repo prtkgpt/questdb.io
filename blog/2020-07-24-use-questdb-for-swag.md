@@ -48,7 +48,7 @@ The easiest level:
 
 - [Follow](https://twitter.com/intent/follow?screen_name=QuestDB) us on Twitter
   -- Don't forget to send us a tweet so we know you're there!.
-- [Join](https://questdb.slack.com/) our Slack community
+- [Join]({@slackUrl@}) our Slack community
 - Send us your address (because how else are we going to send them?)
 
 ### Level 2: You're cool, but just really busy
@@ -64,7 +64,7 @@ This level's pretty easy to get. Just do the following:
 - [Follow](https://twitter.com/intent/follow?screen_name=QuestDB) us on Twitter
 - Send out a tweet about how much you like QuestDB -- and that you gave us a 🌟
   on GitHub! (Don't forget to @QuestDB so we can see it!)
-- [Join](https://questdb.slack.com/) our Slack community
+- [Join]({@slackUrl@}) our Slack community
 - Send us your mailing address!
 
 ### Level 3: QuestDB Early Adopter
@@ -78,7 +78,7 @@ pin and the stickers, of course, because you're a super-fan!
 
 At this level we assume you already
 [follow](https://twitter.com/intent/follow?screen_name=QuestDB) us and are a
-member of our [community](https://questdb.slack.com/), but if not, please do!
+member of our [community]({@slackUrl@}), but if not, please do!
 
 How do you get this level? Just do the following:
 

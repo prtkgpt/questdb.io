@@ -40,6 +40,6 @@ We are happy to help with any question you may have, particularly to help you
 optimise the performance of your application. Feel free to reach out using the
 following channels:
 
-- [Ask a question on Slack](https://join.slack.com/t/questdb/shared_invite/enQtNzk4Nzg4Mjc2MTE2LTEzZThjMzliMjUzMTBmYzVjYWNmM2UyNWJmNDdkMDYyZmE0ZDliZTQxN2EzNzk5MDE3Zjc1ZmJiZmFiZTIwMGY>)
+- [Ask a question on Slack]({@slackUrl@})
 - [Raise an issue on GitHub]({@githubUrl@}/issues)
 - or send us an email at [hello@questdb.io](mailto:hello@questdb.io)
