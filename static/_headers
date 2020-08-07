@@ -1,12 +1,40 @@
-/*
-  Content-Security-Policy: default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com 'sha256-VCQSWtLbqzzaaPxlW4gFrQN9lH+v6DKW4wBUqGfn5u4=' 'sha256-ATtoF2oBGf0wHxVVte8/6al1uii1Q2BFUqFp/aYKx9E='; img-src 'self' https://api.producthunt.com https://www.google-analytics.com https://avatars.githubusercontent.com https://stats.g.doubleclick.net; connect-src 'self' https://www.google-analytics.com https://*.algolia.net https://*.algolianet.com; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 /
-  Content-Security-Policy: default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com 'sha256-VCQSWtLbqzzaaPxlW4gFrQN9lH+v6DKW4wBUqGfn5u4=' 'sha256-ATtoF2oBGf0wHxVVte8/6al1uii1Q2BFUqFp/aYKx9E='; img-src 'self' https://api.producthunt.com https://www.google-analytics.com https://avatars.githubusercontent.com https://stats.g.doubleclick.net; connect-src 'self' https://www.google-analytics.com https://*.algolia.net https://*.algolianet.com; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+  Report-To: {"group":"rui","max_age":31536000,"endpoints":[{"url":"https://questdb.report-uri.com/a/d/g"}],"include_subdomains":false}
+  Content-Security-Policy: default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com 'sha256-VCQSWtLbqzzaaPxlW4gFrQN9lH+v6DKW4wBUqGfn5u4=' 'sha256-ATtoF2oBGf0wHxVVte8/6al1uii1Q2BFUqFp/aYKx9E='; img-src 'self' https://api.producthunt.com https://www.google-analytics.com https://avatars.githubusercontent.com https://stats.g.doubleclick.net data:; connect-src 'self' https://www.google-analytics.com https://*.algolia.net https://*.algolianet.com; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri https://questdb.report-uri.com/r/d/csp/enforce; report-to rui;
+  NEL: {"report_to":"report-uri","max_age":31536000,"include_subdomains":false}
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Feature-Policy: camera 'none'; geolocation 'none'; microphone 'none';
+  Strict-Transport-Security: max-age=300
+  Cache-Control: public, max-age=60
+
+/*
+  Report-To: {"group":"rui","max_age":31536000,"endpoints":[{"url":"https://questdb.report-uri.com/a/d/g"}],"include_subdomains":false}
+  Content-Security-Policy: default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com 'sha256-VCQSWtLbqzzaaPxlW4gFrQN9lH+v6DKW4wBUqGfn5u4=' 'sha256-ATtoF2oBGf0wHxVVte8/6al1uii1Q2BFUqFp/aYKx9E='; img-src 'self' https://api.producthunt.com https://www.google-analytics.com https://avatars.githubusercontent.com https://stats.g.doubleclick.net data:; connect-src 'self' https://www.google-analytics.com https://*.algolia.net https://*.algolianet.com; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri https://questdb.report-uri.com/r/d/csp/enforce; report-to rui;
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Feature-Policy: camera 'none'; geolocation 'none'; microphone 'none';
+  Strict-Transport-Security: max-age=300
+  Cache-Control: public, max-age=60
+
+/*.html
+  NEL: {"report_to":"report-uri","max_age":31536000,"include_subdomains":false}
+
+/*.*.js
+  Cache-Control: public, max-age=31536000
+
+/*.*.txt
+  Cache-Control: public, max-age=31536000
+
+/*.*.css
+  Cache-Control: public, max-age=31536000
+
+/img/*
+  Cache-Control: public, max-age=172800
+
+/manifest.webmanifest
+  Cache-Control: public, max-age=172800
