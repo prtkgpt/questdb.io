@@ -136,6 +136,7 @@ module.exports = {
             "reference/sql/truncate",
             "reference/sql/union",
             "reference/sql/where",
+            "reference/sql/with",
           ],
         },
         {
