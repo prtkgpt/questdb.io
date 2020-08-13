@@ -186,7 +186,7 @@ const Jumbotron = () => {
               <img
                 alt="GitHub logo"
                 height="26"
-                src="img/github.svg"
+                src="/img/github.svg"
                 title="GitHub"
                 width="26"
               />
@@ -211,7 +211,7 @@ docker run -p 9000:9000 questdb/questdb`}
             <img
               alt="Docker logo"
               className={jumbotronStyles["jumbotron__docker-icon"]}
-              src="img/pages/index/docker.svg"
+              src="/img/pages/index/docker.svg"
               title="Docker"
               width="60"
             />
@@ -231,7 +231,7 @@ const Feature = () => (
         <img
           alt="Speedometer"
           className={featureStyles.feature__illustration}
-          src="img/pages/index/rawPower.svg"
+          src="/img/pages/index/rawPower.svg"
         />
 
         <h2 className={featureStyles.feature__title}>Built for performance</h2>
@@ -257,7 +257,7 @@ const Feature = () => (
         <img
           alt="A code editor with a chart that shows the result of the query"
           className={featureStyles.feature__illustration}
-          src="img/pages/index/easyToUse.svg"
+          src="/img/pages/index/easyToUse.svg"
         />
 
         <h2 className={featureStyles.feature__title}>
@@ -284,7 +284,7 @@ const Feature = () => (
         <img
           alt="A code editor containing a SQL statement"
           className={featureStyles.feature__illustration}
-          src="img/pages/index/featureRich.svg"
+          src="/img/pages/index/featureRich.svg"
         />
 
         <h2 className={featureStyles.feature__title}>Implemented with SQL</h2>
@@ -414,7 +414,7 @@ const Console = () => {
         <img
           alt="Artistic view of QuestDB's Web Console split in 3 components: the navigation tree, the SQL code editor and data displayed as a chart"
           className={consoleStyles.console__illustration}
-          src="img/pages/index/console.svg"
+          src="/img/pages/index/console.svg"
         />
 
         <div className={consoleStyles.console__footer}>
@@ -426,7 +426,7 @@ const Console = () => {
           >
             <img
               alt="Postgres logo"
-              src="img/pages/index/pgwire.svg"
+              src="/img/pages/index/pgwire.svg"
               title="Postgres"
             />
             <h3 className={consoleStyles.console__label}>
@@ -441,7 +441,7 @@ const Console = () => {
           <div className={consoleStyles.console__highlight}>
             <img
               alt="Antenna"
-              src="img/pages/index/foss.svg"
+              src="/img/pages/index/foss.svg"
               title="Open source"
             />
             <h3 className={consoleStyles.console__label}>Open source</h3>

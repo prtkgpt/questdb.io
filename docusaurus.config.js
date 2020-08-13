@@ -43,7 +43,7 @@ module.exports = {
   tagline: "QuestDB is the fastest open source time series database",
   url: "https://questdb.io",
   baseUrl: "/",
-  favicon: "img/favicon.png",
+  favicon: "/img/favicon.png",
   organizationName: "QuestDB",
   projectName: "questdb",
   customFields,
@@ -121,7 +121,7 @@ module.exports = {
       disableSwitch: true,
       respectPrefersColorScheme: false,
     },
-    image: "img/og.png",
+    image: "/img/og.png",
     gtag: {
       trackingID: "GTM-PVR7M2G",
       anonymizeIP: true,
@@ -138,7 +138,7 @@ module.exports = {
       title: " ",
       logo: {
         alt: "QuestDB",
-        src: "img/navbar/questdb.svg",
+        src: "/img/navbar/questdb.svg",
       },
       items: [
         {
