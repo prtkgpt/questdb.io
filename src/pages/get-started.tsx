@@ -138,7 +138,8 @@ const GetStarted = () => {
           You can find below download links for the latest version of QuestDB (
           {siteConfig.customFields.version}). Once your download is finished,
           run QuestDB and use the&nbsp;
-          <a href="docs/guide/web-console">Web Console guide</a> to get started.
+          <a href="/docs/guide/web-console">Web Console guide</a> to get
+          started.
         </p>
 
         <IdealImage
@@ -380,7 +381,7 @@ brew install questdb`}
             <p>
               To find out more about how to use the binaries, please check
               the&nbsp;
-              <a href="docs/guide/binaries">dedicated documentation</a>.
+              <a href="/docs/guide/binaries">dedicated documentation</a>.
             </p>
             <p>
               Check out the{" "}

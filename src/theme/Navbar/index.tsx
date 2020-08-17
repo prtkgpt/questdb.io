@@ -81,7 +81,6 @@ function Navbar(): JSX.Element {
               role="img"
               focusable="false"
             >
-              <title>Menu</title>
               <path
                 stroke="currentColor"
                 strokeLinecap="round"
