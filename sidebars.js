@@ -37,6 +37,16 @@ module.exports = {
       items: [
         {
           type: "category",
+          label: "Integrations",
+          items: [
+            "guide/integrations/go",
+            "guide/integrations/jdbc",
+            "guide/integrations/nodejs",
+            "guide/integrations/psql",
+          ],
+        },
+        {
+          type: "category",
           label: "Setting up QuestDB",
           items: ["guide/docker", "guide/homebrew", "guide/binaries"],
         },
