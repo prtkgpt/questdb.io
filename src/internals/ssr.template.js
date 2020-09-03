@@ -23,7 +23,7 @@ module.exports = ({ customFields, favicon, organizationName, url }) => `
     <meta name="generator" content="Docusaurus v<%= it.version %>">
     <link href="https://www.googletagmanager.com" rel="dns-prefetch" />
     <link href="https://www.google-analytics.com" rel="dns-prefetch" />
-    <link rel="shortcut icon" href="${url}/${favicon}" />
+    <link rel="shortcut icon" href="${url}${favicon}" />
     ${iconSizes
       .map(
         (size) =>
@@ -42,8 +42,8 @@ module.exports = ({ customFields, favicon, organizationName, url }) => `
   <body <%~ it.bodyAttributes %> itemscope="" itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="${customFields.oneLiner}" />
     <meta itemprop="description" content="${customFields.description}" />
-    <meta itemprop="url" content="${url}/" />
-    <meta itemprop="logo" content="${url}/${favicon}" />
+    <meta itemprop="url" content="${url}" />
+    <meta itemprop="logo" content="${url}${favicon}" />
     <meta itemprop="sameAs" content="${customFields.twitterUrl}" />
     <meta itemprop="sameAs" content="${customFields.linkedInUrl}" />
     <%~ it.preBodyTags %>
