@@ -1,7 +1,9 @@
 ---
 title: How to perform CRUD operations
 sidebar_label: CRUD operations
-description: Tutorial on how to perform CRUD operations.
+description:
+  Tutorial showing how to perform CRUD operations with QuestDB. This will help
+  you understand QuestDB's data model.
 ---
 
 QuestDB's data store is mostly meant to be immutable. While we plan to support
@@ -40,7 +42,9 @@ import TabItem from "@theme/TabItem"
   { label: "JDBC", value: "jdbc" }
 ]}>
 
+
 <TabItem value="sql">
+
 
 ```questdb-sql
 CREATE TABLE balances (
@@ -56,6 +60,7 @@ CREATE TABLE balances (
 </TabItem>
 <TabItem value="rest">
 
+
 ```shell
 curl -G "http://localhost:13005/exec" --data-urlencode "query=
 create table balances (
@@ -69,6 +74,7 @@ create table balances (
 
 </TabItem>
 <TabItem value="java">
+
 
 ```java
 final String cairoDatabaseRoot = "/tmp";
@@ -89,6 +95,7 @@ try (CairoEngine engine = new CairoEngine(
 
 </TabItem>
 <TabItem value="jdbc">
+
 
 ```java
 Properties properties = new Properties();
@@ -114,6 +121,7 @@ connection.close();
 </TabItem>
 </Tabs>
 
+
 - `cust_id` is the customer identifier. It uniquely identifies customer.
 - `balance_ccy` balance currency. We use `SYMBOL` here to avoid storing text
   against each record to save space and increase database performance.
@@ -133,6 +141,7 @@ Let's now insert a few records:
 ]}>
 <TabItem value="sql">
 
+
 ```questdb-sql
 INSERT INTO balances (cust_id, balance_ccy, balance, timestamp)
 VALUES (1, 'USD', 1500.00, 1587571882704665);
@@ -151,6 +160,7 @@ VALUES (2, 'EUR', 880.20, 1587572314404665);
 </TabItem>
 <TabItem value="rest">
 
+
 ```shell
 curl -G "http://localhost:13005/exec" --data-urlencode "query=
 insert into balances (cust_id, balance_ccy, balance, timestamp)
@@ -159,6 +169,7 @@ insert into balances (cust_id, balance_ccy, balance, timestamp)
 
 </TabItem>
 <TabItem value="java">
+
 
 ```java
 CairoConfiguration configuration = new DefaultCairoConfiguration(".");
@@ -198,6 +209,7 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
 </TabItem>
 <TabItem value="jdbc">
 
+
 ```java
 Properties properties = new Properties();
 properties.setProperty("user", "admin");
@@ -223,6 +235,7 @@ connection.close();
 
 </TabItem>
 </Tabs>
+
 
 Our resulting table looks like the following.
 
@@ -250,12 +263,14 @@ and read the resulting table (see tab `Java SQL`).
 ]}>
 <TabItem value="sql">
 
+
 ```questdb-sql
 balances;
 ```
 
 </TabItem>
 <TabItem value="rest">
+
 
 ```shell
 curl -G "http://localhost:9000/exec" \
@@ -264,6 +279,7 @@ curl -G "http://localhost:9000/exec" \
 
 </TabItem>
 <TabItem value="javasql">
+
 
 ```java
 final String cairoDatabaseRoot = "/tmp";
@@ -290,6 +306,7 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
 </TabItem>
 <TabItem value="javaraw">
 
+
 ```java
 CairoConfiguration configuration = new DefaultCairoConfiguration(".");
 try (CairoEngine engine = new CairoEngine(configuration)) {
@@ -311,6 +328,7 @@ try (CairoEngine engine = new CairoEngine(configuration)) {
 
 </TabItem>
 <TabItem value="jdbc">
+
 
 ```java
 Properties properties = new Properties();
@@ -336,6 +354,7 @@ connection.close();
 
 </TabItem>
 </Tabs>
+
 
 The results are shown below
 

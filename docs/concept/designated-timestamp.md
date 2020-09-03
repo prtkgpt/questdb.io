@@ -1,7 +1,9 @@
 ---
 title: Designated timestamp
 sidebar_label: Designated timestamp
-description: Designated timestamp functionality for time-series.
+description:
+  How designated timestamps are implemented and why it is an important
+  functionality for time-series.
 ---
 
 QuestDB offers the option to elect a column as `designated timestamp`. This
@@ -20,7 +22,7 @@ out-of-order inserts.
 :::tip
 
 To elect a timestamp column on the fly, please refer to the
-[dynamic timestamp](/docs/reference/sql/timestamp/) documentation.
+[dynamic timestamp](/docs/reference/function/timestamp/) documentation.
 
 :::
 

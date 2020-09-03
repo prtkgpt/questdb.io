@@ -1,7 +1,9 @@
 ---
 title: How to use QuestDB from the binaries
 sidebar_label: From the binaries
-description: Tutorial on how to use the binaries to install and launch QuestDB.
+description:
+  Tutorial showing how to use the binaries to install and launch QuestDB. The
+  binaries can be download from our GetStarted page.
 ---
 
 This guides shows how to install QuestDB using the binaries and how to start
@@ -55,7 +57,9 @@ import TabItem from "@theme/TabItem"
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh start
@@ -63,7 +67,9 @@ import TabItem from "@theme/TabItem"
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe start
@@ -71,7 +77,9 @@ questdb.exe start
 
 </TabItem>
 
+
 </Tabs>
+
 
 This will run QuestDB with the following
 [root directory](/docs/reference/configuration/root-directory-structure/):
@@ -82,7 +90,9 @@ This will run QuestDB with the following
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="linux">
+
 
 ```shell
 $HOME/.questdb
@@ -90,7 +100,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 /usr/local/var/questdb/
@@ -98,7 +110,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 .\qdbroot
@@ -106,7 +120,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 </Tabs>
+
 
 ## Status
 
@@ -133,7 +149,9 @@ Stop the QuestDB service as follows:
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh stop
@@ -141,12 +159,15 @@ Stop the QuestDB service as follows:
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe stop
 ```
 
 </TabItem>
+
 
 </Tabs>
