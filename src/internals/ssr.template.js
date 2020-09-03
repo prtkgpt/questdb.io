@@ -43,7 +43,6 @@ module.exports = ({ customFields, favicon, organizationName, url }) => `
     <meta itemprop="name" content="${customFields.oneLiner}" />
     <meta itemprop="description" content="${customFields.description}" />
     <meta itemprop="url" content="${url}/" />
-    <meta itemprop="author" content="${organizationName}" />
     <meta itemprop="logo" content="${url}/${favicon}" />
     <meta itemprop="sameAs" content="${customFields.twitterUrl}" />
     <meta itemprop="sameAs" content="${customFields.linkedInUrl}" />
