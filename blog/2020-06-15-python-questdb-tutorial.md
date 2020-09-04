@@ -4,7 +4,8 @@ author: David G Simmons
 author_title: QuestDB Team
 author_url: https://github.com/davidgs
 author_image_url: https://avatars.githubusercontent.com/davidgs
-description: Querying data from QuestDB in a Jupyter notebook in Python.
+description:
+  Querying data from QuestDB in a Jupyter notebook in a Python application.
 tags: [python, jupyter, tutorial]
 ---
 

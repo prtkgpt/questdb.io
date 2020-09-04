@@ -1,6 +1,8 @@
 ---
 title: InfluxDB line protocol
-description: How to use InfluxDB line protocol.
+description:
+  Tutorial showing how to use InfluxDB line protocol. QuestDB can listen for
+  packets both over TCP and UDP.
 ---
 
 InfluxDB line protocol ingestion makes it easy for existing InfluxDB users to
@@ -10,7 +12,7 @@ It is not necessary to create a table schema beforehand: the table will be
 created on the fly. If new columns are added, the table is automatically updated
 to reflect the new structure.
 
-QuestDB can listen for Line protocol packets both over [TCP](#tcp-receiver) and
+QuestDB can listen for line protocol packets both over [TCP](#tcp-receiver) and
 [UDP](#udp-receiver).
 
 ## Using line protocol

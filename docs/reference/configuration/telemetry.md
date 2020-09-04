@@ -1,7 +1,7 @@
 ---
 title: Telemetry
 sidebar_label: Telemetry
-description: What data QuestDB collects and how to disable telemetry collection
+description: What data QuestDB collects and how to disable telemetry collection.
 ---
 
 QuestDB sends telemetry data with information about usage which helps us improve

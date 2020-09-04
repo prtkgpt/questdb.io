@@ -1,7 +1,9 @@
 ---
 title: Symbol
 sidebar_label: Symbol
-description: Documentation of the symbol data type.
+description:
+  Description of the symbol data type. This QuestDB specific type is used to
+  store repetitive strings in order to enable certain optimizations.
 ---
 
 QuestDB introduces a specific data type called `symbol`. It is a data structure

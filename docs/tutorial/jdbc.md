@@ -1,7 +1,7 @@
 ---
 title: JDBC tutorial
 sidebar_label: JDBC
-description: Tutorial showing how build a Java application with QuestDB
+description: Tutorial showing how to build a Java application with QuestDB.
 ---
 
 This tutorial uses the official

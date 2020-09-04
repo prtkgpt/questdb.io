@@ -1,7 +1,7 @@
 ---
 title: Go tutorial
 sidebar_label: Go
-description: Tutorial showing how to build a Go application with QuestDB
+description: Tutorial showing how to build a Go application with QuestDB.
 ---
 
 This tutorial uses the [Go "pq" driver](https://godoc.org/github.com/lib/pq) to

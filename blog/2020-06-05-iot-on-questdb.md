@@ -4,8 +4,10 @@ author: David G Simmons
 author_title: QuestDB Team
 author_url: https://github.com/davidgs
 author_image_url: https://avatars.githubusercontent.com/davidgs
+description:
+  Demonstration of an IoT application with QuestDB. This is based on an Arduino
+  device.
 tags: [iot]
-description: A use-case of QuestDB in an IoT setting.
 ---
 
 As you can well imagine, I've been super busy in my hew job at QuestDB so this
@@ -163,7 +165,7 @@ database
 If you were paying attention, and read the code, you'll have noticed the UDP
 stuff I snuck in there. That's because we're going to make this super easy and
 use UDP to send our data. And there's a <strong>really</strong> good reason for
-that: InfluxDB line protocol. You see, QuestDB has a built-in InfluxDB Line
+that: InfluxDB line protocol. You see, QuestDB has a built-in InfluxDB line
 Protocol listener, but (for now) it's only listening on a UDP port. So we're
 going to use that.
 

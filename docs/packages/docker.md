@@ -1,6 +1,8 @@
 ---
 title: Docker
-description: Use QuestDB with a Docker image on any host.
+description:
+  Instructions explaining how use QuestDB with Docker on Linux/macOS and
+  Windows.
 ---
 
 QuestDB has images for both Linux/macOS and Windows on
@@ -52,7 +54,9 @@ import TabItem from "@theme/TabItem"
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 /root/.questdb/db
@@ -60,12 +64,15 @@ import TabItem from "@theme/TabItem"
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 C:\questdb\db
 ```
 
 </TabItem>
+
 
 </Tabs>

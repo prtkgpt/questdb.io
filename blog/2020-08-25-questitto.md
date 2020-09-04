@@ -5,7 +5,7 @@ author_title: QuestDB Contributor
 author_url: https://github.com/shantanoo-desai
 author_image_url: https://avatars.githubusercontent.com/shantanoo-desai
 description:
-  Create a simple IoT Stack with Mosquitto MQTT Broker, Telegraf and QuestDB
+  Create a simple IoT stack with Mosquitto MQTT Broker, Telegraf and QuestDB.
 tags: [mqtt, iot, docker, community-written]
 ---
 
@@ -40,7 +40,7 @@ and `QuestDB` provides such functionalities as well as some cool new features of
 [Dynamic Timestamping](/docs/reference/function/timestamp/).
 
 Not to mention, my staple
-[InfluxDB's Line Protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
+[InfluxDB's line Protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
 is supported via sockets too!
 
 ## Stack
@@ -150,7 +150,7 @@ topic:
 IOT/sensor1/temp
 ```
 
-with the payload in **InfluxDB Line Protocol String**:
+with the payload in **InfluxDB line protocol string**:
 
 ```
 environment,type=BME280 temp=23.9
@@ -199,7 +199,7 @@ to it via the credentials in the `.env` file:
     # Connection timeout
     connection_timeout = "30s"
 
-    # Incoming MQTT Payload from Sensor nodes is in InfluxDB Line Protocol strings
+    # Incoming MQTT Payload from Sensor nodes is in InfluxDB line protocol strings
     data_format = "influx"
 ```
 
@@ -259,7 +259,7 @@ The location will be stored as a `tag` called `location`.
     address = "tcp://questdb:9009"
 ```
 
-will send the Line Protocol String to port 9009 of the `questdb` container and
+will send the line protocol String to port 9009 of the `questdb` container and
 you don't even need to define a schema beforehand!
 
 ### Visualize It!
@@ -275,7 +275,7 @@ docker-compose up -d
 ```
 
 As a simple Example I used [MQTT.fx][3] as a client to publish information in
-Line Protocol to the following Topic:
+line Protocol to the following Topic:
 
 ```json
 {
@@ -290,9 +290,9 @@ Line Protocol to the following Topic:
 
 with the `pubclient:questitto` credentials and on the QuestDB UI you can see:
 
-![Automatic Table Creation based on InfluxDB Line Protocol Measurement Name](/img/blog/2020-08-25/tables.png)
+![Automatic table creation based on InfluxDB line protocol measurement name](/img/blog/2020-08-25/tables.png)
 
-With the `location` and other `tags` from the Line Protocol inserted:
+With the `location` and other `tags` from the line protocol inserted:
 
 ![Columns created by QuestDB for acceleration Table](/img/blog/2020-08-25/schema.png)
 

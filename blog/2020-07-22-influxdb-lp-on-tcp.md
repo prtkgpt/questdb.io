@@ -1,10 +1,12 @@
 ---
-title: InfluxDB Line Protocol on QuestDB
+title: InfluxDB line protocol on QuestDB
 author: David G. Simmons
 author_title: QuestDB Team
 author_url: https://github.com/davidgs
 author_image_url: https://avatars.githubusercontent.com/davidgs
-description: How to use InfluxDB line protocol with QuestDB, IoT example.
+description:
+  How to use InfluxDB line protocol with QuestDB, this example shows an IoT
+  application.
 tags: [influxdb line protocol, tcp]
 ---
 
@@ -35,7 +37,7 @@ QuestDB with a less than a line of configuration.
 
 <!--truncate -->
 
-## Configuring TCP InfluxDB Line Protocol listener
+## Configuring TCP InfluxDB line protocol listener
 
 Here's the best part, at least for a basic implementation that you don't need to
 performance tune at all: It's already set up.
@@ -49,7 +51,7 @@ There are a bunch of configuration options you can tune in your
 you can read all about them in our [docs](/docs/api/influxdb-line-protocol/). I
 hope they are relatively self-explanatory.
 
-## InfluxDB Line Protocol (ILP) refresher
+## InfluxDB line protocol refresher
 
 If you have used ILP before, this should all be review. If you're new to ILP,
 this will tell you how you should write your data to QuestDB.

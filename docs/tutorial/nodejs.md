@@ -1,7 +1,7 @@
 ---
 title: NodeJS tutorial
 sidebar_label: NodeJS
-description: Tutorial showing how to connect to QuestDB from NodeJS
+description: Tutorial showing how to build a NodeJS application with QuestDB.
 ---
 
 This tutorial shows how to build a NodeJS application with QuestDB. This is

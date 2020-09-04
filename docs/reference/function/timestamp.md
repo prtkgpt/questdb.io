@@ -1,7 +1,7 @@
 ---
 title: Timestamp function
-sidebar_label: TIMESTAMP
-description: TIMESTAMP SQL keyword reference documentation.
+sidebar_label: Timestamp
+description: Timestamp function reference documentation.
 ---
 
 `timestamp(columnName)` elects a

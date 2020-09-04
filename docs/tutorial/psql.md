@@ -1,7 +1,7 @@
 ---
 title: PSQL tutorial
 sidebar_label: PSQL
-description: Tutorial showing how to connect to QuestDB using the psql CLI
+description: Tutorial showing how to connect to QuestDB using the psql CLI.
 ---
 
 This tutorial shows how to interact with QuestDB using the

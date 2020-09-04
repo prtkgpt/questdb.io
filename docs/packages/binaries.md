@@ -1,6 +1,8 @@
 ---
 title: Binaries
-description: Install QuestDB from compiled binaries.
+description:
+  Instructions explaining how to install and use QuestDB from compiled binaries
+  for most operating systems.
 ---
 
 QuestDB comes with an executable `questdb.exe` for Windows, and script
@@ -22,7 +24,9 @@ import TabItem from "@theme/TabItem"
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh [start|stop|status] [-d dir] [-f] [-t tag]
@@ -36,7 +40,9 @@ import TabItem from "@theme/TabItem"
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe [start|stop|status|install|remove] \
@@ -53,7 +59,9 @@ questdb.exe [start|stop|status|install|remove] \
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Start
 
@@ -64,7 +72,9 @@ questdb.exe [start|stop|status|install|remove] \
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh start
@@ -72,7 +82,9 @@ questdb.exe [start|stop|status|install|remove] \
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe start
@@ -80,7 +92,9 @@ questdb.exe start
 
 </TabItem>
 
+
 </Tabs>
+
 
 :::info
 
@@ -101,7 +115,9 @@ the following:
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="linux">
+
 
 ```shell
 $HOME/.questdb
@@ -109,7 +125,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 /usr/local/var/questdb/
@@ -117,7 +135,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 C:\Windows\System32\questdb
@@ -125,7 +145,9 @@ C:\Windows\System32\questdb
 
 </TabItem>
 
+
 </Tabs>
+
 
 #### Options
 
@@ -169,7 +191,9 @@ questdb.exe start -j 'C:\Program Files\Java\jdk-11\'
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh stop -t 'my-questdb-service'
@@ -177,7 +201,9 @@ questdb.exe start -j 'C:\Program Files\Java\jdk-11\'
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe stop
@@ -185,7 +211,9 @@ questdb.exe stop
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Status
 
@@ -201,7 +229,9 @@ is start or stopped respectively. On \*nix operating systems, it also prints the
   { label: "Windows", value: "windows" },
 ]}>
 
+
 <TabItem value="nix">
+
 
 ```shell
 ./questdb.sh status
@@ -209,7 +239,9 @@ is start or stopped respectively. On \*nix operating systems, it also prints the
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe status -t 'my-questdb-service'
@@ -217,7 +249,9 @@ questdb.exe status -t 'my-questdb-service'
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Install
 

@@ -1,7 +1,8 @@
 ---
 title: Homebrew
 sidebar_label: Homebrew
-description: Install QuestDB via Homebrew on macOS.
+description:
+  Instructions explaining how install and use QuestDB with Homebrew on macOS.
 ---
 
 QuestDB is distributed via Homebrew for macOS users.

@@ -1,7 +1,9 @@
 ---
 title: Embedded Java API
 sidebar_label: Java (embedded)
-description: How to use the Java API.
+description:
+  Tutorial showing how to use the embedded version of QuestDB in a Java
+  application.
 ---
 
 QuestDB is written in Java and can be used as any other Java library. Moreover,
@@ -17,7 +19,9 @@ import TabItem from "@theme/TabItem"
   { label: "Gradle", value: "gradle" },
 ]}>
 
+
 <TabItem value="maven">
+
 
 ```xml
 <dependency>
@@ -29,7 +33,9 @@ import TabItem from "@theme/TabItem"
 
 </TabItem>
 
+
 <TabItem value="gradle">
+
 
 ```shell
 implementation 'org.questdb:questdb:{@version@}'
@@ -37,7 +43,9 @@ implementation 'org.questdb:questdb:{@version@}'
 
 </TabItem>
 
+
 </Tabs>
+
 
 ## Writing data
 

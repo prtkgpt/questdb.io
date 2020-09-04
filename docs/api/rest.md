@@ -1,7 +1,9 @@
 ---
 title: REST API
 sidebar_label: REST
-description: How to use the REST API.
+description:
+  Tutorial showing to use the REST API. This covers importing, exporting and
+  querying data using QuestDB's HTTP endpoint.
 ---
 
 The QuestDB REST API is based around standard HTTP features and is understood by

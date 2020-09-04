@@ -4,7 +4,10 @@ author: David G. Simmons
 author_title: QuestDB Team
 author_url: https://github.com/davidgs
 author_image_url: https://avatars.githubusercontent.com/davidgs
-description: QuestDB storage model performance improvements explained
+description:
+  What we learned by re-examining our approach to memory mapping. A low level
+  implementation, as close as posibble to the kernel, enabled even greater
+  performance.
 tags: [performance, deep-dive]
 image: /img/blog/2020-08-19/banner.png
 ---
@@ -34,7 +37,8 @@ rather substantial boost in overall memory performance.
 We will walk you through how some of our initial thoughts on storage and
 memory-mapping evolved to bring us better performance overall.
 
-If you like QuestDB, please do give us a star on [GitHub](https://github.com/questdb/questdb)
+If you like QuestDB, please do give us a star on
+[GitHub](https://github.com/questdb/questdb)
 
 <!--truncate-->
 

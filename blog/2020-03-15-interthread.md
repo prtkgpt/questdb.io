@@ -4,8 +4,10 @@ author: Vlad Ilyushchenko
 author_title: QuestDB Team
 author_url: https://github.com/bluestreak01
 author_image_url: https://avatars.githubusercontent.com/bluestreak01
-tags: [thread model, messaging, disruptor]
-description: Concept and performance figures of QuestDB's thread messaging system.
+tags: [thread model, messaging, deep-dive]
+description:
+  Detailed explanation of QuestDB's thread messaging system. A benchmark also
+  shows the capabilities of this system.
 ---
 
 <img
@@ -20,8 +22,8 @@ forms the infrastructure, the scaffolding of multi-threaded application and just
 like real-world transport infrastructure we want it to be inexpensive, fast,
 reliable and clean.
 
-For QuestDB we wrote our own messaging and this post is about how it works and
-how fast it is.
+For QuestDB we wrote our own messaging system and this post is about how it
+works and how fast it is.
 
 <!--truncate-->
 
