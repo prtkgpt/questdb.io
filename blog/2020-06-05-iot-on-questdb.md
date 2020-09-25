@@ -7,7 +7,7 @@ author_image_url: https://avatars.githubusercontent.com/davidgs
 description:
   Demonstration of an IoT application with QuestDB. This is based on an Arduino
   device.
-tags: [iot], [questdb], [ardunio]
+tags: [iot], [questdb], [arduino]
 ---
 
 As you can well imagine, I've been super busy in my hew job at QuestDB so this has taken me longer than I would have liked, but here we are. If you know me at
