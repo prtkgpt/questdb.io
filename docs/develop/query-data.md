@@ -129,7 +129,7 @@ that QuestDB exposes. This is accessible via port `8812`.
 <Tabs defaultValue="nodejs" values={[
   { label: "NodeJS", value: "nodejs" },
   { label: "Go", value: "go" },
-  { label: "JDBC", value: "java" },
+  { label: "Java", value: "java" },
   { label: "C", value: "c" },
   { label: "Python", value: "python" },
 ]}>
@@ -195,6 +195,8 @@ func main() {
 	checkErr(err)
 	defer db.Close()
 
+
+    // Currently, we do not support queries with bind parameters in Go
 	rows, err := db.Query("SELECT x FROM long_sequence(5);")
 	checkErr(err)
 	defer rows.Close()
