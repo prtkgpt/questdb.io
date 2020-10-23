@@ -23,18 +23,19 @@ const DocPage = ({
   ...rest
 }: Props) => {
   const { siteConfig, isClient } = useDocusaurusContext()
-  const { permalinkToSidebar, docsSidebars } = versionMetadata || {}
+  const { permalinkToSidebar, docsSidebars } = versionMetadata ?? {}
   const docRoutes = (routes as unknown) as Routes[]
   const currentDocRoute = routes.find((docRoute) =>
     matchPath(location.pathname, docRoute),
   )
 
-  if (!currentDocRoute) {
+  if (currentDocRoute == null) {
     return <NotFound location={location} {...rest} />
   }
 
-  const sidebarName = permalinkToSidebar[currentDocRoute.path]
-  const sidebar = docsSidebars[permalinkToSidebar[currentDocRoute.path]]
+  const sidebarName = permalinkToSidebar[currentDocRoute.path] as
+    | string
+    | undefined
 
   return (
     <MetadataContextProvider>
@@ -44,11 +45,11 @@ const DocPage = ({
         title="Introduction"
       >
         <div className={styles.doc}>
-          {sidebar && (
-            <div
-              className={clsx("docs-sidebar", styles.doc__sidebar)}
-              role="complementary"
-            >
+          <div
+            className={clsx("docs-sidebar", styles.doc__sidebar)}
+            role="complementary"
+          >
+            {sidebarName != null && docsSidebars[sidebarName] != null && (
               <DocSidebar
                 key={
                   // Reset sidebar state on sidebar changes
@@ -56,13 +57,13 @@ const DocPage = ({
                   sidebarName
                 }
                 path={currentDocRoute.path}
-                sidebar={sidebar}
+                sidebar={docsSidebars[sidebarName]}
                 sidebarCollapsible={
                   siteConfig.themeConfig?.sidebarCollapsible ?? true
                 }
               />
-            </div>
-          )}
+            )}
+          </div>
           <main className={styles.doc__main}>
             <MDXProvider components={MDXComponents}>
               {renderRoutes(docRoutes)}
