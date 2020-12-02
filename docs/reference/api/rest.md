@@ -23,7 +23,7 @@ more in the section
 
 `/imp` streams tabular text data directly into a table. It supports CSV, TAB and
 pipe (`|`) delimited inputs with optional headers. There are no restrictions on
-data size. Data types and structures are detected automatically , without
+data size. Data types and structures are detected automatically, without
 additional configuration. In some cases, additional configuration can be
 provided to improve the automatic detection.
 
@@ -37,8 +37,8 @@ the rest of the data, automatic imports can yield errors.
 
 ### Overview
 
-`/imp` is expecting an HTTP POST request using the Content-Type
-multipart/form-data with following query parameters:
+`/imp` is expecting an HTTP POST request using the `multipart/form-data`
+Content-Type with following query parameters:
 
 | Parameter     | Required | Default          | Description                                                                                                                                                                                                          |
 | ------------- | -------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -83,7 +83,8 @@ When the header row is missing, column names are generated automatically.
 
 ### Consistency guarantees
 
-`/imp` benefits from the properties of the QuestDB [storage model](/docs/concept/storage-model/#consistency-and-durability),
+`/imp` benefits from the properties of the QuestDB
+[storage model](/docs/concept/storage-model/#consistency-and-durability),
 although Atomicity and Durability can be relaxed to meet convenience and
 performance demands.
 
@@ -134,12 +135,6 @@ curl -F data=@ratings.csv http://localhost:9000/imp
 The HTTP status code will be set to `200` and the response will be:
 
 ```shell
-HTTP/1.1 200 OK
-Server: questDB/1.0
-Date: Fri, 28 Oct 2016 17:58:31 GMT
-Transfer-Encoding: chunked
-Content-Type: text/plain; charset=utf-8
-
 +-----------------------------------------------------------------------------------+
 |      Location:  |               /Users/info/dev/data/db/ratings.csv  |    Errors  |
 |   Partition by  |                                              NONE  |            |
@@ -165,19 +160,13 @@ Considering the query:
 curl \
   -F schema='[{"name":"userId", "type": "STRING"},{"name":"movieId", "type":"STRING"}]' \
   -F data=@ratings.csv \
-  --data-urlencode "overwrite=true" \
+  -F "overwrite=true" \
   http://localhost:9000/imp
 ```
 
 The HTTP status code will be set to `200` and the response will be:
 
 ```shell
-HTTP/1.1 200 OK
-Server: questDB/1.0
-Date: Sun, 30 Oct 2016 1:20:7 GMT
-Transfer-Encoding: chunked
-Content-Type: text/plain; charset=utf-8
-
 +-----------------------------------------------------------------------------------+
 |      Location:  |               /Users/info/dev/data/db/ratings.csv  |    Errors  |
 |   Partition by  |                                              NONE  |            |
@@ -194,7 +183,7 @@ Content-Type: text/plain; charset=utf-8
 
 ## /exec - Execute queries
 
-`/exec` compiles and executes the SQL query supplied as a paratmeter and returns
+`/exec` compiles and executes the SQL query supplied as a parameter and returns
 a JSON response.
 
 :::note
@@ -208,19 +197,19 @@ closed.
 
 `/exec` is expecting an HTTP GET request with following query parameters:
 
-| Parameter | Required | Default | Description                                                                                                                                                                                                           |
-| --------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`   | No       | `false` | `true` or `false`. Counts the number of rows and returns this value.                                                                                                                                                  |
-| `limit`   | No       |         | Paging parameter. For example, `limit=10,20` will return row numbers 10 thru to 20 inclusive and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows. |
-| `nm`      | No       | `false` | `true` or `false`. Skips the metadata section of the response when set to `true`.                                                                                                                                     |
-| `query`   | Yes      |         | URL encoded query text. It can be multi-line.                                                                                                                                                                         |
-| `timings` | No       | `false` | `true` or `false`. When set to `true`, QuestDB will also include a `timings` property in the response which gives details about the execution.                                                                        |
+| Parameter | Required | Default | Description                                                                                                                                                                                                              |
+| --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `count`   | No       | `false` | `true` or `false`. Counts the number of rows and returns this value.                                                                                                                                                     |
+| `limit`   | No       |         | Paging parameter. For example, `limit=10,20` will return row numbers 10 through to 20 inclusive and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows. |
+| `nm`      | No       | `false` | `true` or `false`. Skips the metadata section of the response when set to `true`.                                                                                                                                        |
+| `query`   | Yes      |         | URL encoded query text. It can be multi-line.                                                                                                                                                                            |
+| `timings` | No       | `false` | `true` or `false`. When set to `true`, QuestDB will also include a `timings` property in the response which gives details about the execution.                                                                           |
 
 The parameters must be URL encoded.
 
-### Success response
+### Examples
 
-When successful, the response will be:
+This endpoint returns responses in the following format:
 
 ```json
 {
@@ -239,13 +228,12 @@ Considering the query:
 
 ```shell
 curl -G \
-  --data-urlencode "select timestamp, tempF from weather limit 2;" \
+  --data-urlencode "query=select timestamp, tempF from weather limit 2;" \
   --data-urlencode "count=true" \
-  --data-urlencode "limit=5" \
-  http://localhost:9000/exp
+  http://localhost:9000/exec
 ```
 
-The HTTP status code will be set to `200` and the response will be:
+A HTTP status code of `200` is returned with the following response body:
 
 ```json
 {
@@ -268,9 +256,50 @@ The HTTP status code will be set to `200` and the response will be:
 }
 ```
 
-### Error response
+## /exp - Export data
 
-When there is an error with the query, the response will be:
+This endpoint allows you to pass url-encoded queries but the request body is
+returned in a tabular form to be saved and reused as opposed to JSON.
+
+### Overview
+
+`/exp` is expecting an HTTP GET request with following parameters:
+
+| Parameter | Required | Description                                                                                                                                                                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`   | No       | Paging opp parameter. For example, `limit=10,20` will return row numbers 10 through to 20 inclusive and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows. |
+| `query`   | Yes      | URL encoded query text. It can be multi-line.                                                                                                                                                                                |
+
+The parameters must be URL encoded.
+
+### Examples
+
+Considering the query:
+
+```shell
+curl -G \
+  --data-urlencode "query=select AccidentIndex2, Date, Time from 'Accidents0514.csv'" \
+  --data-urlencode "limit=5" \
+  http://localhost:9000/exp
+```
+
+A HTTP status code of `200` is returned with the following response body:
+
+```shell
+"AccidentIndex","Date","Time"
+200501BS00001,"2005-01-04T00:00:00.000Z",17:42
+200501BS00002,"2005-01-05T00:00:00.000Z",17:36
+200501BS00003,"2005-01-06T00:00:00.000Z",00:15
+200501BS00004,"2005-01-07T00:00:00.000Z",10:35
+200501BS00005,"2005-01-10T00:00:00.000Z",21:13
+```
+
+## Error responses
+
+### Malformed queries
+
+A successful call to `/exec` or `/exp` which also contains a malformed query
+will return response bodies with the following format:
 
 ```json
 {
@@ -280,112 +309,23 @@ When there is an error with the query, the response will be:
 }
 ```
 
-The position is a number of characters from the beginning of query where error
-was found.
+The `position` field is the character number from the beginning of the string
+where the error was found.
 
 Considering the query:
 
 ```shell
 curl -G \
-  --data-urlencode "query=select AccidentIndex, Date, Time2 from 'Accidents0514.csv' limit 1" \
-  --data-urlencode "limit=5" \
+  --data-urlencode "query=SELECTT * FROM table;" \
   http://localhost:9000/exp
 ```
 
-The HTTP status code will be set to `400` and the response will be:
+A HTTP status code of `200` is returned with the following response body:
 
 ```json
 {
-  "query": "\nselect AccidentIndex, Date, Time2 from 'Accidents0514.csv' limit 10",
-  "error": "Invalid column: Time2",
-  "position": 29
+  "query": "SELECTT * FROM table;",
+  "error": "function, literal or constant is expected",
+  "position": 8
 }
-```
-
-## /exp - Export data
-
-Just like `/exec`, `/exp` allows you to pass url-encoded queries. Instead of
-JSON, the results are returned in a tabular form to be saved and reused.
-
-### Overview
-
-`/exp` is expecting an HTTP GET request with following parameters:
-
-| Parameter | Required | Description                                                                                                                                                                                                               |
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`   | No       | Paging opp parameter. For example, `limit=10,20` will return row numbers 10 thru to 20 inclusive and `limit=20` will return first 20 rows, which is equivalent to `limit=0,20`. `limit=-20` will return the last 20 rows. |
-| `query`   | Yes      | URL encoded query text. It can be multi-line.                                                                                                                                                                             |
-
-The parameters must be URL encoded.
-
-### Success response
-
-Considering the query:
-
-```shell
-curl -G \
-  --data-urlencode "query=select AccidentIndex2, Date, Time from 'Accidents0514.csv'" \
-  --data-urlencode "limit=5" \
-  http://localhost:9000/exp
-```
-
-The HTTP status code will be set to `200` and the response will be:
-
-```shell
-*   Trying 127.0.0.1...
-* Connected to localhost (127.0.0.1) port 9000 (#0)
-> GET /exp?query=select%20AccidentIndex%2C%20Date%2C%20Time%20from%20%27Accidents0514.csv%27&limit=5 HTTP/1.1
-> Host: localhost:9000
-> User-Agent: curl/7.49.1
-> Accept: */*
->
-< HTTP/1.1 200 OK
-< Server: questDB/1.0
-< Date: Wed, 9 Nov 2016 17:58:54 GMT
-< Transfer-Encoding: chunked
-< Content-Type: text/csv; charset=utf-8
-< Content-Disposition: attachment; filename="questdb-query-1478714334308.csv"
-<
-"AccidentIndex","Date","Time"
-200501BS00001,"2005-01-04T00:00:00.000Z",17:42
-200501BS00002,"2005-01-05T00:00:00.000Z",17:36
-200501BS00003,"2005-01-06T00:00:00.000Z",00:15
-200501BS00004,"2005-01-07T00:00:00.000Z",10:35
-200501BS00005,"2005-01-10T00:00:00.000Z",21:13
-* Connection #0 to host localhost left intact
-```
-
-### Error response
-
-When a query contains syntax errors, QuestDB will attempt to return as much
-diagnostic information as possible.
-
-Considering the query:
-
-```shell
-curl -G \
-  --data-urlencode "query=select AccidentIndex2, Date, Time from 'Accidents0514.csv'" \
-  --data-urlencode "limit=5" \
-  http://localhost:9000/exp
-```
-
-The HTTP status code will be set to `400` and the response will be:
-
-```shell
-*   Trying 127.0.0.1...
-* Connected to localhost (127.0.0.1) port 9000 (#0)
-> GET /exp?query=select%20AccidentIndex2%2C%20Date%2C%20Time%20from%20%27Accidents0514.csv%27&limit=5 HTTP/1.1
-> Host: localhost:9000
-> User-Agent: curl/7.49.1
-> Accept: */*
->
-< HTTP/1.1 400 Bad request
-< Server: questDB/1.0
-< Date: Wed, 9 Nov 2016 18:3:55 GMT
-< Transfer-Encoding: chunked
-< Content-Type: text/csv; charset=utf-8
-< Content-Disposition: attachment; filename="questdb-query-1478714635400.csv"
-<
-<em>Error at(7): Invalid column: AccidentIndex2</em>
-* Connection #0 to host localhost left intact
 ```
