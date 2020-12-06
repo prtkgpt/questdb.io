@@ -7,7 +7,7 @@ author_image_url: https://avatars.githubusercontent.com/bluestreak01
 description:
   The detailed story of how the open source time series database QuestDB came to
   life.
-tags: [hackernews, story]
+tags: [hackernews, story, startup, founder, cto, timeseries, database, ycombinator]
 image: /img/blog/2020-08-06/banner.jpg
 ---
 
