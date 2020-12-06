@@ -6,7 +6,7 @@ author_url: https://github.com/davidgs
 author_image_url: https://avatars.githubusercontent.com/davidgs
 description:
   Querying data from QuestDB in a Jupyter notebook in a Python application.
-tags: [python, tutorial]
+tags: [python, docker, jupyter notebook, questdb, databases, timeseries, tutorial]
 ---
 
 A short tutorial for Querying data from QuestDB in a Jupyter Notebook.
