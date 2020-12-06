@@ -8,7 +8,7 @@ description:
   What we learned by re-examining our approach to memory mapping. A low level
   implementation, as close as posibble to the kernel, enabled even greater
   performance.
-tags: [performance, deep-dive]
+tags: [performance, deep-dive, questdb, database, timeseries]
 image: /img/blog/2020-08-19/banner.jpg
 ---
 
