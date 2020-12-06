@@ -1,9 +1,9 @@
 ---
 title: Get started with QuestDB via Docker
 sidebar_label: Docker
-description:
-  Guide showing how to use QuestDB with Docker. This also covers how to import
-  data as well as persistence.
+description: Guide showing how to use QuestDB with Docker. This also covers how to import data as well as persistence.
+tags: [docker, questdb, tutorial, docs]
+
 ---
 
 QuestDB has images for both Linux/macOS and Windows on
