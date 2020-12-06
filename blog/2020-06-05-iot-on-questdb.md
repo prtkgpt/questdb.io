@@ -7,7 +7,7 @@ author_image_url: https://avatars.githubusercontent.com/davidgs
 description:
   Demonstration of an IoT application with QuestDB. This is based on an Arduino
   device.
-tags: [iot]
+tags: [iot, databases, questdb, timeseries, ESP8266-based WEMOS D1 Mini, DHT11 sensor]
 ---
 
 As you can well imagine, I've been super busy in my hew job at QuestDB so this
